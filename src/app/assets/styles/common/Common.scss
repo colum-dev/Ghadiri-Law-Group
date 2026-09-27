@@ -315,19 +315,88 @@ $glass-blur-strong: 28px;
 }
 
 .glass-gold-hover {
+    position: relative;
+    overflow: hidden;
+
+    padding-inline: 1rem;
+
+    background:
+        linear-gradient(135deg,
+            rgba(255, 255, 255, 0.10),
+            rgba(255, 255, 255, 0.035));
+
+    backdrop-filter: blur(22px) saturate(140%);
+    -webkit-backdrop-filter: blur(22px) saturate(140%);
+
     transition:
-        border-color 0.3s ease,
-        box-shadow 0.3s ease,
-        transform 0.3s ease;
+        transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 0.45s ease,
+        box-shadow 0.45s ease,
+        border-radius 0.45s ease,
+        background 0.45s ease;
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+
+        background:
+            linear-gradient(120deg,
+                rgba(255, 255, 255, 0.16) 0%,
+                rgba(255, 255, 255, 0.04) 25%,
+                transparent 50%);
+
+        opacity: 0.45;
+        transition: opacity 0.45s ease;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        width: 180px;
+        height: 180px;
+
+        top: -100px;
+        right: -80px;
+
+        pointer-events: none;
+
+        background: rgba(255, 255, 255, 0.04);
+
+        filter: blur(50px);
+
+        opacity: 0;
+        transition:
+            opacity 0.5s ease,
+            transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
 
     &:hover {
-        transform: translateY(-2px);
+        transform: translateY(-3px) scale(1.008);
 
-        border-color: rgba(230, 195, 92, 0.55);
+        border-color: rgba(255, 255, 255, 0.18);
+
+        border-radius: $radius-pill;
+
+        background:
+            linear-gradient(135deg,
+                rgba(255, 255, 255, 0.14),
+                rgba(255, 255, 255, 0.045));
 
         box-shadow:
-            0 10px 35px rgba(0, 0, 0, 0.3),
-            0 0 30px rgba(201, 162, 39, 0.16);
+            inset 0 1px 0 rgba(255, 255, 255, 0.25),
+            inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+            0 10px 25px rgba(0, 0, 0, 0.25);
+
+        &::before {
+            opacity: 0.75;
+        }
+
+        &::after {
+            opacity: 1;
+            transform: translate(-20px, 20px);
+        }
     }
 }
 
@@ -450,4 +519,63 @@ $glass-blur-strong: 28px;
             0 0 30px rgba(201, 162, 39, 0.08),
             inset 0 1px 0 rgba(255, 255, 255, 0.10);
     }
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.glass-hover-effect {
+    position: relative;
+    overflow: hidden;
+
+    transition:
+        transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.45s ease,
+        border-radius 0.45s ease;
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+
+        background:
+            linear-gradient(120deg,
+                rgba(255, 255, 255, 0.12) 0%,
+                rgba(255, 255, 255, 0.035) 25%,
+                transparent 50%);
+
+        opacity: 0;
+        transition: opacity 0.45s ease;
+    }
+
+    &:hover {
+
+        border-radius: $radius-pill;
+
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, 0.20),
+            0 4px 14px rgba(0, 0, 0, 0.10);
+
+        &::before {
+            opacity: 1;
+        }
+    }
+}
+
+.hover-to-background-gold {
+    transition:
+        background-color 0.35s ease,
+        color 0.35s ease;
+
+    &:hover {
+        background-color: $luxury-gold;
+        color: $dark-navy-blue;
+
+        * {
+            color: $dark-navy-blue;
+        }
+    }
+
 }
