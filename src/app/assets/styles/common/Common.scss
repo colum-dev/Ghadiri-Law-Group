@@ -36,6 +36,22 @@ $shadow-gold: rgba(201, 162, 39, 0.18);
 $glass-blur: 18px;
 $glass-blur-strong: 28px;
 
+@font-face {
+    font-family: 'YekanBakh';
+    src: url('/assets/styles/fonts/YekanBakh-Regular.ttf') format('truetype');
+    // font-weight: 400;
+    // font-style: normal;
+    // font-display: swap;
+}
+
+@font-face {
+    font-family: 'YekanBakhBold';
+    src: url('/assets/styles/fonts/YekanBakhBold.woff2') format('woff2');
+    // font-weight: 700;
+    // font-style: normal;
+    // font-display: swap;
+}
+
 
 //Text Color Classes
 .color-charcoal {
@@ -387,7 +403,7 @@ $glass-blur-strong: 28px;
         box-shadow:
             inset 0 1px 0 rgba(255, 255, 255, 0.25),
             inset 0 -1px 0 rgba(255, 255, 255, 0.04),
-            0 10px 25px rgba(0, 0, 0, 0.25);
+            0 7px 18px rgba(0, 0, 0, 0.25);
 
         &::before {
             opacity: 0.75;
@@ -578,4 +594,16 @@ $glass-blur-strong: 28px;
         }
     }
 
+}
+
+.yekan-bakh {
+    font-family: 'YekanBakh';
+}
+
+.yekan-bakh-bold {
+    font-family: 'YekanBakhBold';
+}
+
+.text-shadow {
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
 }

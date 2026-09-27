@@ -15,15 +15,15 @@ export default function UserDesktopHeader() {
                 />
             </Col>
             <Col md={6} className='gap-3 d-flex justify-content-between'>
-                <div className='d-flex align-items-center glass-gold-hover cursor-pointer fw-bold'>F Item 1</div>
-                <div className='d-flex align-items-center glass-gold-hover cursor-pointer fw-bold'>F Item 2</div>
-                <div className='d-flex align-items-center glass-gold-hover cursor-pointer fw-bold'>F Item 3</div>
-                <div className='d-flex align-items-center glass-gold-hover cursor-pointer fw-bold'>F Item 4</div>
-                <div className='d-flex align-items-center glass-gold-hover cursor-pointer fw-bold'>F Item 5</div>
+                <div className='d-flex align-items-center glass-gold-hover cursor-pointer fw-bold pb-1 pt-2'>F Item 1</div>
+                <div className='d-flex align-items-center glass-gold-hover cursor-pointer fw-bold pb-1 pt-2'>F Item 2</div>
+                <div className='d-flex align-items-center glass-gold-hover cursor-pointer fw-bold pb-1 pt-2'>F Item 3</div>
+                <div className='d-flex align-items-center glass-gold-hover cursor-pointer fw-bold pb-1 pt-2'>F Item 4</div>
+                <div className='d-flex align-items-center glass-gold-hover cursor-pointer fw-bold pb-1 pt-2'>F Item 5</div>
             </Col>
             <Col md={3} className='d-flex align-items-center justify-content-end'>
                 <div className='d-flex'>
-                    <div className='bg-navy color-white py-2 px-3 rounded-pill glass-hover-effect cursor-pointer  hover-to-background-gold fw-bold'>
+                    <div className='bg-navy color-white pb-1 pt-2 px-3 rounded-pill glass-hover-effect cursor-pointer  hover-to-background-gold fw-bold shadow'>
                         Call Us
                     </div>
                 </div>
