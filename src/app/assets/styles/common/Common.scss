@@ -1,0 +1,453 @@
+//Color Palette
+$formal-charcoal-black: #0D1117;
+$dark-navy-blue: #151B26;
+
+$luxury-gold: #C9A227;
+$shiny-gold: #E6C35C;
+
+$warm-white: #F8F6F1;
+$silver-gray: #A7ADB7;
+
+$bone-white: #F5F3EE;
+$soft-gray: #D9D6CE;
+
+//radius
+$radius-sm: 8px;
+$radius-md: 14px;
+$radius-lg: 20px;
+$radius-xl: 28px;
+$radius-pill: 999px;
+
+//Liquid Glass Base Variable
+$glass-white: rgba(255, 255, 255, 0.08);
+$glass-white-soft: rgba(255, 255, 255, 0.05);
+$glass-gold: rgba(201, 162, 39, 0.12);
+$glass-gold-strong: rgba(230, 195, 92, 0.18);
+
+$border-white: rgba(255, 255, 255, 0.14);
+$border-white-soft: rgba(255, 255, 255, 0.08);
+
+$border-gold: rgba(201, 162, 39, 0.35);
+$border-gold-strong: rgba(230, 195, 92, 0.55);
+
+$shadow-dark: rgba(0, 0, 0, 0.35);
+$shadow-gold: rgba(201, 162, 39, 0.18);
+
+$glass-blur: 18px;
+$glass-blur-strong: 28px;
+
+
+//Text Color Classes
+.color-charcoal {
+    color: $formal-charcoal-black;
+}
+
+.color-navy {
+    color: $dark-navy-blue;
+}
+
+.color-gold {
+    color: $luxury-gold;
+}
+
+.color-gold-shiny {
+    color: $shiny-gold;
+}
+
+.color-white {
+    color: $warm-white;
+}
+
+.color-silver {
+    color: $silver-gray;
+}
+
+.color-bone {
+    color: $bone-white;
+}
+
+.color-gray {
+    color: $soft-gray;
+}
+
+
+// Class-Based Texts
+.text-primary {
+    color: $warm-white;
+}
+
+.text-secondary {
+    color: $silver-gray;
+}
+
+.text-muted {
+    color: rgba($silver-gray, 0.7);
+}
+
+.text-gold {
+    color: $shiny-gold;
+}
+
+
+//Background Color Classes
+.bg-charcoal {
+    background-color: $formal-charcoal-black;
+}
+
+.bg-navy {
+    background-color: $dark-navy-blue;
+}
+
+.bg-gold {
+    background-color: $luxury-gold;
+}
+
+.bg-shiny-gold {
+    background-color: $shiny-gold;
+}
+
+.bg-white {
+    background-color: $warm-white;
+}
+
+.bg-bone {
+    background-color: $bone-white;
+}
+
+.bg-gray {
+    background-color: $soft-gray;
+}
+
+
+//Liquid Glass Background
+.bg-charcoal {
+    background-color: $formal-charcoal-black;
+}
+
+.bg-navy {
+    background-color: $dark-navy-blue;
+}
+
+.bg-gold {
+    background-color: $luxury-gold;
+}
+
+.bg-shiny-gold {
+    background-color: $shiny-gold;
+}
+
+.bg-white {
+    background-color: $warm-white;
+}
+
+.bg-bone {
+    background-color: $bone-white;
+}
+
+.bg-gray {
+    background-color: $soft-gray;
+}
+
+
+//Border Colors
+.border-charcoal {
+    border: 1px solid $formal-charcoal-black;
+}
+
+.border-navy {
+    border: 1px solid $dark-navy-blue;
+}
+
+.border-gold {
+    border: 1px solid $luxury-gold;
+}
+
+.border-gold-shiny {
+    border: 1px solid $shiny-gold;
+}
+
+.border-white {
+    border: 1px solid $warm-white;
+}
+
+.border-silver {
+    border: 1px solid $silver-gray;
+}
+
+.border-gray {
+    border: 1px solid $soft-gray;
+}
+
+
+//Border Liquid Glass Class
+.border-glass {
+    border: 1px solid $border-white;
+}
+
+.border-glass-soft {
+    border: 1px solid $border-white-soft;
+}
+
+.border-glass-gold {
+    border: 1px solid $border-gold;
+}
+
+.border-glass-gold-strong {
+    border: 1px solid $border-gold-strong;
+}
+
+
+//liquid base class 
+.glass {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    backdrop-filter: blur($glass-blur);
+    -webkit-backdrop-filter: blur($glass-blur);
+
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.glass-strong {
+    background: rgba(255, 255, 255, 0.09);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+
+    backdrop-filter: blur($glass-blur-strong);
+    -webkit-backdrop-filter: blur($glass-blur-strong);
+
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.glass-gold {
+    background: rgba(201, 162, 39, 0.10);
+
+    border: 1px solid rgba(201, 162, 39, 0.30);
+
+    backdrop-filter: blur($glass-blur);
+    -webkit-backdrop-filter: blur($glass-blur);
+
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(230, 195, 92, 0.12);
+}
+
+.glass-gold-glow {
+    @extend .glass-gold;
+
+    box-shadow:
+        0 0 25px rgba(201, 162, 39, 0.12),
+        0 12px 40px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(230, 195, 92, 0.15);
+}
+
+//content box
+.content-box {
+    padding: 24px;
+
+    background: rgba(255, 255, 255, 0.055);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+
+    border-radius: 20px;
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.content-box-luxury {
+    padding: 28px;
+
+    background:
+        linear-gradient(135deg,
+            rgba(255, 255, 255, 0.08),
+            rgba(201, 162, 39, 0.05));
+
+    border: 1px solid rgba(201, 162, 39, 0.25);
+
+    border-radius: 22px;
+
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+
+    box-shadow:
+        0 15px 45px rgba(0, 0, 0, 0.30),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.content-box-sm {
+    padding: 16px;
+
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+
+    border-radius: 14px;
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+.glass-hover {
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+
+    &:hover {
+        transform: translateY(-3px);
+
+        background: rgba(255, 255, 255, 0.09);
+
+        border-color: rgba(230, 195, 92, 0.35);
+
+        box-shadow:
+            0 15px 45px rgba(0, 0, 0, 0.35),
+            0 0 25px rgba(201, 162, 39, 0.08),
+            inset 0 1px 0 rgba(255, 255, 255, 0.10);
+    }
+}
+
+.glass-gold-hover {
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+
+        border-color: rgba(230, 195, 92, 0.55);
+
+        box-shadow:
+            0 10px 35px rgba(0, 0, 0, 0.3),
+            0 0 30px rgba(201, 162, 39, 0.16);
+    }
+}
+
+.radius-sm {
+    border-radius: $radius-sm;
+}
+
+.radius-md {
+    border-radius: $radius-md;
+}
+
+.radius-lg {
+    border-radius: $radius-lg;
+}
+
+.radius-xl {
+    border-radius: $radius-xl;
+}
+
+.radius-pill {
+    border-radius: $radius-pill;
+}
+
+.shadow-sm {
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.20);
+}
+
+.shadow-md {
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.28);
+}
+
+.shadow-lg {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.shadow-gold {
+    box-shadow: 0 0 30px rgba(201, 162, 39, 0.15);
+}
+
+.shadow-gold-strong {
+    box-shadow: 0 0 40px rgba(201, 162, 39, 0.25);
+}
+
+//gradients
+//whole web
+.bg-main-gradient {
+    background:
+        radial-gradient(circle at 20% 20%,
+            rgba(201, 162, 39, 0.08),
+            transparent 35%),
+        radial-gradient(circle at 80% 80%,
+            rgba(230, 195, 92, 0.05),
+            transparent 35%),
+        $formal-charcoal-black;
+}
+
+//one container
+.gold-gradient {
+    background: linear-gradient(135deg,
+            $luxury-gold,
+            $shiny-gold );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+//public card class
+.liquid-card {
+    position: relative;
+
+    padding: 24px;
+
+    background:
+        linear-gradient(135deg,
+            rgba(255, 255, 255, 0.075),
+            rgba(255, 255, 255, 0.035));
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    border-radius: 22px;
+
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.30),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+
+    &::before {
+        content: '';
+
+        position: absolute;
+        top: 0;
+        left: 10%;
+        right: 10%;
+
+        height: 1px;
+
+        background: linear-gradient(90deg,
+                transparent,
+                rgba(255, 255, 255, 0.25),
+                transparent);
+    }
+
+    &:hover {
+        transform: translateY(-4px);
+
+        border-color: rgba(230, 195, 92, 0.30);
+
+        box-shadow:
+            0 18px 50px rgba(0, 0, 0, 0.38),
+            0 0 30px rgba(201, 162, 39, 0.08),
+            inset 0 1px 0 rgba(255, 255, 255, 0.10);
+    }
+}
