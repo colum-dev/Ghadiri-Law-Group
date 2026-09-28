@@ -1,0 +1,63 @@
+// فقط چیدمان و تعامل؛ رنگ‌ها از کلاس‌های موجود AboutUs.scss و currentColor می‌آیند
+.fs {
+  .fs-heart svg { animation: fsBeat 3.2s ease-in-out infinite; transform-origin: center; }
+
+  .fs-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin: 32px 0 24px; }
+  .fs-tab { border: 1.5px solid currentColor; background: transparent; color: inherit; border-radius: 999px; padding: 8px 24px;
+    font-weight: 500; cursor: pointer; transition: transform .2s, background .2s;
+    &:hover { transform: translateY(-2px); }
+    &.is-active { background: rgba(128,128,128,.2); font-weight: 800; box-shadow: 0 4px 0 -1px currentColor; }
+    &:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; } }
+
+  .fs-sit { position: relative; display: grid; grid-template-columns: 1.1fr 1fr; gap: 24px 48px; animation: fsIn .35s ease; }
+  .fs-sit-num { position: absolute; inset-inline-end: 0; top: -70px; font-size: 9rem; font-weight: 900; opacity: .08; line-height: 1; pointer-events: none; }
+  .fs-sit-text { font-size: 1.35rem; line-height: 2; margin: 0; font-weight: 500; }
+  .fs-sit-does { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px;
+    li { display: flex; gap: 12px; align-items: flex-start; line-height: 1.9; }
+    span { flex: none; width: 24px; height: 24px; margin-top: 4px; border-radius: 50%; border: 1.5px solid currentColor; padding: 4px; } }
+  .fs-sit-time { grid-column: 1 / -1; border-top: 1.5px dashed currentColor; padding-top: 16px; display: flex; gap: 12px; flex-wrap: wrap; b { font-weight: 800; } }
+
+  .fs-switch { position: relative; display: grid; grid-template-columns: 1fr 1fr; width: min(380px, 100%); margin: 32px auto; padding: 6px;
+    border: 1.5px solid rgba(255,255,255,.3); border-radius: 999px;
+    button { position: relative; z-index: 1; background: none; border: 0; color: inherit; padding: 10px; font-weight: 800; cursor: pointer; }
+    .fs-thumb { position: absolute; inset: 6px; width: calc(50% - 6px); border-radius: 999px; background: rgba(255,255,255,.2); transition: transform .35s cubic-bezier(.6,0,.2,1); }
+    .fs-thumb.is-end { transform: translateX(calc(-100% - 0px)); } }
+
+  .fs-path { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 56px; align-items: start; animation: fsIn .4s ease; }
+  .fs-path-sum { grid-column: 1 / -1; text-align: center; margin: 0 0 8px; font-size: 1.1rem; }
+  .fs-line { list-style: none; padding: 0; margin: 0; border-inline-start: 2px solid currentColor;
+    li { position: relative; padding: 0 28px 28px 0; display: flex; flex-direction: column; gap: 4px;
+      &::before { content: ''; position: absolute; inset-inline-start: -8px; top: 6px; width: 14px; height: 14px; border-radius: 50%; background: currentColor; }
+      small { opacity: .75; } } }
+  .fs-meter { display: grid; gap: 22px; align-content: center;
+    div { display: grid; gap: 8px; }
+    i { display: block; height: 10px; border-radius: 99px; background: rgba(255,255,255,.18); overflow: hidden; }
+    em { display: block; height: 100%; border-radius: 99px; background: currentColor; animation: fsGrow .9s ease both; transform-origin: right; } }
+
+  .fs-docs { display: grid; grid-template-columns: 1.3fr .7fr; gap: 56px; align-items: start; }
+  .fs-bar { height: 12px; border-radius: 99px; border: 1.5px solid currentColor; overflow: hidden; margin-top: 24px;
+    i { display: block; height: 100%; background: currentColor; transition: width .4s ease; } }
+  .fs-bar-l { margin: 8px 0 16px; font-weight: 800; }
+  .fs-check { list-style: none; padding: 0; margin: 0; display: grid; gap: 4px;
+    label { display: flex; align-items: center; gap: 14px; padding: 12px 6px; cursor: pointer; border-bottom: 1.5px solid currentColor; transition: padding-inline-start .2s;
+      &:hover { padding-inline-start: 16px; } &.is-on { opacity: .55; text-decoration: line-through; } }
+    input { position: absolute; opacity: 0; &:focus-visible + .fs-box { outline: 3px solid currentColor; outline-offset: 3px; } }
+    .fs-box { flex: none; width: 26px; height: 26px; border: 1.5px solid currentColor; border-radius: 8px; padding: 3px;
+      svg { opacity: 0; transform: scale(.4); transition: .2s; } }
+    label.is-on .fs-box svg { opacity: 1; transform: none; } }
+  .fs-lawyer { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; position: sticky; top: 24px; }
+
+  .fs-end { padding-block: 48px 72px; }
+
+  @media (max-width: 900px) {
+    .fs-sit, .fs-path, .fs-docs { grid-template-columns: 1fr; }
+    .fs-lawyer { position: static; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fs-heart svg, .fs-sit, .fs-path, .fs-meter em { animation: none; }
+    .fs-thumb, .fs-bar i, .fs-tab, .fs-check label { transition: none; }
+  }
+}
+@keyframes fsBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+@keyframes fsIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes fsGrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
