@@ -682,66 +682,1191 @@ $glass-blur-strong: 28px;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
 }
 
-.dept-sub { max-width: 620px; opacity: .75; line-height: 2; }
-.dept-text { opacity: .8; line-height: 2; }
+.dept-sub {
+    max-width: 620px;
+    opacity: .75;
+    line-height: 2;
+}
+
+.dept-text {
+    opacity: .8;
+    line-height: 2;
+}
 
 .dept-card {
-  position: relative;
-  overflow: hidden;
-  transition: transform .6s cubic-bezier(.2, .8, .2, 1), border-radius .8s ease;
+    position: relative;
+    overflow: hidden;
+    transition: transform .6s cubic-bezier(.2, .8, .2, 1), border-radius .8s ease;
 }
-.dept-card > *:not(.dept-blob) { position: relative; z-index: 1; }
+
+.dept-card>*:not(.dept-blob) {
+    position: relative;
+    z-index: 1;
+}
 
 /* گوشه‌ها موقع هاور مایع‌وار تغییر شکل می‌دهند */
 .dept-card:hover {
-  transform: translateY(-8px);
-  border-radius: 44px 24px 44px 24px !important;
+    transform: translateY(-8px);
+    border-radius: 44px 24px 44px 24px !important;
 }
 
 /* برق شیشه‌ای که موقع هاور از روی کارت رد می‌شود */
 .dept-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, .28) 50%, transparent 70%);
-  transform: translateX(120%);
-  transition: transform .9s ease;
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, .28) 50%, transparent 70%);
+    transform: translateX(120%);
+    transition: transform .9s ease;
 }
-.dept-card:hover::after { transform: translateX(-120%); }
+
+.dept-card:hover::after {
+    transform: translateX(-120%);
+}
 
 /* حباب مایع داخل کارت */
 .dept-blob {
-  position: absolute;
-  top: -40px;
-  left: -40px;
-  width: 130px;
-  height: 130px;
-  background: radial-gradient(circle at 30% 30%, currentColor, transparent 70%);
-  opacity: .12;
-  filter: blur(6px);
-  pointer-events: none;
-  animation: dept-morph 9s ease-in-out infinite;
+    position: absolute;
+    top: -40px;
+    left: -40px;
+    width: 130px;
+    height: 130px;
+    background: radial-gradient(circle at 30% 30%, currentColor, transparent 70%);
+    opacity: .12;
+    filter: blur(6px);
+    pointer-events: none;
+    animation: dept-morph 9s ease-in-out infinite;
 }
+
 @keyframes dept-morph {
-  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
-  50%      { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+
+    0%,
+    100% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+
+    50% {
+        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    }
 }
 
 .dept-icon {
-  width: 56px;
-  height: 56px;
-  display: grid;
-  place-items: center;
-  border-radius: 18px;
+    width: 56px;
+    height: 56px;
+    display: grid;
+    place-items: center;
+    border-radius: 18px;
 }
-.dept-icon svg { width: 26px; height: 26px; }
 
-.dept-more { display: inline-flex; gap: .5rem; align-items: center; color: inherit; font-weight: 600; }
-.dept-more span { transition: transform .3s; }
-.dept-card:hover .dept-more span { transform: translateX(-6px); }
+.dept-icon svg {
+    width: 26px;
+    height: 26px;
+}
+
+.dept-more {
+    display: inline-flex;
+    gap: .5rem;
+    align-items: center;
+    color: inherit;
+    font-weight: 600;
+}
+
+.dept-more span {
+    transition: transform .3s;
+}
+
+.dept-card:hover .dept-more span {
+    transform: translateX(-6px);
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .dept-blob { animation: none; }
-  .dept-card, .dept-card::after { transition: none; }
+    .dept-blob {
+        animation: none;
+    }
+
+    .dept-card,
+    .dept-card::after {
+        transition: none;
+    }
+}
+
+/* فیلترها */
+.case-filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .5rem;
+    margin-bottom: 2.5rem;
+}
+
+.case-chip {
+    padding: .4rem 1.1rem;
+    border-radius: 999px;
+    font-size: .88rem;
+    color: inherit;
+    cursor: pointer;
+    transition: transform .3s, background .3s, color .3s;
+}
+
+.case-chip:hover {
+    transform: translateY(-2px);
+}
+
+.case-chip--on {
+    background: var(--bs-body-color, #1b1b1b) !important;
+    color: var(--bs-body-bg, #fff) !important;
+}
+
+/* Masonry */
+.cases-masonry {
+    column-count: 1;
+    column-gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+    .cases-masonry {
+        column-count: 2;
+    }
+}
+
+@media (min-width: 992px) {
+    .cases-masonry {
+        column-count: 3;
+    }
+}
+
+.case-item {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 1.25rem;
+    break-inside: avoid;
+    overflow: hidden;
+    animation: case-in .7s cubic-bezier(.2, .8, .2, 1) backwards;
+    animation-delay: calc(var(--i, 0) * 70ms);
+    transition: transform .5s cubic-bezier(.2, .8, .2, 1), box-shadow .5s;
+}
+
+.case-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 40px -22px rgba(0, 0, 0, .4);
+}
+
+@keyframes case-in {
+    from {
+        opacity: 0;
+        transform: translateY(28px) scale(.96);
+    }
+}
+
+/* کاور گرافیکی */
+.case-cover {
+    position: relative;
+    overflow: hidden;
+    background: color-mix(in srgb, currentColor 7%, transparent);
+}
+
+.case-cover--s {
+    height: 130px;
+}
+
+.case-cover--m {
+    height: 190px;
+}
+
+.case-cover--l {
+    height: 260px;
+}
+
+.case-cover--inv {
+    background: var(--bs-body-color, #1b1b1b);
+    color: var(--bs-body-bg, #fff);
+}
+
+.case-cover-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform .9s cubic-bezier(.2, .8, .2, 1);
+}
+
+.case-item:hover .case-cover-svg {
+    transform: scale(1.1) rotate(1.5deg);
+}
+
+.case-cover-result {
+    position: absolute;
+    bottom: .75rem;
+    right: .75rem;
+    padding: .25rem .8rem;
+    border-radius: 999px;
+    font-size: .78rem;
+    font-weight: 700;
+    background: rgba(255, 255, 255, .88);
+    color: #1b1b1b;
+    backdrop-filter: blur(8px);
+}
+
+/* دکمهٔ ذخیره */
+.case-pin {
+    position: absolute;
+    top: .75rem;
+    left: .75rem;
+    width: 38px;
+    height: 38px;
+    border: 0;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    background: rgba(255, 255, 255, .88);
+    color: #1b1b1b;
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity .3s, transform .3s;
+}
+
+.case-pin svg {
+    width: 18px;
+    height: 18px;
+}
+
+.case-item:hover .case-pin,
+.case-pin--on,
+.case-pin:focus-visible {
+    opacity: 1;
+    transform: none;
+}
+
+@media (hover: none) {
+    .case-pin {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.case-body {
+    padding: 1.25rem 1.4rem 1.5rem;
+}
+
+.case-tag {
+    font-size: .8rem;
+    opacity: .7;
+}
+
+.case-label {
+    font-size: .78rem;
+    font-weight: 700;
+    opacity: .55;
+    margin-bottom: .35rem;
+}
+
+.case-result {
+    display: inline-block;
+    font-size: .78rem;
+    font-weight: 600;
+    padding: .25rem .8rem;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.case-result--line {
+    border: 1px solid currentColor;
+}
+
+/* کارت نقل‌قول */
+.case-quote-mark {
+    display: block;
+    height: 2.2rem;
+    font-family: Georgia, serif;
+    font-size: 6rem;
+    line-height: .6;
+    opacity: .15;
+}
+
+.case-quote-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 2;
+    margin-bottom: 1.25rem;
+}
+
+/* کارت آماری معکوس */
+.case-invert {
+    background: var(--bs-body-color, #1b1b1b) !important;
+    color: var(--bs-body-bg, #fff) !important;
+    border-color: transparent !important;
+}
+
+.case-invert::before,
+.case-invert::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    border: 1.5px solid currentColor;
+    opacity: .14;
+    pointer-events: none;
+}
+
+.case-invert::before {
+    width: 180px;
+    height: 180px;
+    bottom: -70px;
+    left: -60px;
+}
+
+.case-invert::after {
+    width: 110px;
+    height: 110px;
+    bottom: -35px;
+    left: -25px;
+}
+
+.case-stat-value {
+    font-size: 4.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.case-stat-unit {
+    font-size: .9rem;
+    opacity: .7;
+    margin-bottom: 1.25rem;
+}
+
+/* تایم‌لاین مراحل حل */
+.case-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0 1.25rem 0 0;
+    position: relative;
+    font-size: .95rem;
+    line-height: 1.9;
+}
+
+.case-steps::before {
+    content: '';
+    position: absolute;
+    top: .7rem;
+    bottom: .7rem;
+    right: .3rem;
+    width: 1.5px;
+    background: currentColor;
+    opacity: .25;
+}
+
+.case-steps li {
+    position: relative;
+    padding-bottom: .5rem;
+}
+
+.case-steps li::before {
+    content: '';
+    position: absolute;
+    right: -1.25rem;
+    top: .7rem;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: currentColor;
+    transform: translate(50%, -50%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .case-item {
+        animation: none;
+        transition: none;
+    }
+
+    .case-cover-svg {
+        transition: none;
+    }
+}
+
+.cta-panel {
+    /* ↓ اسم متغیرهای رنگ خودت را اینجا بگذار */
+    --cta-bg: var(--gold, #C9A227);
+    --cta-ink: var(--dark-navy, #0b1b3a);
+
+    --cta-line: color-mix(in srgb, var(--cta-ink) 28%, transparent);
+
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    padding: 4.5rem 3rem;
+    background: var(--cta-bg);
+    color: var(--cta-ink);
+}
+
+@media (max-width: 767px) {
+    .cta-panel {
+        padding: 2.75rem 1.25rem;
+    }
+}
+
+/* نور دنبال‌کنندهٔ موس */
+.cta-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(440px circle at var(--mx, 75%) var(--my, 15%), rgba(255, 255, 255, .38), transparent 60%);
+}
+
+/* حباب‌های مایع: یکی روشن، یکی سرمه‌ای */
+.cta-blob {
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+    filter: blur(50px);
+    animation: cta-morph 12s ease-in-out infinite, cta-drift 22s ease-in-out infinite;
+}
+
+.cta-blob--1 {
+    width: 340px;
+    height: 340px;
+    top: -90px;
+    left: -70px;
+    opacity: .55;
+    background: radial-gradient(circle at 30% 30%, #fff, transparent 70%);
+}
+
+.cta-blob--2 {
+    width: 300px;
+    height: 300px;
+    bottom: -90px;
+    right: 12%;
+    opacity: .22;
+    animation-delay: -6s;
+    background: radial-gradient(circle at 30% 30%, var(--cta-ink), transparent 70%);
+}
+
+@keyframes cta-morph {
+
+    0%,
+    100% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+
+    50% {
+        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    }
+}
+
+@keyframes cta-drift {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(40px, 30px);
+    }
+}
+
+/* نوار متن متحرک پس‌زمینه */
+.cta-marquee {
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    right: 0;
+    bottom: -.6rem;
+    overflow: hidden;
+    direction: ltr;
+    pointer-events: none;
+    user-select: none;
+}
+
+.cta-marquee-track {
+    display: inline-flex;
+    white-space: nowrap;
+    font-size: clamp(4rem, 10vw, 8rem);
+    font-weight: 800;
+    line-height: 1;
+    opacity: .07;
+    animation: cta-scroll 45s linear infinite;
+}
+
+@keyframes cta-scroll {
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+/* متن‌ها */
+.cta-status {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    padding: .4rem 1rem;
+    margin-bottom: 1.5rem;
+    font-size: .85rem;
+    border-radius: 999px;
+    border: 1px solid var(--cta-line);
+    background: rgba(255, 255, 255, .32);
+    backdrop-filter: blur(10px);
+}
+
+.cta-dot {
+    position: relative;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.cta-dot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1.5px solid currentColor;
+    animation: cta-ping 1.8s ease-out infinite;
+}
+
+@keyframes cta-ping {
+    to {
+        transform: scale(3.2);
+        opacity: 0;
+    }
+}
+
+.cta-title {
+    font-size: clamp(1.9rem, 4.2vw, 3.1rem);
+    font-weight: 800;
+    line-height: 1.5;
+    margin: 0 0 1rem;
+}
+
+.cta-sub {
+    opacity: .82;
+    line-height: 2;
+    margin: 0 0 2rem;
+    max-width: 520px;
+}
+
+/* دکمه‌ها */
+.cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.cta-call {
+    display: inline-flex;
+    align-items: center;
+    gap: .9rem;
+    padding: .55rem;
+    padding-inline-end: 1.6rem;
+    border-radius: 999px;
+    text-decoration: none;
+    background: var(--cta-ink);
+    color: var(--cta-bg);
+    transition: transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .35s;
+}
+
+.cta-call:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 30px -14px color-mix(in srgb, var(--cta-ink) 70%, transparent);
+    color: var(--cta-bg);
+}
+
+.cta-call small {
+    display: block;
+    font-size: .72rem;
+    opacity: .75;
+}
+
+.cta-call b {
+    font-size: 1.15rem;
+    letter-spacing: .02em;
+}
+
+.cta-call-icon {
+    position: relative;
+    width: 52px;
+    height: 52px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--cta-bg);
+    color: var(--cta-ink);
+}
+
+.cta-call-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.cta-call-icon::before,
+.cta-call-icon::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1.5px solid var(--cta-bg);
+    animation: cta-ring 2.4s ease-out infinite;
+}
+
+.cta-call-icon::after {
+    animation-delay: 1.2s;
+}
+
+@keyframes cta-ring {
+    to {
+        transform: scale(1.9);
+        opacity: 0;
+    }
+}
+
+.cta-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    padding: 0 1.6rem;
+    min-height: 62px;
+    border-radius: 999px;
+    text-decoration: none;
+    color: var(--cta-ink);
+    border: 1px solid var(--cta-line);
+    background: rgba(255, 255, 255, .28);
+    backdrop-filter: blur(12px);
+    transition: transform .35s cubic-bezier(.2, .8, .2, 1), background .3s;
+}
+
+.cta-wa svg {
+    width: 20px;
+    height: 20px;
+}
+
+.cta-wa:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, .5);
+    color: var(--cta-ink);
+}
+
+/* اطلاعات تماس */
+.cta-info {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem 1.75rem;
+}
+
+.cta-info li {
+    display: inline-flex;
+    align-items: center;
+    gap: .55rem;
+    font-size: .9rem;
+    opacity: .88;
+}
+
+.cta-info svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+/* فرم شیشه‌ای */
+.cta-form {
+    padding: 2rem 1.75rem;
+    border-radius: 28px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, .42), rgba(255, 255, 255, .14));
+    border: 1px solid rgba(255, 255, 255, .6);
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .8),
+        0 24px 50px -24px color-mix(in srgb, var(--cta-ink) 55%, transparent);
+}
+
+.cta-form .cta-sub {
+    margin-bottom: 1.5rem;
+    font-size: .92rem;
+}
+
+.cta-input {
+    display: block;
+    width: 100%;
+    padding: .85rem 1.1rem;
+    margin-bottom: .85rem;
+    font: inherit;
+    color: var(--cta-ink);
+    border-radius: 16px;
+    border: 1px solid var(--cta-line);
+    background: rgba(255, 255, 255, .35);
+    outline: none;
+    transition: border-color .3s, background .3s, box-shadow .3s;
+}
+
+.cta-input::placeholder {
+    color: var(--cta-ink);
+    opacity: .55;
+}
+
+.cta-input:focus {
+    border-color: var(--cta-ink);
+    background: rgba(255, 255, 255, .6);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--cta-ink) 14%, transparent);
+}
+
+.cta-input option {
+    color: var(--cta-ink);
+}
+
+.cta-error {
+    margin-bottom: .85rem;
+    font-size: .85rem;
+    font-weight: 600;
+    color: #8a1c0f;
+}
+
+.cta-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+    width: 100%;
+    padding: .95rem 1.25rem;
+    font: inherit;
+    font-weight: 700;
+    border: 0;
+    border-radius: 999px;
+    cursor: pointer;
+    background: var(--cta-ink);
+    color: var(--cta-bg);
+    transition: transform .3s, opacity .3s;
+}
+
+.cta-submit:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+.cta-submit:disabled {
+    opacity: .6;
+    cursor: wait;
+}
+
+.cta-submit span {
+    transition: transform .3s;
+}
+
+.cta-submit:hover:not(:disabled) span {
+    transform: translateX(-6px);
+}
+
+/* حالت موفقیت */
+.cta-success {
+    text-align: center;
+    padding: 1.5rem 0;
+}
+
+.cta-success svg {
+    width: 76px;
+    height: 76px;
+    margin-bottom: 1rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.cta-success circle {
+    stroke-dasharray: 145;
+    stroke-dashoffset: 145;
+    animation: cta-draw .8s ease forwards;
+}
+
+.cta-success path {
+    stroke-dasharray: 40;
+    stroke-dashoffset: 40;
+    animation: cta-draw .5s .6s ease forwards;
+}
+
+@keyframes cta-draw {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .cta-blob,
+    .cta-marquee-track,
+    .cta-dot::after,
+    .cta-call-icon::before,
+    .cta-call-icon::after {
+        animation: none;
+    }
+}
+
+.ft {
+    /* ↓ اسم متغیرهای رنگ خودت را اینجا بگذار */
+    --ft-bg: var(--dark-navy, #0b1b3a);
+    --ft-accent: var(--gold, #c9a45c);
+    --ft-text: rgba(255, 255, 255, .78);
+    --ft-line: color-mix(in srgb, var(--ft-accent) 30%, transparent);
+
+    position: relative;
+    margin-top: 70px;
+    background: var(--ft-bg);
+    color: var(--ft-text);
+}
+
+/* لبهٔ موجی بالای فوتر */
+.ft-wave {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -59px;
+    height: 60px;
+    overflow: hidden;
+    direction: ltr;
+    pointer-events: none;
+}
+
+.ft-wave svg {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 200%;
+    height: 100%;
+    fill: var(--ft-bg);
+}
+
+.ft-wave-a {
+    animation: ft-wave 26s linear infinite;
+}
+
+.ft-wave-b {
+    opacity: .45;
+    transform: translateY(-9px);
+    animation: ft-wave 40s linear infinite reverse;
+}
+
+@keyframes ft-wave {
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.ft-wave-b {
+    animation-name: ft-wave-b;
+}
+
+@keyframes ft-wave-b {
+    from {
+        transform: translate(-50%, -9px);
+    }
+
+    to {
+        transform: translate(0, -9px);
+    }
+}
+
+.ft-inner {
+    position: relative;
+    overflow: hidden;
+    padding-top: 4rem;
+}
+
+/* درخشش طلایی پس‌زمینه */
+.ft-glow {
+    position: absolute;
+    top: -120px;
+    right: 8%;
+    width: 380px;
+    height: 380px;
+    pointer-events: none;
+    filter: blur(70px);
+    opacity: .22;
+    background: radial-gradient(circle at 30% 30%, var(--ft-accent), transparent 70%);
+    animation: ft-morph 14s ease-in-out infinite;
+}
+
+@keyframes ft-morph {
+
+    0%,
+    100% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+
+    50% {
+        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    }
+}
+
+.ft-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* برند */
+.ft-brand {
+    display: flex;
+    align-items: center;
+    gap: .85rem;
+    color: #fff;
+    margin-bottom: 1.25rem;
+}
+
+.ft-logo {
+    width: 52px;
+    height: 52px;
+    display: grid;
+    place-items: center;
+    border-radius: 16px;
+    color: var(--ft-accent);
+    border: 1px solid var(--ft-line);
+    background: color-mix(in srgb, var(--ft-accent) 12%, transparent);
+}
+
+.ft-logo svg {
+    width: 26px;
+    height: 26px;
+}
+
+.ft-text {
+    line-height: 2;
+    font-size: .93rem;
+    max-width: 380px;
+    margin-bottom: 1.5rem;
+}
+
+/* شبکه‌های اجتماعی */
+.ft-socials {
+    display: flex;
+    gap: .65rem;
+}
+
+.ft-social {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, .2);
+    background: rgba(255, 255, 255, .05);
+    transition: transform .35s cubic-bezier(.2, .8, .2, 1), background .3s, color .3s, border-color .3s;
+}
+
+.ft-social svg {
+    width: 19px;
+    height: 19px;
+}
+
+.ft-social:hover {
+    transform: translateY(-4px);
+    background: var(--ft-accent);
+    border-color: var(--ft-accent);
+    color: var(--ft-bg);
+}
+
+/* ستون لینک‌ها */
+.ft-title {
+    position: relative;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: .75rem;
+}
+
+.ft-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 34px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--ft-accent);
+}
+
+.ft-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: .7rem;
+}
+
+.ft-link {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    color: var(--ft-text);
+    text-decoration: none;
+    font-size: .93rem;
+    transition: color .3s, transform .3s;
+}
+
+.ft-link::before {
+    content: '';
+    width: 0;
+    height: 1.5px;
+    background: var(--ft-accent);
+    transition: width .3s;
+}
+
+.ft-link:hover {
+    color: var(--ft-accent);
+    transform: translateX(-4px);
+}
+
+.ft-link:hover::before {
+    width: 14px;
+}
+
+/* کارت تماس */
+.ft-card {
+    padding: 1.75rem 1.5rem;
+    border-radius: 28px;
+    border: 1px solid var(--ft-line);
+    background: linear-gradient(145deg, rgba(255, 255, 255, .09), rgba(255, 255, 255, .02));
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18);
+}
+
+.ft-contact {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+    font-size: .92rem;
+}
+
+.ft-contact li {
+    display: flex;
+    align-items: center;
+    gap: .85rem;
+}
+
+.ft-contact a {
+    color: inherit;
+    text-decoration: none;
+    transition: color .3s;
+}
+
+.ft-contact a:hover {
+    color: var(--ft-accent);
+}
+
+.ft-ico {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    color: var(--ft-accent);
+    background: color-mix(in srgb, var(--ft-accent) 14%, transparent);
+}
+
+.ft-ico svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* خط طلایی درخشان */
+.ft-line {
+    height: 1px;
+    margin: 3.5rem 0 1.75rem;
+    background: linear-gradient(90deg, transparent, var(--ft-accent), transparent);
+    background-size: 200% 100%;
+    opacity: .55;
+    animation: ft-shimmer 6s linear infinite;
+}
+
+@keyframes ft-shimmer {
+    to {
+        background-position: -200% 0;
+    }
+}
+
+/* نوار پایین */
+.ft-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+}
+
+.ft-copy {
+    font-size: .88rem;
+}
+
+.ft-note {
+    font-size: .78rem;
+    opacity: .6;
+    margin-top: .35rem;
+}
+
+.ft-bottom-side {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: .88rem;
+}
+
+.ft-top {
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    background: var(--ft-accent);
+    color: var(--ft-bg);
+    transition: transform .35s cubic-bezier(.2, .8, .2, 1);
+}
+
+.ft-top svg {
+    width: 20px;
+    height: 20px;
+}
+
+.ft-top:hover {
+    transform: translateY(-5px);
+}
+
+/* نام غول‌آسای بریده‌شده در پایین */
+.ft-mark {
+    display: block;
+    margin-top: 1rem;
+    text-align: center;
+    font-size: clamp(6rem, 22vw, 17rem);
+    font-weight: 900;
+    line-height: .95;
+    user-select: none;
+    pointer-events: none;
+    color: transparent;
+    background: linear-gradient(to bottom, color-mix(in srgb, var(--ft-accent) 40%, transparent), transparent 85%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    transform: translateY(18%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .ft-wave svg,
+    .ft-glow,
+    .ft-line {
+        animation: none;
+    }
 }

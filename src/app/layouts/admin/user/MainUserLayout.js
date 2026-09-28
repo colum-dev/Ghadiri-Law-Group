@@ -1,6 +1,7 @@
 import React from 'react'
 import UserHeader from './header/UserHeader'
 import '../../../assets/styles/layouts/user/MainUserLayout.scss';
+import UserFooter from './footer/UserFooter';
 
 export default function MainUserLayout(props) {
 
@@ -10,6 +11,7 @@ export default function MainUserLayout(props) {
             <div>
                 <UserHeader />
                 {children}
+                <UserFooter />
             </div>
         </div>
     )
