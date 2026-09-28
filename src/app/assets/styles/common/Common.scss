@@ -596,6 +596,22 @@ $glass-blur-strong: 28px;
 
 }
 
+.hover-to-background-navy {
+    transition:
+        background-color 0.35s ease,
+        color 0.35s ease;
+
+    &:hover {
+        background-color: $dark-navy-blue;
+        color: $luxury-gold;
+
+        * {
+            color: $luxury-gold;
+        }
+    }
+
+}
+
 .yekan-bakh {
     font-family: 'YekanBakh';
 }
