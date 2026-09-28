@@ -1,6 +1,7 @@
 import React from 'react'
 import UserHomeHeroBannerOne from './UserHomeHeroBannerOne';
 import UserHomeAboutUs from './UserHomeAboutUs';
+import UserHomeDeprtments from './UserHomeDeprtments';
 
 export default function UserHome() {
     return (
@@ -12,6 +13,7 @@ export default function UserHome() {
             </div>
 
             <UserHomeAboutUs />
+            <UserHomeDeprtments />
         </div>
     )
 }

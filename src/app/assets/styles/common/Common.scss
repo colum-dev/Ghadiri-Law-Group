@@ -681,3 +681,67 @@ $glass-blur-strong: 28px;
 .text-shadow {
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.22);
 }
+
+.dept-sub { max-width: 620px; opacity: .75; line-height: 2; }
+.dept-text { opacity: .8; line-height: 2; }
+
+.dept-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform .6s cubic-bezier(.2, .8, .2, 1), border-radius .8s ease;
+}
+.dept-card > *:not(.dept-blob) { position: relative; z-index: 1; }
+
+/* گوشه‌ها موقع هاور مایع‌وار تغییر شکل می‌دهند */
+.dept-card:hover {
+  transform: translateY(-8px);
+  border-radius: 44px 24px 44px 24px !important;
+}
+
+/* برق شیشه‌ای که موقع هاور از روی کارت رد می‌شود */
+.dept-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, .28) 50%, transparent 70%);
+  transform: translateX(120%);
+  transition: transform .9s ease;
+}
+.dept-card:hover::after { transform: translateX(-120%); }
+
+/* حباب مایع داخل کارت */
+.dept-blob {
+  position: absolute;
+  top: -40px;
+  left: -40px;
+  width: 130px;
+  height: 130px;
+  background: radial-gradient(circle at 30% 30%, currentColor, transparent 70%);
+  opacity: .12;
+  filter: blur(6px);
+  pointer-events: none;
+  animation: dept-morph 9s ease-in-out infinite;
+}
+@keyframes dept-morph {
+  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  50%      { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+}
+
+.dept-icon {
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  border-radius: 18px;
+}
+.dept-icon svg { width: 26px; height: 26px; }
+
+.dept-more { display: inline-flex; gap: .5rem; align-items: center; color: inherit; font-weight: 600; }
+.dept-more span { transition: transform .3s; }
+.dept-card:hover .dept-more span { transform: translateX(-6px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .dept-blob { animation: none; }
+  .dept-card, .dept-card::after { transition: none; }
+}
