@@ -96,7 +96,7 @@ export default function UserFooter() {
                                         <path d='M12 3v18M6 21h12M5 7h14M5 7l-3 7a3.5 3.5 0 0 0 6 0L5 7zm14 0l-3 7a3.5 3.5 0 0 0 6 0l-3-7z' />
                                     </Svg>
                                 </span>
-                                <span className='fw-bold fs-4'>گروه حقوقی قدیری</span>
+                                <span className='fw-bold fs-4'>گروه حقوقی غدیری</span>
                             </div>
                             <p className='ft-text'>
                                 این یک متن نمونه است. معرفی کوتاهی از دفتر و رویکرد شما در ارائهٔ خدمات حقوقی.
@@ -172,7 +172,7 @@ export default function UserFooter() {
 
                     <div className='ft-bottom'>
                         <div>
-                            <div className='ft-copy'>© {year} گروه حقوقی قدیری. تمامی حقوق محفوظ است.</div>
+                            <div className='ft-copy'>© {year} گروه حقوقی غدیری. تمامی حقوق محفوظ است.</div>
                             <div className='ft-note'>
                                 محتوای این وب‌سایت جنبهٔ اطلاع‌رسانی دارد و جایگزین مشاورهٔ حقوقی تخصصی نیست.
                             </div>
@@ -188,7 +188,7 @@ export default function UserFooter() {
                     </div>
                 </div>
 
-                <span className='ft-mark' aria-hidden>قدیری</span>
+                <span className='ft-mark' aria-hidden>غدیری</span>
             </div>
         </footer>
     )

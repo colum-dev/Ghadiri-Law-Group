@@ -1,0 +1,922 @@
+.ab {
+    /* ↓ اسم متغیرهای رنگ خودت را اینجا بگذار */
+    --ab-navy: var(--dark-navy, #0b1b3a);
+    --ab-gold: var(--gold, #C9A227);
+    --ab-bone: var(--bone, #F5F3EE);
+
+    --ab-navy-line: color-mix(in srgb, var(--ab-navy) 14%, transparent);
+    --ab-gold-line: color-mix(in srgb, var(--ab-gold) 35%, transparent);
+    padding-block: 1rem;
+}
+
+/* ورود تدریجی */
+.ab-reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity .8s ease, transform .8s cubic-bezier(.2, .8, .2, 1);
+    transition-delay: var(--d, 0ms);
+}
+
+.ab-reveal.ab-in {
+    opacity: 1;
+    transform: none;
+}
+
+/* ── پنل‌ها ── */
+.ab-panel {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    padding: 4.5rem 3rem;
+    margin: 3rem 0;
+}
+
+@media (max-width: 767px) {
+    .ab-panel {
+        padding: 2.75rem 1.25rem;
+    }
+}
+
+.ab-bare {
+    margin: 5rem 0;
+}
+
+.ab-panel--navy {
+    background: var(--ab-navy);
+    color: var(--ab-bone);
+}
+
+.ab-panel--gold {
+    background: var(--ab-gold);
+    color: var(--ab-navy);
+}
+
+.ab-panel--bone {
+    color: var(--ab-navy);
+    border: 1px solid var(--ab-navy-line);
+    background: linear-gradient(145deg, rgba(255, 255, 255, .75), rgba(255, 255, 255, .1)), var(--ab-bone);
+    box-shadow: inset 0 1px 0 #fff, 0 30px 60px -40px color-mix(in srgb, var(--ab-navy) 45%, transparent);
+}
+
+/* حباب‌های مایع */
+.ab-blob {
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+    filter: blur(55px);
+    animation: ab-morph 12s ease-in-out infinite, ab-drift 22s ease-in-out infinite;
+}
+
+.ab-blob--1 {
+    width: 340px;
+    height: 340px;
+    top: -90px;
+    left: -70px;
+    opacity: .3;
+    background: radial-gradient(circle at 30% 30%, var(--ab-gold), transparent 70%);
+}
+
+.ab-blob--2 {
+    width: 300px;
+    height: 300px;
+    bottom: -90px;
+    right: 8%;
+    opacity: .22;
+    background: radial-gradient(circle at 30% 30%, var(--ab-gold), transparent 70%);
+    animation-delay: -6s;
+}
+
+.ab-blob--gold {
+    width: 320px;
+    height: 320px;
+    top: -80px;
+    left: -60px;
+    opacity: .3;
+    background: radial-gradient(circle at 30% 30%, var(--ab-gold), transparent 70%);
+}
+
+.ab-blob--white {
+    width: 340px;
+    height: 340px;
+    top: -90px;
+    right: -60px;
+    opacity: .5;
+    background: radial-gradient(circle at 30% 30%, #fff, transparent 70%);
+}
+
+@keyframes ab-morph {
+
+    0%,
+    100% {
+        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+
+    50% {
+        border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    }
+}
+
+@keyframes ab-drift {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(40px, 30px);
+    }
+}
+
+/* ── عنوان‌ها ── */
+.ab-head {
+    max-width: 640px;
+    margin-bottom: 3rem;
+}
+
+.ab-head--center {
+    margin-inline: auto;
+    text-align: center;
+}
+
+.ab-eyebrow {
+    display: inline-block;
+    padding: .3rem 1rem;
+    margin-bottom: 1rem;
+    font-size: .82rem;
+    border-radius: 999px;
+    border: 1px solid currentColor;
+    opacity: .85;
+}
+
+.ab-panel--navy .ab-eyebrow,
+.ab-panel--bone .ab-eyebrow {
+    color: var(--ab-gold);
+    border-color: var(--ab-gold-line);
+    background: color-mix(in srgb, var(--ab-gold) 10%, transparent);
+}
+
+.ab-bare .ab-eyebrow {
+    color: var(--ab-navy);
+    border-color: var(--ab-gold);
+    background: color-mix(in srgb, var(--ab-gold) 18%, transparent);
+}
+
+.ab-panel--gold .ab-eyebrow {
+    color: var(--ab-navy);
+    border-color: var(--ab-navy-line);
+    background: rgba(255, 255, 255, .3);
+}
+
+.ab-h1 {
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.4;
+    margin: 1rem 0;
+    color: #fff;
+}
+
+.ab-h2 {
+    font-size: clamp(1.7rem, 3.6vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.5;
+    margin: 0 0 .75rem;
+}
+
+.ab-sub,
+.ab-text {
+    line-height: 2;
+    opacity: .8;
+    margin: 0;
+}
+
+.ab-text {
+    font-size: .95rem;
+}
+
+/* ── هدر صفحه ── */
+.ab-hero {
+    padding-block: 5rem;
+}
+
+.ab-hero-grid {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+    grid-template-columns: 1.3fr .9fr;
+}
+
+@media (max-width: 991px) {
+    .ab-hero-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ab-hero-art {
+        order: -1;
+        max-width: 240px;
+        margin-inline: auto;
+    }
+}
+
+.ab-crumb {
+    font-size: .85rem;
+    opacity: .7;
+}
+
+.ab-crumb a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.ab-crumb a:hover {
+    color: var(--ab-gold);
+}
+
+.ab-lead {
+    line-height: 2.1;
+    opacity: .82;
+    max-width: 520px;
+    margin-bottom: 1.75rem;
+}
+
+.ab-keys {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--ab-gold);
+    font-weight: 700;
+}
+
+.ab-keys i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.ab-hero-art {
+    position: relative;
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    color: var(--ab-gold);
+}
+
+.ab-ring {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1;
+    stroke-dasharray: 3 9;
+    opacity: .55;
+    animation: ab-spin 40s linear infinite;
+}
+
+.ab-ring--2 {
+    inset: 14%;
+    width: 72%;
+    height: 72%;
+    animation-direction: reverse;
+    animation-duration: 28s;
+    opacity: .8;
+}
+
+@keyframes ab-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.ab-hero-icon {
+    width: 44%;
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    border-radius: 30%;
+    border: 1px solid var(--ab-gold-line);
+    background: linear-gradient(145deg, rgba(255, 255, 255, .14), rgba(255, 255, 255, .03));
+    backdrop-filter: blur(14px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .3);
+}
+
+.ab-hero-icon svg {
+    width: 55%;
+    height: 55%;
+}
+
+/* ── دو ستونه ── */
+.ab-split {
+    display: grid;
+    gap: 3.5rem;
+    grid-template-columns: 1fr 1.2fr;
+    align-items: start;
+}
+
+@media (max-width: 991px) {
+    .ab-split {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+.ab-split .ab-head {
+    margin-bottom: 0;
+}
+
+.ab-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.ab-policy {
+    display: flex;
+    gap: 1.1rem;
+    align-items: flex-start;
+    padding: 1.25rem 1.4rem;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, .6);
+    border: 1px solid var(--ab-navy-line);
+    transition: transform .4s cubic-bezier(.2, .8, .2, 1), box-shadow .4s;
+}
+
+.ab-policy:hover {
+    transform: translateX(-6px);
+    box-shadow: 0 18px 30px -20px color-mix(in srgb, var(--ab-navy) 60%, transparent);
+}
+
+.ab-num {
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    font-weight: 800;
+    background: var(--ab-gold);
+    color: var(--ab-navy);
+}
+
+/* ── شبکه‌ها ── */
+.ab-grid {
+    display: grid;
+    gap: 1.25rem;
+}
+
+.ab-grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.ab-grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.ab-grid--4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 1199px) {
+    .ab-grid--4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 991px) {
+    .ab-grid--3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+
+    .ab-grid--2,
+    .ab-grid--3,
+    .ab-grid--4 {
+        grid-template-columns: 1fr;
+    }
+}
+
+.ab-grid>.ab-reveal {
+    height: 100%;
+}
+
+/* ── ضوابط اخلاقی ── */
+.ab-pledge {
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+    height: 100%;
+    padding: 1.1rem 1.3rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, .14);
+    background: rgba(255, 255, 255, .05);
+    backdrop-filter: blur(10px);
+    transition: border-color .3s, transform .3s;
+}
+
+.ab-pledge:hover {
+    border-color: var(--ab-gold);
+    transform: translateY(-3px);
+}
+
+.ab-check {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--ab-gold);
+    color: var(--ab-navy);
+}
+
+.ab-check svg {
+    width: 17px;
+    height: 17px;
+}
+
+.ab-oath {
+    margin: 3rem auto 0;
+    max-width: 620px;
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 2;
+    color: var(--ab-gold);
+}
+
+.ab-oath span {
+    display: block;
+    font-family: Georgia, serif;
+    font-size: 4.5rem;
+    line-height: .6;
+    height: 2rem;
+    opacity: .5;
+}
+
+/* ── کارت‌ها ── */
+.ab-card {
+    position: relative;
+    height: 100%;
+    padding: 1.75rem;
+    border-radius: 28px;
+    transition: transform .5s cubic-bezier(.2, .8, .2, 1), border-color .3s, box-shadow .5s;
+}
+
+.ab-card:hover {
+    transform: translateY(-8px);
+}
+
+.ab-card--bone {
+    color: var(--ab-navy);
+    border: 1px solid var(--ab-navy-line);
+    background: linear-gradient(145deg, rgba(255, 255, 255, .8), rgba(255, 255, 255, .15)), var(--ab-bone);
+    box-shadow: inset 0 1px 0 #fff, 0 24px 40px -30px color-mix(in srgb, var(--ab-navy) 50%, transparent);
+}
+
+.ab-card--bone:hover {
+    box-shadow: inset 0 1px 0 #fff, 0 30px 46px -26px color-mix(in srgb, var(--ab-navy) 60%, transparent);
+}
+
+.ab-card--glass {
+    border: 1px solid rgba(255, 255, 255, .16);
+    background: linear-gradient(145deg, rgba(255, 255, 255, .12), rgba(255, 255, 255, .03));
+    backdrop-filter: blur(18px) saturate(150%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25);
+}
+
+.ab-card--glass:hover {
+    border-color: var(--ab-gold);
+}
+
+.ab-card--navy {
+    background: var(--ab-navy);
+    color: var(--ab-bone);
+    border: 1px solid var(--ab-gold-line);
+    overflow: hidden;
+}
+
+.ab-card--navy::after {
+    content: '';
+    position: absolute;
+    width: 190px;
+    height: 190px;
+    bottom: -80px;
+    left: -60px;
+    border-radius: 50%;
+    border: 1.5px solid var(--ab-gold);
+    opacity: .25;
+    pointer-events: none;
+}
+
+.ab-card--frost {
+    color: var(--ab-navy);
+    border: 1px solid rgba(255, 255, 255, .55);
+    background: linear-gradient(145deg, rgba(255, 255, 255, .55), rgba(255, 255, 255, .18));
+    backdrop-filter: blur(18px);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8);
+}
+
+/* ── پروفایل تیم ── */
+.ab-member {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ab-avatar {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin-bottom: 1.25rem;
+}
+
+.ab-avatar-blob {
+    position: absolute;
+    inset: -8px;
+    background: var(--ab-gold);
+    opacity: .85;
+    animation: ab-morph 8s ease-in-out infinite;
+    transition: transform .6s;
+}
+
+.ab-card:hover .ab-avatar-blob {
+    transform: rotate(40deg) scale(1.06);
+}
+
+.ab-avatar-frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    background: var(--ab-navy);
+    color: var(--ab-gold);
+    animation: ab-morph 8s ease-in-out infinite reverse;
+    border: 3px solid var(--ab-bone);
+}
+
+.ab-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ab-initials {
+    font-size: 2.4rem;
+    font-weight: 800;
+}
+
+.ab-pill {
+    display: inline-block;
+    padding: .3rem .95rem;
+    margin-bottom: 1.1rem;
+    border-radius: 999px;
+    font-size: .82rem;
+    font-weight: 700;
+    background: color-mix(in srgb, var(--ab-gold) 22%, transparent);
+    border: 1px solid var(--ab-gold);
+}
+
+.ab-edu {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: .55rem;
+    padding-top: 1rem;
+    width: 100%;
+    font-size: .87rem;
+    line-height: 1.8;
+    border-top: 1px dashed var(--ab-navy-line);
+    opacity: .85;
+}
+
+.ab-edu svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin-top: .25rem;
+    color: var(--ab-gold);
+}
+
+/* ── اصول وکالت (آکاردئون) ── */
+.ab-acc-side {
+    position: sticky;
+    top: 6rem;
+}
+
+@media (max-width: 991px) {
+    .ab-acc-side {
+        position: static;
+    }
+}
+
+.ab-bignum {
+    margin-top: 2.5rem;
+    font-size: clamp(6rem, 14vw, 10rem);
+    font-weight: 900;
+    line-height: 1;
+    opacity: .13;
+    animation: ab-pop .6s cubic-bezier(.2, .8, .2, 1);
+}
+
+@keyframes ab-pop {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(.9);
+    }
+}
+
+@media (max-width: 991px) {
+    .ab-bignum {
+        display: none;
+    }
+}
+
+.ab-acc-item {
+    border-bottom: 1px solid color-mix(in srgb, var(--ab-navy) 25%, transparent);
+}
+
+.ab-acc-btn {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    padding: 1.35rem 0;
+    background: none;
+    border: 0;
+    color: inherit;
+    font: inherit;
+    text-align: right;
+    cursor: pointer;
+}
+
+.ab-acc-n {
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    font-size: .85rem;
+    font-weight: 800;
+    border: 1.5px solid var(--ab-navy);
+    transition: background .3s, color .3s;
+}
+
+.ab-acc-t {
+    flex: 1;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.ab-acc-i {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .4);
+    transition: transform .4s, background .3s;
+}
+
+.ab-acc-i svg {
+    width: 16px;
+    height: 16px;
+}
+
+.is-open .ab-acc-n {
+    background: var(--ab-navy);
+    color: var(--ab-gold);
+}
+
+.is-open .ab-acc-i {
+    transform: rotate(45deg);
+    background: var(--ab-navy);
+    color: var(--ab-gold);
+}
+
+.ab-acc-body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .5s cubic-bezier(.2, .8, .2, 1);
+}
+
+.ab-acc-body>div {
+    overflow: hidden;
+}
+
+.is-open .ab-acc-body {
+    grid-template-rows: 1fr;
+}
+
+.ab-acc-body p {
+    margin: 0;
+    padding: 0 3.6rem 1.5rem 0;
+    line-height: 2;
+    opacity: .88;
+}
+
+/* ── چرا غدیری ── */
+.ab-reason-ico {
+    width: 58px;
+    height: 58px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 1.25rem;
+    border-radius: 18px;
+    color: var(--ab-gold);
+    background: color-mix(in srgb, var(--ab-gold) 14%, transparent);
+    border: 1px solid var(--ab-gold-line);
+    transition: background .3s, color .3s, transform .5s;
+}
+
+.ab-reason-ico svg {
+    width: 28px;
+    height: 28px;
+}
+
+.ab-reason:hover .ab-reason-ico {
+    background: var(--ab-gold);
+    color: var(--ab-navy);
+    transform: rotate(-8deg);
+}
+
+/* ── نمونه پرونده‌ها ── */
+.ab-tag {
+    font-size: .8rem;
+    opacity: .7;
+}
+
+.ab-result {
+    font-size: .76rem;
+    font-weight: 700;
+    padding: .25rem .8rem;
+    border-radius: 999px;
+    white-space: nowrap;
+    background: var(--ab-gold);
+    color: var(--ab-navy);
+}
+
+.ab-stat {
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--ab-gold);
+}
+
+.ab-stat-u {
+    font-size: .88rem;
+    opacity: .75;
+    margin-bottom: 1rem;
+}
+
+.ab-more {
+    display: inline-flex;
+    gap: .5rem;
+    align-items: center;
+    font-weight: 700;
+    color: inherit;
+    text-decoration: none;
+}
+
+.ab-card--navy .ab-more {
+    color: var(--ab-gold);
+}
+
+.ab-more span {
+    transition: transform .3s;
+}
+
+.ab-more:hover span {
+    transform: translateX(-6px);
+}
+
+.ab-case {
+    display: flex;
+    flex-direction: column;
+}
+
+.ab-case .ab-more {
+    margin-top: auto;
+}
+
+.ab-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    padding: .95rem 2rem;
+    border-radius: 999px;
+    font-weight: 700;
+    text-decoration: none;
+    background: var(--ab-navy);
+    color: var(--ab-gold);
+    transition: transform .3s, box-shadow .3s;
+}
+
+.ab-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 28px -14px color-mix(in srgb, var(--ab-navy) 70%, transparent);
+    color: var(--ab-gold);
+}
+
+.ab-btn span {
+    transition: transform .3s;
+}
+
+.ab-btn:hover span {
+    transform: translateX(-6px);
+}
+
+/* ── نظرات ── */
+.ab-reviews>.ab-reveal:nth-child(2) {
+    margin-top: 1.75rem;
+}
+
+@media (max-width: 991px) {
+    .ab-reviews>.ab-reveal:nth-child(2) {
+        margin-top: 0;
+    }
+}
+
+.ab-review {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.ab-qm {
+    position: absolute;
+    top: .9rem;
+    left: 1.4rem;
+    font-family: Georgia, serif;
+    font-size: 5.5rem;
+    line-height: 1;
+    opacity: .18;
+}
+
+.ab-stars {
+    display: flex;
+    gap: .2rem;
+    margin-bottom: 1rem;
+}
+
+.ab-stars svg {
+    width: 18px;
+    height: 18px;
+    fill: var(--ab-navy);
+}
+
+.ab-review blockquote {
+    margin: 0 0 1.5rem;
+    line-height: 2.05;
+    font-size: .98rem;
+}
+
+.ab-review figcaption {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    margin-top: auto;
+}
+
+.ab-rv-av {
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    font-size: .8rem;
+    font-weight: 800;
+    background: var(--ab-navy);
+    color: var(--ab-gold);
+}
+
+.ab-review figcaption b {
+    display: block;
+    font-size: .92rem;
+}
+
+.ab-review figcaption small {
+    opacity: .75;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ab-reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .ab-blob,
+    .ab-ring,
+    .ab-avatar-blob,
+    .ab-avatar-frame,
+    .ab-bignum {
+        animation: none;
+    }
+}
