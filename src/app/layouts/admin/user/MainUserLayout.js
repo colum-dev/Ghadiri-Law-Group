@@ -6,8 +6,8 @@ export default function MainUserLayout(props) {
 
     const { children } = props;
     return (
-        <div dir='rtl' className='bg-bone yekan-bakh-bold'>
-            <div className='main-user-layout'>
+        <div dir='rtl' className='yekan-bakh-bold'>
+            <div>
                 <UserHeader />
                 {children}
             </div>
