@@ -3,7 +3,6 @@
 import React, { useState } from 'react'
 import { Col, Row } from 'react-bootstrap'
 
-// اطلاعات نمونه؛ با اطلاعات واقعی دفتر جایگزین کن
 const CONTACT = {
   phone: '02100000000',
   phoneLabel: '۰۲۱-۰۰۰۰۰۰۰۰',
@@ -58,8 +57,6 @@ export default function UserHomeContact() {
     setError('')
     setLoading(true)
 
-    // TODO: اینجا را به API خودت وصل کن، مثلاً:
-    // await fetch('/api/contact', { method: 'POST', body: JSON.stringify({ ...data, phone }) })
     await new Promise((r) => setTimeout(r, 700))
 
     setLoading(false)

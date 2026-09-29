@@ -4,7 +4,6 @@ import React from 'react'
 import Link from 'next/link'
 import { Col, Row } from 'react-bootstrap'
 
-// اطلاعات نمونه؛ با اطلاعات واقعی جایگزین کن
 const CONTACT = {
     phone: '02100000000',
     phoneLabel: '۰۲۱-۰۰۰۰۰۰۰۰',
@@ -73,7 +72,6 @@ export default function UserFooter() {
 
     return (
         <footer className='ft' dir='rtl'>
-            {/* لبهٔ موجی */}
             <div className='ft-wave' aria-hidden>
                 <svg className='ft-wave-a' viewBox='0 0 2880 60' preserveAspectRatio='none'>
                     <path d={WAVE} />
@@ -88,7 +86,6 @@ export default function UserFooter() {
 
                 <div className='main-user-layout ft-content'>
                     <Row className='g-5'>
-                        {/* برند */}
                         <Col lg={4}>
                             <div className='ft-brand'>
                                 <span className='ft-logo'>
@@ -110,7 +107,6 @@ export default function UserFooter() {
                             </div>
                         </Col>
 
-                        {/* دپارتمان‌ها */}
                         <Col sm={6} lg={2}>
                             <div className='ft-title'>دپارتمان‌ها</div>
                             <ul className='ft-links'>
@@ -122,7 +118,6 @@ export default function UserFooter() {
                             </ul>
                         </Col>
 
-                        {/* دسترسی سریع */}
                         <Col sm={6} lg={2}>
                             <div className='ft-title'>دسترسی سریع</div>
                             <ul className='ft-links'>
@@ -134,7 +129,6 @@ export default function UserFooter() {
                             </ul>
                         </Col>
 
-                        {/* تماس */}
                         <Col lg={4}>
                             <div className='ft-card'>
                                 <div className='ft-title'>اطلاعات تماس</div>

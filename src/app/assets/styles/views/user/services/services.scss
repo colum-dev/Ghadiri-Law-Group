@@ -1,7 +1,6 @@
-// فقط چیدمان؛ رنگ‌ها از کلاس‌های موجود AboutUs.scss (ab-panel--*, ab-card--*) می‌آیند
 .ab {
   .sv-sec { position: relative; }
-  .sv-stretch::after { content: ''; position: absolute; inset: 0; z-index: 1; } // کل بخش کلیک‌پذیر
+  .sv-stretch::after { content: ''; position: absolute; inset: 0; z-index: 1; }
 
   .sv-hero { display: grid; grid-template-columns: 1.2fr .8fr; gap: 48px; align-items: center; }
   .sv-index {

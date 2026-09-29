@@ -1,0 +1,232 @@
+// فقط چیدمان و تعامل؛ رنگ‌ها از کلاس‌های موجود AboutUs.scss/Common.scss و currentColor می‌آیند
+.tx {
+
+    /* ── یاب مهلت ── */
+    .tx-notices {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 28px 0 8px;
+    }
+
+    .tx-notice {
+        border: 1.5px solid currentColor;
+        background: transparent;
+        color: inherit;
+        border-radius: 999px;
+        padding: 8px 22px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: transform .2s, background .2s;
+
+        &:hover {
+            transform: translateY(-2px);
+        }
+
+        &.is-active {
+            background: rgba(128, 128, 128, .18);
+            font-weight: 800;
+            box-shadow: 0 4px 0 -1px currentColor;
+        }
+
+        &:focus-visible {
+            outline: 3px solid currentColor;
+            outline-offset: 3px;
+        }
+    }
+
+    .tx-deadline {
+        margin-top: 24px;
+        padding-top: 24px;
+        border-top: 1.5px dashed currentColor;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 32px;
+        align-items: center;
+        animation: txIn .35s ease;
+    }
+
+    .tx-deadline-days {
+        text-align: center;
+        flex: none;
+
+        b {
+            display: block;
+            font-size: clamp(3.2rem, 6vw, 5rem);
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        span {
+            opacity: .75;
+            font-size: .85rem;
+        }
+    }
+
+    .tx-deadline-body p {
+        margin: 0 0 14px;
+        line-height: 1.9;
+    }
+
+    .tx-deadline-next {
+        border-inline-start: 3px solid currentColor;
+        padding-inline-start: 14px;
+
+        b {
+            display: block;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+    }
+
+    /* ── پلکان مسیر رسیدگی ── */
+    .tx-stairs {
+        list-style: none;
+        padding: 0;
+        margin: 32px 0 0;
+        display: grid;
+        gap: 0;
+    }
+
+    .tx-stair {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+        padding: 20px 0;
+        position: relative;
+        margin-inline-start: calc(var(--i, 0) * 0px);
+    }
+
+    .tx-stair:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        inset-inline-start: 23px;
+        top: 58px;
+        bottom: -12px;
+        width: 2px;
+        background: currentColor;
+        opacity: .25;
+    }
+
+    .tx-stair-n {
+        flex: none;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        border: 2px solid currentColor;
+        display: grid;
+        place-items: center;
+        font-weight: 800;
+    }
+
+    .tx-stair b {
+        display: block;
+        font-size: 1.15rem;
+        margin-bottom: 4px;
+    }
+
+    .tx-stair p {
+        margin: 0;
+        opacity: .85;
+        line-height: 1.85;
+        max-width: 62ch;
+    }
+
+    .tx-stair:nth-child(2) {
+        margin-inline-start: 32px;
+    }
+
+    .tx-stair:nth-child(3) {
+        margin-inline-start: 64px;
+    }
+
+    /* ── نمونهٔ نتیجه ── */
+    .tx-result {
+        display: grid;
+        grid-template-columns: 1.3fr .7fr;
+        gap: 40px;
+        align-items: center;
+    }
+
+    .tx-ring {
+        text-align: center;
+    }
+
+    .tx-ring svg {
+        width: 100%;
+        max-width: 220px;
+        transform: rotate(-90deg);
+    }
+
+    .tx-ring-track {
+        fill: none;
+        stroke: rgba(128, 128, 128, .18);
+        stroke-width: 12;
+    }
+
+    .tx-ring-fill {
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 12;
+        stroke-linecap: round;
+        transition: stroke-dashoffset .3s ease;
+    }
+
+    .tx-ring-v {
+        font-size: 2rem;
+        font-weight: 900;
+        margin-top: -70px;
+    }
+
+    .tx-ring-l {
+        margin-top: 74px;
+        opacity: .8;
+    }
+
+    .tx-end {
+        padding-block: 48px 72px;
+    }
+
+    @media (max-width: 900px) {
+        .tx-deadline {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+
+        .tx-stair:nth-child(2) {
+            margin-inline-start: 16px;
+        }
+
+        .tx-stair:nth-child(3) {
+            margin-inline-start: 32px;
+        }
+
+        .tx-result {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .tx-deadline {
+            animation: none;
+        }
+
+        .tx-notice,
+        .tx-ring-fill {
+            transition: none;
+        }
+    }
+}
+
+@keyframes txIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}

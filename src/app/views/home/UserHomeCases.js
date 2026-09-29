@@ -11,7 +11,6 @@ const ICONS = {
   tax: 'M12 3v18M5 7h14M5 7l-2 6a3 3 0 0 0 4 0L5 7zm14 0l-2 6a3 3 0 0 0 4 0l-2-6z',
 }
 
-// type: cover | quote | stat  —  همه متن‌ها و عددها نمونه‌اند
 const cases = [
   {
     id: 1, type: 'cover', tag: 'حقوق خانواده', icon: 'family', pattern: 'dots', size: 'l',

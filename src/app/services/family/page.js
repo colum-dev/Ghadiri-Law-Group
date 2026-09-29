@@ -7,7 +7,6 @@ import '../../assets/styles/common/Common.scss'
 import '../../assets/styles/views/user/services/FamilyServices.scss'
 import MainUserLayout from '@/app/layouts/admin/user/MainUserLayout'
 
-/* ───────── داده‌ها (نمونه‌اند؛ با اطلاعات واقعی جایگزین کن) ───────── */
 const SITUATIONS = [
     { t: 'طلاق', text: 'چه توافقی باشد چه قضایی، اول مسیر و هزینه‌ها را روشن می‌کنیم و بعد تصمیم می‌گیریم.',
       does: ['بررسی امکان توافق و تنظیم توافق‌نامه', 'ثبت دادخواست و دفاع در دادگاه خانواده', 'تعیین تکلیف مهریه، نفقه و حضانت در همان پرونده'], time: 'توافقی: حدود ۱ تا ۳ ماه · قضایی: بسته به پرونده' },
@@ -46,7 +45,6 @@ const CHIPS = [
 ]
 const DIGITS = ['۰۱', '۰۲', '۰۳', '۰۴', '۰۵']
 
-/* ───────── اجزای کمکی ───────── */
 const Svg = ({ children, sw = 1.7 }) => (
     <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth={sw} strokeLinecap='round' strokeLinejoin='round'>{children}</svg>
 )
@@ -74,7 +72,6 @@ function Head({ eyebrow, title, sub, center = false }) {
     )
 }
 
-/* ───────── صفحه ───────── */
 export default function UserFamilyPage() {
     const [sit, setSit] = useState(0)
     const [path, setPath] = useState('agree')
@@ -88,7 +85,6 @@ export default function UserFamilyPage() {
     return (
         <MainUserLayout>
             <div className='ab fs' dir='rtl'>
-                {/* ══ هدر ══ */}
                 <section className='ab-full ab-panel ab-panel--navy ab-hero'>
                     <span className='ab-gridbg' />
                     <span className='ab-blob ab-blob--1' />
@@ -119,7 +115,6 @@ export default function UserFamilyPage() {
                     </div>
                 </section>
 
-                {/* ══ وضعیت شما کدام است؟ ══ */}
                 <div className='main-user-layout'>
                     <section id='situation' className='ab-panel ab-panel--bone radius-md'>
                         <Head eyebrow='وضعیت شما' title='مسئلهٔ شما کدام است؟' sub='یکی را انتخاب کنید تا ببینید ما چه می‌کنیم و چه مدتی طول می‌کشد.' />
@@ -144,7 +139,6 @@ export default function UserFamilyPage() {
                     </section>
                 </div>
 
-                {/* ══ توافقی یا قضایی ══ */}
                 <section className='ab-full ab-panel ab-panel--navy'>
                     <span className='ab-gridbg' />
                     <span className='ab-blob ab-blob--2' />
@@ -170,7 +164,6 @@ export default function UserFamilyPage() {
                     </div>
                 </section>
 
-                {/* ══ مدارک + وکیل مسئول ══ */}
                 <div className='main-user-layout'>
                     <section className='ab-bare fs-docs'>
                         <div>
@@ -201,7 +194,6 @@ export default function UserFamilyPage() {
                     </section>
                 </div>
 
-                {/* ══ سؤالات رایج ══ */}
                 <div className='main-user-layout'>
                     <section className='ab-panel ab-panel--gold radius-md'>
                         <span className='ab-blob ab-blob--white' />
@@ -226,7 +218,6 @@ export default function UserFamilyPage() {
                     </section>
                 </div>
 
-                {/* ══ پایان ══ */}
                 <div className='main-user-layout'>
                     <section className='ab-bare fs-end'>
                         <Reveal className='text-center'>

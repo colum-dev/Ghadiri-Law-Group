@@ -1,5 +1,4 @@
 .ab {
-    /* ↓ اسم متغیرهای رنگ خودت را اینجا بگذار */
     --ab-navy: var(--dark-navy, #0b1b3a);
     --ab-gold: var(--gold, #C9A227);
     --ab-bone: var(--bone, #F5F3EE);
@@ -9,7 +8,6 @@
     overflow-x: clip;
 }
 
-/* ورود تدریجی */
 .ab-reveal {
     opacity: 0;
     transform: translateY(26px);
@@ -22,7 +20,6 @@
     transform: none;
 }
 
-/* ── پنل‌ها ── */
 .ab-panel {
     position: relative;
     overflow: hidden;
@@ -58,7 +55,6 @@
     box-shadow: inset 0 1px 0 #fff, 0 30px 60px -40px color-mix(in srgb, var(--ab-navy) 45%, transparent);
 }
 
-/* حباب‌های مایع */
 .ab-blob {
     position: absolute;
     z-index: -1;
@@ -128,7 +124,6 @@
     }
 }
 
-/* ── عنوان‌ها ── */
 .ab-head {
     max-width: 640px;
     margin-bottom: 3rem;
@@ -194,7 +189,6 @@
     font-size: .95rem;
 }
 
-/* ── دو ستونه ── */
 .ab-split {
     display: grid;
     gap: 3.5rem;
@@ -213,7 +207,6 @@
     margin-bottom: 0;
 }
 
-/* ── شبکه‌ها ── */
 .ab-grid {
     display: grid;
     gap: 1.25rem;
@@ -256,7 +249,6 @@
     height: 100%;
 }
 
-/* ── ضوابط اخلاقی ── */
 .ab-pledge {
     display: flex;
     align-items: center;
@@ -310,7 +302,6 @@
     opacity: .5;
 }
 
-/* ── کارت‌ها ── */
 .ab-card {
     position: relative;
     height: 100%;
@@ -373,7 +364,6 @@
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8);
 }
 
-/* ── پروفایل تیم ── */
 .ab-member {
     text-align: center;
     display: flex;
@@ -457,7 +447,6 @@
     color: var(--ab-gold);
 }
 
-/* ── اصول وکالت (آکاردئون) ── */
 .ab-acc-side {
     position: sticky;
     top: 6rem;
@@ -575,7 +564,6 @@
     opacity: .88;
 }
 
-/* ── چرا غدیری ── */
 .ab-reason-ico {
     width: 58px;
     height: 58px;
@@ -600,7 +588,6 @@
     transform: rotate(-8deg);
 }
 
-/* ── نمونه پرونده‌ها ── */
 .ab-tag {
     font-size: .8rem;
     opacity: .7;
@@ -686,7 +673,6 @@
     transform: translateX(-6px);
 }
 
-/* ── نظرات ── */
 .ab-reviews>.ab-reveal:nth-child(2) {
     margin-top: 1.75rem;
 }
@@ -775,7 +761,6 @@
     }
 }
 
-/* ═════════ تمام‌عرض ═════════ */
 .ab-full {
     width: 100vw;
     margin-inline: calc(50% - 50vw);
@@ -789,7 +774,6 @@
     z-index: 1;
 }
 
-/* شطرنجی محو پس‌زمینه */
 .ab-gridbg {
     position: absolute;
     inset: 0;
@@ -815,7 +799,6 @@
     height: 400px;
 }
 
-/* ═════════ هدر صفحه ═════════ */
 .ab-full.ab-hero {
     margin-top: 0;
     padding: 6rem 0 5rem;
@@ -942,7 +925,6 @@
     background: currentColor;
 }
 
-/* نمای گرافیکی */
 .ab-hero-art {
     position: relative;
     width: 100%;
@@ -1046,7 +1028,6 @@
     }
 }
 
-/* کارت‌های آماری */
 .ab-stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -1093,7 +1074,6 @@
     margin-top: .35rem;
 }
 
-/* ═════════ خط مشی ═════════ */
 .ab-pol {
     display: grid;
     gap: 1.75rem;
@@ -1243,7 +1223,6 @@
     color: var(--ab-navy);
 }
 
-/* پنل جزئیات (سمت چپ) */
 .ab-pol-detail {
     position: relative;
     overflow: hidden;

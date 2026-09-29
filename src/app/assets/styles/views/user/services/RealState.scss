@@ -1,0 +1,339 @@
+.re {
+    .re-key svg {
+        animation: reJiggle 4s ease-in-out infinite;
+        transform-origin: 70% 30%;
+    }
+
+    .re-flip-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+        margin-top: 32px;
+        perspective: 1400px;
+    }
+
+    .re-flip {
+        all: unset;
+        box-sizing: border-box;
+        cursor: pointer;
+        display: block;
+        width: 100%;
+        height: 210px;
+        text-align: start;
+    }
+
+    .re-flip-inner {
+        display: block;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform .6s cubic-bezier(.6, 0, .2, 1);
+        transform-style: preserve-3d;
+    }
+
+    .re-flip.is-flipped .re-flip-inner {
+        transform: rotateY(180deg);
+    }
+
+    .re-flip-face {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        position: absolute;
+        inset: 0;
+        box-sizing: border-box;
+        backface-visibility: hidden;
+        border-radius: 18px;
+        padding: 22px;
+    }
+
+    .re-flip:focus-visible .re-flip-face {
+        outline: 3px solid currentColor;
+        outline-offset: 3px;
+    }
+
+    .re-flip:hover .re-flip-hint,
+    .re-flip:focus-visible .re-flip-hint {
+        text-decoration: underline;
+    }
+
+    .re-flip-front {
+        justify-content: space-between;
+    }
+
+    .re-flip-back {
+        transform: rotateY(180deg);
+        justify-content: center;
+        line-height: 1.9;
+        background: rgba(128, 128, 128, .08);
+        font-size: .95rem;
+    }
+
+    .re-flip-hint {
+        font-size: .8rem;
+        opacity: .6;
+    }
+
+    .re-risk {
+        align-self: flex-start;
+        font-size: .8rem;
+        font-weight: 800;
+        padding: 3px 12px;
+        border-radius: 999px;
+    }
+
+    .re-risk--low {
+        background: #dff3e3;
+        color: #1e6b3a;
+    }
+
+    .re-risk--mid {
+        background: #fbe9c9;
+        color: #8a5a10;
+    }
+
+    .re-risk--high {
+        background: #f6d9d9;
+        color: #8a1f1f;
+    }
+
+    .re-risk-grid {
+        display: grid;
+        grid-template-columns: 1.1fr .9fr;
+        gap: 40px 56px;
+        align-items: center;
+        margin-top: 24px;
+    }
+
+    .re-risk-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 4px;
+
+        label {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 6px;
+            cursor: pointer;
+            border-bottom: 1.5px solid rgba(255, 255, 255, .25);
+            transition: padding-inline-start .2s;
+
+            &:hover {
+                padding-inline-start: 16px;
+            }
+
+            &.is-on {
+                opacity: .55;
+                text-decoration: line-through;
+            }
+        }
+
+        input {
+            position: absolute;
+            opacity: 0;
+
+            &:focus-visible+.re-box {
+                outline: 3px solid currentColor;
+                outline-offset: 3px;
+            }
+        }
+
+        .re-box {
+            flex: none;
+            width: 26px;
+            height: 26px;
+            border: 1.5px solid currentColor;
+            border-radius: 8px;
+            padding: 3px;
+
+            svg {
+                opacity: 0;
+                transform: scale(.4);
+                transition: .2s;
+            }
+        }
+
+        label.is-on .re-box svg {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    .re-gauge {
+        text-align: center;
+    }
+
+    .re-gauge svg {
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .re-gauge-track {
+        fill: none;
+        stroke: rgba(255, 255, 255, .18);
+        stroke-width: 14;
+    }
+
+    .re-gauge-fill {
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 14;
+        stroke-linecap: round;
+        stroke-dasharray: 283;
+        transition: stroke-dashoffset .5s ease;
+    }
+
+    .re-needle {
+        stroke: currentColor;
+        stroke-width: 3;
+        transition: all .5s ease;
+    }
+
+    .re-needle-hub {
+        fill: currentColor;
+    }
+
+    .re-gauge-v {
+        font-size: 1.4rem;
+        font-weight: 900;
+        margin-top: 4px;
+    }
+
+    .re-gauge-l {
+        opacity: .75;
+        font-size: .9rem;
+    }
+
+    .re-owner {
+        max-width: 920px;
+        margin-inline: auto;
+    }
+
+    .re-switch {
+        display: flex;
+        gap: 10px;
+        margin: 28px 0;
+        justify-content: center;
+
+        button {
+            border: 1.5px solid currentColor;
+            background: transparent;
+            color: inherit;
+            border-radius: 999px;
+            padding: 10px 28px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform .2s, background .2s;
+
+            &:hover {
+                transform: translateY(-2px);
+            }
+
+            &.is-active {
+                background: rgba(128, 128, 128, .18);
+                box-shadow: 0 4px 0 -1px currentColor;
+            }
+        }
+    }
+
+    .re-owner-body {
+        animation: reIn .35s ease;
+    }
+
+    .re-owner-sum {
+        text-align: center;
+        font-size: 1.1rem;
+        max-width: 60ch;
+        margin: 0 auto 28px;
+        line-height: 1.9;
+    }
+
+    .re-owner-steps {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    .re-owner-steps li {
+        border-top: 3px solid currentColor;
+        padding-top: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .re-owner-steps span {
+        font-size: 1.6rem;
+        font-weight: 900;
+        opacity: .3;
+    }
+
+    .re-owner-steps small {
+        opacity: .75;
+        line-height: 1.8;
+    }
+
+    .re-end {
+        padding-block: 48px 72px;
+    }
+
+    @media (max-width: 900px) {
+        .re-flip-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .re-risk-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .re-owner-steps {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+        .re-key svg,
+        .re-owner-body {
+            animation: none;
+        }
+
+        .re-flip-inner,
+        .re-gauge-fill,
+        .re-needle,
+        .re-switch button,
+        .re-risk-list label {
+            transition: none;
+        }
+    }
+}
+
+@keyframes reJiggle {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(-8deg);
+    }
+}
+
+@keyframes reIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}

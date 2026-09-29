@@ -7,8 +7,6 @@ import '../assets/styles/views/user/aboutUs/AboutUs.scss'
 import '../assets/styles/common/Common.scss'
 import MainUserLayout from '../layouts/admin/user/MainUserLayout'
 
-/* ───────── داده‌ها (همه نمونه‌اند؛ با اطلاعات واقعی جایگزین کن) ───────── */
-
 const POLICIES = [
     {
         title: 'حق‌مداری',
@@ -93,7 +91,6 @@ const REVIEWS = [
     { text: 'شرکت ما در یک اختلاف پیچیده گیر کرده بود و با راهکار غیرقضایی همه چیز حل شد.', name: 'ش. ن.', kind: 'موکل پرونده تجاری' },
 ]
 
-// اعداد نمونه‌اند؛ با آمار واقعی دفتر جایگزین کن
 const STATS = [
     { to: 15, suffix: '+', label: 'سال تجربهٔ حرفه‌ای' },
     { to: 500, suffix: '+', label: 'پرونده به نتیجه رسیده' },
@@ -109,8 +106,6 @@ const CHIPS = [
 ]
 
 const DIGITS = ['۰۱', '۰۲', '۰۳', '۰۴', '۰۵', '۰۶']
-
-/* ───────── اجزای کمکی ───────── */
 
 const Svg = ({ children, sw = 1.7 }) => (
     <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth={sw} strokeLinecap='round' strokeLinejoin='round'>
@@ -214,8 +209,6 @@ const Stars = () => (
     </div>
 )
 
-/* ───────── صفحه ───────── */
-
 export default function UserAboutPage() {
     const [open, setOpen] = useState(0)
     const [pol, setPol] = useState(0)
@@ -224,7 +217,6 @@ export default function UserAboutPage() {
     return (
         <MainUserLayout>
             <div className='ab' dir='rtl'>
-                {/* ══ هدر (تمام‌عرض) ══ */}
                 <section className='ab-full ab-panel ab-panel--navy ab-hero'>
                     <span className='ab-gridbg' />
                     <span className='ab-blob ab-blob--1' />
@@ -289,7 +281,6 @@ export default function UserAboutPage() {
                     </div>
                 </section>
 
-                {/* ══ خط مشی (داخل main-user-layout) ══ */}
                 <div className='main-user-layout'>
                     <section className='ab-panel ab-panel--bone radius-md'>
                         <span className='ab-blob ab-blob--gold' />
@@ -346,7 +337,6 @@ export default function UserAboutPage() {
                     </section>
                 </div>
 
-                {/* ══ تعهدات اخلاقی (تمام‌عرض) ══ */}
                 <section className='ab-full ab-panel ab-panel--navy'>
                     <span className='ab-gridbg' />
                     <span className='ab-blob ab-blob--2' />
@@ -372,7 +362,6 @@ export default function UserAboutPage() {
                     </div>
                 </section>
 
-                {/* ══ تیم حقوقی ══ */}
                 <div className='main-user-layout'>
                     <section id='team' className='ab-bare'>
                         <Head eyebrow='تیم حقوقی' title='آشنایی با همکاران ما' sub='این یک متن نمونه است. متخصصانی که پرونده شما را به عهده می‌گیرند.' />
@@ -394,7 +383,6 @@ export default function UserAboutPage() {
                     </section>
                 </div>
 
-                {/* ══ اصول وکالت ══ */}
                 <div className='main-user-layout'>
                     <section className='ab-panel ab-panel--gold radius-md'>
                         <span className='ab-blob ab-blob--white' />
@@ -422,7 +410,6 @@ export default function UserAboutPage() {
                     </section>
                 </div>
 
-                {/* ══ چرا غدیری (تمام‌عرض) ══ */}
                 <section className='ab-full ab-panel ab-panel--navy'>
                     <span className='ab-gridbg' />
                     <span className='ab-blob ab-blob--1' />
@@ -443,7 +430,6 @@ export default function UserAboutPage() {
                     </div>
                 </section>
 
-                {/* ══ نمونه پرونده‌ها ══ */}
                 <div className='main-user-layout'>
                     <section className='ab-bare'>
                         <Head eyebrow='نمونه پرونده‌ها' title='گزیده‌ای از پرونده‌های موفق' sub='اطلاعات موکلان محرمانه است و فقط نوع دعوا و روش حل نمایش داده می‌شود.' />
@@ -474,7 +460,6 @@ export default function UserAboutPage() {
                     </section>
                 </div>
 
-                {/* ══ نظرات موکلین ══ */}
                 <div className='main-user-layout'>
                     <section className='ab-panel ab-panel--gold radius-md'>
                         <span className='ab-blob ab-blob--white' />

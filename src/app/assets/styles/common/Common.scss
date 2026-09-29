@@ -704,13 +704,11 @@ $glass-blur-strong: 28px;
     z-index: 1;
 }
 
-/* گوشه‌ها موقع هاور مایع‌وار تغییر شکل می‌دهند */
 .dept-card:hover {
     transform: translateY(-8px);
     border-radius: 44px 24px 44px 24px !important;
 }
 
-/* برق شیشه‌ای که موقع هاور از روی کارت رد می‌شود */
 .dept-card::after {
     content: '';
     position: absolute;
@@ -725,7 +723,6 @@ $glass-blur-strong: 28px;
     transform: translateX(-120%);
 }
 
-/* حباب مایع داخل کارت */
 .dept-blob {
     position: absolute;
     top: -40px;
@@ -791,7 +788,6 @@ $glass-blur-strong: 28px;
     }
 }
 
-/* فیلترها */
 .case-filters {
     display: flex;
     flex-wrap: wrap;
@@ -818,7 +814,6 @@ $glass-blur-strong: 28px;
     color: var(--bs-body-bg, #fff) !important;
 }
 
-/* Masonry */
 .cases-masonry {
     column-count: 1;
     column-gap: 1.25rem;
@@ -860,7 +855,6 @@ $glass-blur-strong: 28px;
     }
 }
 
-/* کاور گرافیکی */
 .case-cover {
     position: relative;
     overflow: hidden;
@@ -909,7 +903,6 @@ $glass-blur-strong: 28px;
     backdrop-filter: blur(8px);
 }
 
-/* دکمهٔ ذخیره */
 .case-pin {
     position: absolute;
     top: .75rem;
@@ -977,7 +970,6 @@ $glass-blur-strong: 28px;
     border: 1px solid currentColor;
 }
 
-/* کارت نقل‌قول */
 .case-quote-mark {
     display: block;
     height: 2.2rem;
@@ -994,7 +986,6 @@ $glass-blur-strong: 28px;
     margin-bottom: 1.25rem;
 }
 
-/* کارت آماری معکوس */
 .case-invert {
     background: var(--bs-body-color, #1b1b1b) !important;
     color: var(--bs-body-bg, #fff) !important;
@@ -1037,7 +1028,6 @@ $glass-blur-strong: 28px;
     margin-bottom: 1.25rem;
 }
 
-/* تایم‌لاین مراحل حل */
 .case-steps {
     list-style: none;
     margin: 0;
@@ -1087,7 +1077,6 @@ $glass-blur-strong: 28px;
 }
 
 .cta-panel {
-    /* ↓ اسم متغیرهای رنگ خودت را اینجا بگذار */
     --cta-bg: var(--gold, #C9A227);
     --cta-ink: var(--dark-navy, #0b1b3a);
 
@@ -1107,7 +1096,6 @@ $glass-blur-strong: 28px;
     }
 }
 
-/* نور دنبال‌کنندهٔ موس */
 .cta-panel::before {
     content: '';
     position: absolute;
@@ -1117,7 +1105,6 @@ $glass-blur-strong: 28px;
     background: radial-gradient(440px circle at var(--mx, 75%) var(--my, 15%), rgba(255, 255, 255, .38), transparent 60%);
 }
 
-/* حباب‌های مایع: یکی روشن، یکی سرمه‌ای */
 .cta-blob {
     position: absolute;
     z-index: -1;
@@ -1169,7 +1156,6 @@ $glass-blur-strong: 28px;
     }
 }
 
-/* نوار متن متحرک پس‌زمینه */
 .cta-marquee {
     position: absolute;
     z-index: -1;
@@ -1198,7 +1184,6 @@ $glass-blur-strong: 28px;
     }
 }
 
-/* متن‌ها */
 .cta-status {
     display: inline-flex;
     align-items: center;
@@ -1250,7 +1235,6 @@ $glass-blur-strong: 28px;
     max-width: 520px;
 }
 
-/* دکمه‌ها */
 .cta-actions {
     display: flex;
     flex-wrap: wrap;
@@ -1351,7 +1335,6 @@ $glass-blur-strong: 28px;
     color: var(--cta-ink);
 }
 
-/* اطلاعات تماس */
 .cta-info {
     list-style: none;
     margin: 0;
@@ -1375,7 +1358,6 @@ $glass-blur-strong: 28px;
     flex-shrink: 0;
 }
 
-/* فرم شیشه‌ای */
 .cta-form {
     padding: 2rem 1.75rem;
     border-radius: 28px;
@@ -1463,7 +1445,6 @@ $glass-blur-strong: 28px;
     transform: translateX(-6px);
 }
 
-/* حالت موفقیت */
 .cta-success {
     text-align: center;
     padding: 1.5rem 0;
@@ -1510,7 +1491,6 @@ $glass-blur-strong: 28px;
 }
 
 .ft {
-    /* ↓ اسم متغیرهای رنگ خودت را اینجا بگذار */
     --ft-bg: var(--dark-navy, #0b1b3a);
     --ft-accent: var(--gold, #c9a45c);
     --ft-text: rgba(255, 255, 255, .78);
@@ -1522,7 +1502,6 @@ $glass-blur-strong: 28px;
     color: var(--ft-text);
 }
 
-/* لبهٔ موجی بالای فوتر */
 .ft-wave {
     position: absolute;
     left: 0;
@@ -1579,7 +1558,6 @@ $glass-blur-strong: 28px;
     padding-top: 4rem;
 }
 
-/* درخشش طلایی پس‌زمینه */
 .ft-glow {
     position: absolute;
     top: -120px;
@@ -1610,7 +1588,6 @@ $glass-blur-strong: 28px;
     z-index: 1;
 }
 
-/* برند */
 .ft-brand {
     display: flex;
     align-items: center;
@@ -1642,7 +1619,6 @@ $glass-blur-strong: 28px;
     margin-bottom: 1.5rem;
 }
 
-/* شبکه‌های اجتماعی */
 .ft-socials {
     display: flex;
     gap: .65rem;
@@ -1672,7 +1648,6 @@ $glass-blur-strong: 28px;
     color: var(--ft-bg);
 }
 
-/* ستون لینک‌ها */
 .ft-title {
     position: relative;
     color: #fff;
@@ -1728,7 +1703,6 @@ $glass-blur-strong: 28px;
     width: 14px;
 }
 
-/* کارت تماس */
 .ft-card {
     padding: 1.75rem 1.5rem;
     border-radius: 28px;
@@ -1780,7 +1754,6 @@ $glass-blur-strong: 28px;
     height: 18px;
 }
 
-/* خط طلایی درخشان */
 .ft-line {
     height: 1px;
     margin: 3.5rem 0 1.75rem;
@@ -1796,7 +1769,6 @@ $glass-blur-strong: 28px;
     }
 }
 
-/* نوار پایین */
 .ft-bottom {
     display: flex;
     flex-wrap: wrap;
@@ -1845,7 +1817,6 @@ $glass-blur-strong: 28px;
     transform: translateY(-5px);
 }
 
-/* نام غول‌آسای بریده‌شده در پایین */
 .ft-mark {
     display: block;
     margin-top: 1rem;

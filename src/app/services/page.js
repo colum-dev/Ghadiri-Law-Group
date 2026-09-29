@@ -7,7 +7,6 @@ import '../assets/styles/common/Common.scss'
 import '../assets/styles/views/user/services/services.scss'
 import MainUserLayout from '../layouts/admin/user/MainUserLayout'
 
-/* ───────── خدمات (همان حوزه‌های about-us؛ متن‌ها نمونه‌اند) ───────── */
 const SERVICES = [
     {
         slug: 'family', kind: 'band', title: 'حقوق خانواده', kicker: 'حل اختلاف با کمترین آسیب',
@@ -50,7 +49,6 @@ const SERVICES = [
 
 const DIGITS = ['۰۱', '۰۲', '۰۳', '۰۴', '۰۵', '۰۶']
 
-/* ───────── اجزای کمکی (همانند AboutUs؛ بهتر است در فایل مشترک قرار بگیرند) ───────── */
 const Svg = ({ children, sw = 1.7 }) => (
     <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth={sw} strokeLinecap='round' strokeLinejoin='round'>{children}</svg>
 )
@@ -83,7 +81,6 @@ const Go = ({ s }) => (
     </Link>
 )
 
-/* هر خدمت با چیدمان خودش: band | steps | grid | split */
 function Service({ s, i }) {
     if (s.kind === 'band') {
         return (
@@ -169,7 +166,6 @@ function Service({ s, i }) {
     )
 }
 
-/* ───────── صفحه ───────── */
 export default function UserServicesPage() {
     return (
         <MainUserLayout>

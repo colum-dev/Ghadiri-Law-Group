@@ -1,0 +1,244 @@
+.cr {
+    .cr-pulse i {
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 1.5px solid currentColor;
+            animation: crPulse 1.8s ease-out infinite;
+        }
+    }
+
+    .cr-track {
+        list-style: none;
+        display: flex;
+        gap: 0;
+        padding: 0;
+        margin: 32px 0 8px;
+        counter-reset: none;
+    }
+
+    .cr-track li {
+        flex: 1;
+        position: relative;
+
+        &:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 17px;
+            inset-inline-start: 50%;
+            width: 100%;
+            height: 2px;
+            background: currentColor;
+            opacity: .25;
+            z-index: 0;
+        }
+    }
+
+    .cr-stop {
+        all: unset;
+        box-sizing: border-box;
+        width: 100%;
+        cursor: pointer;
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        text-align: center;
+        padding: 0 6px;
+    }
+
+    .cr-stop-n {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        border: 2px solid currentColor;
+        display: grid;
+        place-items: center;
+        font-weight: 800;
+        font-size: .85rem;
+        background: var(--ab-bone, #fff);
+        transition: transform .2s, background .2s, color .2s;
+    }
+
+    .cr-stop-t {
+        font-weight: 500;
+        font-size: .92rem;
+        opacity: .8;
+        transition: opacity .2s;
+    }
+
+    .cr-stop.is-passed .cr-stop-n {
+        background: currentColor;
+        color: #fff;
+    }
+
+    .cr-stop.is-active .cr-stop-n {
+        transform: scale(1.15);
+        box-shadow: 0 0 0 5px rgba(128, 128, 128, .18);
+    }
+
+    .cr-stop.is-active .cr-stop-t {
+        opacity: 1;
+        font-weight: 800;
+    }
+
+    .cr-stop:focus-visible .cr-stop-n {
+        outline: 3px solid currentColor;
+        outline-offset: 3px;
+    }
+
+    .cr-stage {
+        margin-top: 28px;
+        padding-top: 24px;
+        border-top: 1.5px dashed currentColor;
+        animation: crIn .35s ease;
+    }
+
+    .cr-stage-urgent {
+        font-size: 1.05rem;
+        margin: 0 0 16px;
+        line-height: 1.9;
+
+        b {
+            display: block;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+    }
+
+    .cr-stage-does {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 12px;
+
+        li {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            line-height: 1.9;
+        }
+
+        span {
+            flex: none;
+            width: 24px;
+            height: 24px;
+            margin-top: 4px;
+            border-radius: 50%;
+            border: 1.5px solid currentColor;
+            padding: 4px;
+        }
+    }
+
+    .cr-clocks {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+        margin-top: 28px;
+    }
+
+    .cr-clock {
+        border-radius: 18px;
+        padding: 26px 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .cr-clock-ico {
+        width: 34px;
+        height: 34px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.6;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        opacity: .7;
+    }
+
+    .cr-clock-v {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+
+        b {
+            font-size: 2.1rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        small {
+            opacity: .75;
+        }
+    }
+
+    .cr-clock p {
+        margin: 0;
+        opacity: .85;
+        line-height: 1.8;
+        font-size: .92rem;
+    }
+
+    .cr-end {
+        padding-block: 48px 72px;
+    }
+
+    @media (max-width: 900px) {
+        .cr-track {
+            flex-wrap: wrap;
+            row-gap: 20px;
+        }
+
+        .cr-track li:not(:last-child)::after {
+            display: none;
+        }
+
+        .cr-clocks {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .cr-pulse i::after {
+            animation: none;
+        }
+
+        .cr-stage,
+        .cr-stop-n,
+        .cr-stop-t {
+            animation: none;
+            transition: none;
+        }
+    }
+}
+
+@keyframes crPulse {
+    0% {
+        opacity: .8;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.9);
+    }
+}
+
+@keyframes crIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
