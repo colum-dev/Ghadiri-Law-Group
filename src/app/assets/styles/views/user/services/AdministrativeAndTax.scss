@@ -1,7 +1,5 @@
-// فقط چیدمان و تعامل؛ رنگ‌ها از کلاس‌های موجود AboutUs.scss/Common.scss و currentColor می‌آیند
 .tx {
 
-    /* ── یاب مهلت ── */
     .tx-notices {
         display: flex;
         flex-wrap: wrap;
@@ -79,7 +77,6 @@
         }
     }
 
-    /* ── پلکان مسیر رسیدگی ── */
     .tx-stairs {
         list-style: none;
         padding: 0;
@@ -140,7 +137,6 @@
         margin-inline-start: 64px;
     }
 
-    /* ── نمونهٔ نتیجه ── */
     .tx-result {
         display: grid;
         grid-template-columns: 1.3fr .7fr;
