@@ -1,0 +1,37 @@
+.nav {
+  position: sticky; top: 0; z-index: 40; transition: box-shadow .25s ease, background .25s ease;
+  &.nav--scrolled { box-shadow: 0 8px 24px -16px rgba(0,0,0,.35); }
+
+  .nav-logo { line-height: 0; }
+
+  .nav-link-btn { position: relative; display: inline-flex; align-items: center; gap: 6px; background: none; border: 0;
+    color: inherit; text-decoration: none; font: inherit; cursor: pointer; padding: 10px 14px; border-radius: 999px;
+    &::after { content: ''; position: absolute; inset-inline: 14px; bottom: 6px; height: 2px; background: currentColor;
+      transform: scaleX(0); transform-origin: center; transition: transform .2s ease; }
+    &:hover::after, &.is-active::after { transform: scaleX(1); }
+    &:focus-visible { outline: 3px solid currentColor; outline-offset: 2px; } }
+
+  .nav-item--dd { position: relative; }
+  .nav-caret { display: inline-flex; width: 16px; height: 16px; transition: transform .25s ease; }
+  .nav-caret.is-open { transform: rotate(180deg); }
+
+  .nav-mega { position: absolute; top: calc(100% + 12px); right: 50%; transform: translateX(50%) translateY(-6px);
+    min-width: 320px; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .2s ease, transform .2s ease; }
+  .nav-mega.is-open { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(50%) translateY(0); }
+  .nav-mega-inner { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; padding: 14px; }
+  .nav-mega-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; text-decoration: none; color: inherit; font-size: .92rem; }
+  .nav-mega-ico { width: 22px; height: 22px; flex: none; opacity: .8; }
+  .nav-mega-item.is-active { font-weight: 800; }
+  .nav-mega-all { grid-column: 1 / -1; margin-top: 6px; padding: 10px 12px; border-radius: 12px; text-align: center;
+    font-weight: 800; text-decoration: none; color: inherit; border-top: 1px dashed currentColor; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav, .nav-link-btn::after, .nav-caret, .nav-mega { transition: none; }
+  }
+
+  @media (max-width: 991px) {
+    .nav-mega { position: static; transform: none; min-width: 0; margin-top: 10px; }
+    .nav-mega.is-open { transform: none; }
+    .nav-mega-inner { grid-template-columns: 1fr; }
+  }
+}
