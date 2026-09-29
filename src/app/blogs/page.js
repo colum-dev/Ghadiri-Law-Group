@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
 import '../assets/styles/views/user/aboutUs/AboutUs.scss'
 import '../assets/styles/common/Common.scss'
-import '../assets/styles/views/user/Blogs/Blogs.scss'
+import '../assets/styles/views/user/blogs/Blogs.scss'
 import MainUserLayout from '../layouts/admin/user/MainUserLayout'
 
 const CATEGORIES = [
