@@ -1,6 +1,163 @@
-.home-hero-banner-1 {
-    background-size: cover;
-    background-position: center;
+.hb {
+    overflow: hidden;
+}
+
+.hb-media {
+    display: flex;
+    justify-content: center;
+}
+
+.hb-media-frame {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    aspect-ratio: 3 / 4;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.hb-img {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    object-fit: contain;
+    object-position: bottom;
+    filter: drop-shadow(0 24px 30px rgba(0, 0, 0, .18));
+}
+
+.hb-blob {
+    position: absolute;
+    inset: 6% 4% 0 4%;
+    z-index: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 40%, rgba(212, 162, 76, .28), rgba(212, 162, 76, 0) 70%);
+}
+
+.hb-ring {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
     width: 100%;
     height: 100%;
+    fill: none;
+    stroke: rgba(16, 26, 51, .12);
+    stroke-width: 1;
+    stroke-dasharray: 3 6;
+}
+
+.hb-ring--2 {
+    inset: 8%;
+    stroke: rgba(212, 162, 76, .35);
+    stroke-dasharray: none;
+}
+
+.hb-in {
+    animation: hbIn .6s cubic-bezier(.2, .7, .2, 1) both;
+}
+
+.hb-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    margin-bottom: 20px;
+    border: 1.5px solid rgba(16, 26, 51, .2);
+    border-radius: 999px;
+    font-size: .85rem;
+
+    i {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: currentColor;
+        opacity: .7;
+    }
+}
+
+.hb-lead {
+    max-width: 46ch;
+    opacity: .8;
+    line-height: 2;
+}
+
+.hb-ghost {
+    border: 1.5px solid rgba(16, 26, 51, .35);
+    background: transparent;
+    color: inherit;
+    transition: background .2s ease, transform .2s ease;
+
+    &:hover {
+        background: rgba(212, 162, 76, .12);
+        transform: translateY(-2px);
+    }
+
+    &:focus-visible {
+        outline: 3px solid currentColor;
+        outline-offset: 2px;
+    }
+}
+
+.hb-stats {}
+
+.hb-stat {
+    min-width: 110px;
+    padding: 4px 6px;
+}
+
+.hb-stat-v {
+    line-height: 1;
+}
+
+.hb-stat-l {
+    opacity: .75;
+    max-width: 12ch;
+}
+
+.hb-vr {
+    opacity: .3;
+    align-self: stretch;
+}
+
+@keyframes hbIn {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@media (max-width: 767px) {
+    .hb-media-frame {
+        max-width: 260px;
+        margin-bottom: 24px;
+    }
+
+    .hb-stats {
+        justify-content: center !important;
+    }
+
+    .hb-in {
+        text-align: center;
+    }
+
+    .hb-lead {
+        margin-inline: auto;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hb-in {
+        animation: none;
+    }
+
+    .hb-ghost {
+        transition: none;
+    }
 }
