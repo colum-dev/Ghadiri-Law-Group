@@ -66,9 +66,9 @@ export default function UserDesktopHeader() {
                 </Col>
 
                 <Col md={6}>
-                    {/* <nav className='nav-links d-flex align-items-center justify-content-center gap-2' aria-label='منوی اصلی' ref={wrapRef}>
+                    <nav className='nav-links d-flex align-items-center justify-content-center gap-2' aria-label='منوی اصلی' ref={wrapRef}>
                         <div className='nav-item nav-item--dd'>
-                            <button
+                            {/* <button
                                 type='button'
                                 className={`nav-link-btn glass-gold-hover fw-bold${isServicesActive || open ? ' is-active' : ''}`}
                                 aria-haspopup='true'
@@ -77,9 +77,9 @@ export default function UserDesktopHeader() {
                             >
                                 خدمات ما
                                 <span className={`nav-caret${open ? ' is-open' : ''}`} aria-hidden><Svg d='M6 9l6 6 6-6' sw={2.2} /></span>
-                            </button>
+                            </button> */}
 
-                            <div className={`nav-mega${open ? ' is-open' : ''}`} role='menu'>
+                            {/* <div className={`nav-mega${open ? ' is-open' : ''}`} role='menu'>
                                 <div className='nav-mega-inner bg-bone shadow rounded-4 border'>
                                     {SERVICES.map((s) => (
                                         <Link key={s.slug} href={`/services/${s.slug}`} role='menuitem'
@@ -92,7 +92,7 @@ export default function UserDesktopHeader() {
                                         مشاهدهٔ همهٔ خدمات <span aria-hidden>←</span>
                                     </Link>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
 
                         {LINKS.map((l) => (
@@ -101,7 +101,7 @@ export default function UserDesktopHeader() {
                                 {l.t}
                             </Link>
                         ))}
-                    </nav> */}
+                    </nav>
                 </Col>
 
                 <Col md={3} className='d-flex align-items-center justify-content-end'>
