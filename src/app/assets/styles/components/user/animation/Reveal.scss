@@ -1,0 +1,23 @@
+.ab-reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity .8s ease, transform .8s cubic-bezier(.2, .8, .2, 1);
+    transition-delay: var(--d, 0ms);
+}
+
+.ab-reveal.ab-in {
+    opacity: 1;
+    transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ab-reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
+
+.ab-grid>.ab-reveal {
+    height: 100%;
+}
