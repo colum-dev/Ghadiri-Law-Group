@@ -121,6 +121,12 @@
     align-self: stretch;
 }
 
+.hb-stat-icon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
 @keyframes hbIn {
     from {
         opacity: 0;

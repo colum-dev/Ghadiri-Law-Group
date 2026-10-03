@@ -6,6 +6,7 @@ import '../assets/styles/views/user/aboutUs/AboutUs.scss'
 import '../assets/styles/common/Common.scss'
 import '../assets/styles/views/user/blogs/Blogs.scss'
 import MainUserLayout from '../layouts/admin/user/MainUserLayout'
+import UserHomeContact from '../views/home/UserHomeContact'
 
 const CATEGORIES = [
     { key: 'all', t: 'همه' },
@@ -20,11 +21,13 @@ const CATEGORIES = [
 const ARTICLES = [
     {
         slug: 'divorce-agreement-steps', cat: 'family', title: 'طلاق توافقی چگونه و در چه مدتی انجام می‌شود؟',
-        excerpt: 'مراحل، مدارک لازم و نکاتی که پیش از مراجعه به دادگاه خانواده باید بدانید.', date: '۱۴۰۴/۰۴/۱۲', read: '۶', size: 'tall'
+        excerpt: 'مراحل، مدارک لازم و نکاتی که پیش از مراجعه به دادگاه خانواده باید بدانید.', date: '۱۴۰۴/۰۴/۱۲', read: '۶', size: 'tall',
+        author: 'سارا احمدی',
     },
     {
         slug: 'checking-property-deed', cat: 'real-estate', title: 'پیش از پرداخت بیعانه، سند را این‌طور استعلام بگیرید',
-        excerpt: 'پنج نکتهٔ ساده که از خیلی از اختلافات ملکی جلوگیری می‌کند.', date: '۱۴۰۴/۰۴/۰۵', read: '۴', size: 'wide'
+        excerpt: 'پنج نکتهٔ ساده که از خیلی از اختلافات ملکی جلوگیری می‌کند.', date: '۱۴۰۴/۰۴/۰۵', read: '۴', size: 'wide',
+        author: 'سارا احمدی',
     },
     {
         slug: 'first-hours-arrest', cat: 'criminal', title: 'ساعت‌های اول پس از بازداشت؛ چه بگوییم، چه نگوییم؟',
@@ -82,6 +85,13 @@ function Reveal({ children, delay = 0, className = '' }) {
     }, [])
     return <div ref={ref} className={`ab-reveal ${className}`} style={{ '--d': `${delay}ms` }}>{children}</div>
 }
+
+const Author = ({ name }) => (
+    <div className='ar-author'>
+        <span className='ar-author-av' aria-hidden>{name.split(' ').map((p) => p[0]).slice(0, 2).join('\u200c')}</span>
+        <span>نوشته شده توسط <b>{name}</b></span>
+    </div>
+)
 
 export default function UserArticlesPage() {
     const [cat, setCat] = useState('all')
@@ -145,6 +155,7 @@ export default function UserArticlesPage() {
                                         <svg className='ar-ico' viewBox='0 0 24 24' aria-hidden><Svg sw={0.9}>{ICONS[featured.cat]}</Svg></svg>
                                         <h2>{featured.title}</h2>
                                         <p>{featured.excerpt}</p>
+                                        <Author name={featured.author} />
                                         <div className='ar-meta'><span>{featured.date}</span><i /><span>{featured.read} دقیقه مطالعه</span></div>
                                     </Link>
                                 )}
@@ -154,6 +165,8 @@ export default function UserArticlesPage() {
                                             <span className='ar-tag'>{CAT_LABEL[a.cat]}</span>
                                             <h3>{a.title}</h3>
                                             <p>{a.excerpt}</p>
+                                            <Author name={featured.author} />
+
                                             <div className='ar-meta'><span>{a.date}</span><i /><span>{a.read} دقیقه مطالعه</span></div>
                                         </Link>
                                     </Reveal>
@@ -180,6 +193,8 @@ export default function UserArticlesPage() {
                         </div>
                     </div>
                 </section>
+
+                <UserHomeContact />
             </div>
         </MainUserLayout>
     )

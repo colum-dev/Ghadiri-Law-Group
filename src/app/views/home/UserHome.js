@@ -4,20 +4,20 @@ import UserHomeAboutUs from './UserHomeAboutUs';
 import UserHomeDeprtments from './UserHomeDeprtments';
 import UserHomeCases from './UserHomeCases';
 import UserHomeContact from './UserHomeContact';
+import UserHomeBestCases from './UserHomeBestCases';
+import UserHomeBlogs from './UserHomeBlogs';
+import UserHomeCoworkers from './UserHomeCoworkers';
 
 export default function UserHome() {
     return (
         <div>
-            <div className='bg-bone w-100'>
-                <div className='main-user-layout'>
-                <UserHomeHeroBannerOne />
-                </div>
-            </div>
-
+            <UserHomeHeroBannerOne />
             <UserHomeAboutUs />
             <UserHomeDeprtments />
-            <UserHomeCases />
+            <UserHomeBestCases />
+            <UserHomeCoworkers />
             <UserHomeContact />
+            <UserHomeBlogs />
         </div>
     )
 }
