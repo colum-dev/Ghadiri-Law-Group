@@ -15,7 +15,8 @@ export default function UserHeroBannerTertiary(props) {
         keywords = [],
         chips = [],
         stats = [],
-        icon,          
+        icon,
+        children,
     } = props
 
     return (
@@ -43,16 +44,18 @@ export default function UserHeroBannerTertiary(props) {
                         <h1 className='ab-h1'>{title}</h1>
                         <p className='ab-lead'>{description}</p>
 
-                        <div className='ab-actions'>
-                            {primaryAction && (
-                                <Link href={primaryAction.href} className='ab-btn ab-btn--gold'>
-                                    {primaryAction.label} <span aria-hidden>←</span>
-                                </Link>
-                            )}
-                            {secondaryAction && (
-                                <a href={secondaryAction.href} className='ab-btn ab-btn--ghost'>{secondaryAction.label}</a>
-                            )}
-                        </div>
+                        {(primaryAction || secondaryAction) && (
+                            <div className='ab-actions'>
+                                {primaryAction && (
+                                    <Link href={primaryAction.href} className='ab-btn ab-btn--gold'>
+                                        {primaryAction.label} <span aria-hidden>←</span>
+                                    </Link>
+                                )}
+                                {secondaryAction && (
+                                    <a href={secondaryAction.href} className='ab-btn ab-btn--ghost'>{secondaryAction.label}</a>
+                                )}
+                            </div>
+                        )}
 
                         {keywords.length > 0 && (
                             <div className='ab-keys'>
@@ -64,6 +67,8 @@ export default function UserHeroBannerTertiary(props) {
                                 ))}
                             </div>
                         )}
+
+                        {children}
                     </div>
 
                     <div className='ab-hero-art' aria-hidden>

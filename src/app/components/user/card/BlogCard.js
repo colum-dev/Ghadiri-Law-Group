@@ -1,9 +1,10 @@
 import React from 'react'
 import Link from 'next/link'
 import Svg from '@/app/components/user/common/Svg'
+import AuthorBadge from '@/app/components/user/avatar/AuthorBadge'
 
 export default function BlogCard({ article, categoryLabel, icon, featured = false }) {
-    const { slug, title, excerpt, date, read } = article
+    const { slug, title, excerpt, date, read, author } = article
     const Title = featured ? 'h2' : 'h3'
 
     return (
@@ -21,6 +22,7 @@ export default function BlogCard({ article, categoryLabel, icon, featured = fals
 
             <Title>{title}</Title>
             <p>{excerpt}</p>
+            {author && <AuthorBadge name={author} />}
             <div className='ar-meta'>
                 <span>{date}</span>
                 <i />
