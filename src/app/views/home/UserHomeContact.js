@@ -1,22 +1,19 @@
 import React from 'react'
-import UserContactUsComponent from '../contactUs/UserContactUsComponent'
-import '../../assets/styles/views/user/contactUs/ContactUs.scss'
+import UserContactCtaContainer from '@/app/components/user/container/UserContactCtaContainer'
+import { CONTACT, MARQUEE_WORDS } from '@/app/data/contact'
+import { SERVICES } from '@/app/data/services'
+
+const DEPARTMENTS = SERVICES.map((s) => s.title)
 
 export default function UserHomeContact() {
-
-  const Svg = ({ children, sw = 1.7 }) => (
-    <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth={sw} strokeLinecap='round' strokeLinejoin='round'>{children}</svg>
-  )
-  const DEPARTMENTS = [
-    { key: 'family', t: 'حقوق خانواده', name: 'سارا احمدی', field: 'کارشناسی ارشد حقوق خصوصی' },
-    { key: 'criminal', t: 'دعاوی کیفری', name: 'مهدی رضایی', field: 'کارشناسی ارشد حقوق جزا و جرم‌شناسی' },
-    { key: 'business', t: 'تجارت و شرکت‌ها', name: 'امیر غدیری', field: 'دکتری حقوق خصوصی' },
-    { key: 'real-estate', t: 'املاک و ثبت اسناد', name: 'نگار کریمی', field: 'کارشناسی ارشد حقوق خصوصی' },
-    { key: 'other', t: 'سایر موضوعات', name: 'تیم پذیرش', field: 'راهنمایی و ارجاع اولیه پرونده' },
-  ]
-  return (
-    <div className='ab cn' dir='rtl'>
-      <UserContactUsComponent departments={DEPARTMENTS} Svg={Svg} />
-    </div>
-  )
+    return (
+        <UserContactCtaContainer
+            contact={CONTACT}
+            words={MARQUEE_WORDS}
+            departments={DEPARTMENTS}
+            status='کنار شما، از همان اولین تماس'
+            title='پرونده‌ات را به دست‌های مطمئن بسپار'
+            subtitle='این یک متن نمونه است. یک تماس کوتاه کافی است تا مسیر پرونده‌ات روشن شود.'
+        />
+    )
 }
