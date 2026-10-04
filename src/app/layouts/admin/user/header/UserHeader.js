@@ -18,6 +18,7 @@ export const LINKS = [
     { t: 'درباره ما', href: '/about-us' },
     { t: 'بلاگ حقوقی', href: '/blogs' },
     { t: 'تماس با ما', href: '/contact-us' },
+    { t: 'سوالات متداول', href: '/faqs' },
 ]
 
 export const PHONE_DISPLAY = '۰۲۱-۱۲۳۴۵۶۷۸'
