@@ -16,6 +16,7 @@ export const SERVICES = [
 
 export const LINKS = [
     { t: 'درباره ما', href: '/about-us' },
+    { t: 'همکاران', href: '/colleagues' },
     { t: 'بلاگ حقوقی', href: '/blogs' },
     { t: 'تماس با ما', href: '/contact-us' },
     { t: 'سوالات متداول', href: '/faqs' },

@@ -24,13 +24,13 @@ export default function UserHeroBannerQuaternary({ crumb = [], title, descriptio
                         <p className='ab-lead'>{description}</p>
                     </div>
 
-                    <nav className='sv-index' aria-label={indexTitle}>
+                    {/* <nav className='sv-index' aria-label={indexTitle}>
                         {indexItems.map((item, i) => (
                             <a key={item.href} href={item.href}>
                                 <span>{digits[i]}</span><b>{item.label}</b><i aria-hidden>↓</i>
                             </a>
                         ))}
-                    </nav>
+                    </nav> */}
                 </div>
             </div>
         </section>

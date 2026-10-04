@@ -21,15 +21,18 @@ export const ARTICLES = [
     },
     {
         slug: 'first-hours-arrest', cat: 'criminal', title: 'ساعت‌های اول پس از بازداشت؛ چه بگوییم، چه نگوییم؟',
-        excerpt: 'حق سکوت، حق داشتن وکیل و اشتباهاتی که در بازجویی نباید مرتکب شد.', date: '۱۴۰۴/۰۳/۲۸', read: '۵', size: 'wide'
+        excerpt: 'حق سکوت، حق داشتن وکیل و اشتباهاتی که در بازجویی نباید مرتکب شد.', date: '۱۴۰۴/۰۳/۲۸', read: '۵', size: 'wide',
+        author: 'مهدی رضایی'
     },
     {
         slug: 'startup-shareholder-agreement', cat: 'business', title: 'چرا استارتاپ‌ها بدون قرارداد سهام شروع نمی‌کنند؟',
-        excerpt: 'نگاهی به بندهای کلیدی توافق‌نامهٔ سهام میان بنیان‌گذاران.', date: '۱۴۰۴/۰۳/۲۰', read: '۷', size: 'small'
+        excerpt: 'نگاهی به بندهای کلیدی توافق‌نامهٔ سهام میان بنیان‌گذاران.', date: '۱۴۰۴/۰۳/۲۰', read: '۷', size: 'small',
+        author: 'امیر غدیری'
     },
     {
         slug: 'contract-red-flags', cat: 'contracts', title: 'شش نشانهٔ خطر در یک قرارداد که نباید نادیده بگیرید',
-        excerpt: 'از مهلت‌های مبهم تا شرایط فسخ یک‌طرفه.', date: '۱۴۰۴/۰۳/۱۵', read: '۵', size: 'small'
+        excerpt: 'از مهلت‌های مبهم تا شرایط فسخ یک‌طرفه.', date: '۱۴۰۴/۰۳/۱۵', read: '۵', size: 'small',
+        author: 'امیر غدیری'
     },
     {
         slug: 'tax-assessment-appeal', cat: 'tax', title: 'اعتراض به برگ تشخیص مالیات؛ از کجا شروع کنیم؟',
@@ -37,15 +40,18 @@ export const ARTICLES = [
     },
     {
         slug: 'child-custody-basics', cat: 'family', title: 'حضانت فرزند بعد از طلاق؛ معیار دادگاه چیست؟',
-        excerpt: 'مصلحت کودک، سن فرزند و نحوهٔ تعیین حق ملاقات.', date: '۱۴۰۴/۰۲/۳۰', read: '۵', size: 'small'
+        excerpt: 'مصلحت کودک، سن فرزند و نحوهٔ تعیین حق ملاقات.', date: '۱۴۰۴/۰۲/۳۰', read: '۵', size: 'small',
+        author: 'سارا احمدی'
     },
     {
         slug: 'tenant-landlord-disputes', cat: 'real-estate', title: 'اختلاف مالک و مستأجر؛ ودیعه چگونه مطالبه می‌شود؟',
-        excerpt: 'مسیر قانونی استرداد ودیعه و تخلیهٔ ملک استیجاری.', date: '۱۴۰۴/۰۲/۲۲', read: '۴', size: 'small'
+        excerpt: 'مسیر قانونی استرداد ودیعه و تخلیهٔ ملک استیجاری.', date: '۱۴۰۴/۰۲/۲۲', read: '۴', size: 'small',
+        author: 'نگار کریمی'
     },
     {
         slug: 'company-types-comparison', cat: 'business', title: 'مسئولیت محدود یا سهامی خاص؛ کدام برای شما مناسب‌تر است؟',
-        excerpt: 'مقایسه‌ای کوتاه از تفاوت‌های ساختاری، سرمایه و مسئولیت.', date: '۱۴۰۴/۰۲/۱۴', read: '۶', size: 'small'
+        excerpt: 'مقایسه‌ای کوتاه از تفاوت‌های ساختاری، سرمایه و مسئولیت.', date: '۱۴۰۴/۰۲/۱۴', read: '۶', size: 'small',
+        author: 'امیر غدیری'
     },
 ]
 

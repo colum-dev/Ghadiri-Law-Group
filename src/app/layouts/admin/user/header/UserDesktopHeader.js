@@ -39,13 +39,13 @@ export default function UserDesktopHeader() {
     return (
         <header className={`nav bg-bone d-flex justify-content-center${scrolled ? ' nav--scrolled' : ''}`} dir='rtl'>
             <Row className='py-3 justify-content-center align-items-center main-user-layout w-100'>
-                <Col md={3}>
+                <Col md={2}>
                     <Link href='/' className='nav-logo d-inline-flex align-items-center' aria-label='صفحهٔ اصلی گروه حقوقی غدیری'>
                         <Image src={logoImg} width={50} height={50} alt='گروه حقوقی غدیری' priority />
                     </Link>
                 </Col>
 
-                <Col md={6}>
+                <Col md={7}>
                     <nav className='nav-links d-flex align-items-center justify-content-center gap-2' aria-label='منوی اصلی' ref={wrapRef}>
                         <div className='nav-item nav-item--dd'>
                             <button
