@@ -1,0 +1,13 @@
+.cr-result {
+    display: grid;
+    grid-template-columns: 1.3fr .7fr;
+    gap: 40px;
+    align-items: center;
+}
+
+@media (max-width: 900px) {
+    .cr-result {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+}

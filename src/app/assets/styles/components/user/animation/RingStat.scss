@@ -1,0 +1,40 @@
+.rs {
+    text-align: center;
+}
+
+.rs svg {
+    width: 100%;
+    max-width: 220px;
+    transform: rotate(-90deg);
+}
+
+.rs-track {
+    fill: none;
+    stroke: rgba(128, 128, 128, .18);
+    stroke-width: 12;
+}
+
+.rs-fill {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 12;
+    stroke-linecap: round;
+    transition: stroke-dashoffset .3s ease;
+}
+
+.rs-v {
+    font-size: 2rem;
+    font-weight: 900;
+    margin-top: -70px;
+}
+
+.rs-l {
+    margin-top: 74px;
+    opacity: .8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .rs-fill {
+        transition: none;
+    }
+}
