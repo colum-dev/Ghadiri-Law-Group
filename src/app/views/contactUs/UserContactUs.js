@@ -39,7 +39,7 @@ const Svg = ({ children, sw = 1.7 }) => (
 )
 const MSG = 'M4 5h16v11H8l-4 4V5z'
 
-export default function UserAboutUs() {
+export default function UserContactUs() {
     const [dep, setDep] = useState(0)
     const [form, setForm] = useState({ name: '', phone: '', message: '' })
     const [sent, setSent] = useState(false)

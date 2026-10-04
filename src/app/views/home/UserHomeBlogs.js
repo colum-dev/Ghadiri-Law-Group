@@ -1,11 +1,12 @@
 'use client'
 
-import React, { useEffect, useMemo, useRef, useState } from 'react'
-import Link from 'next/link'
-import '../../assets/styles/views/user/aboutUs/AboutUs.scss'
+import { useMemo, useState } from 'react'
 import '../../assets/styles/common/Common.scss'
+import '../../assets/styles/views/user/aboutUs/AboutUs.scss'
 import '../../assets/styles/views/user/blogs/Blogs.scss'
-import MainUserLayout from '../../layouts/admin/user/MainUserLayout'
+import Reveal from '@/app/components/user/animation/Reveal'
+import BlogCard from '@/app/components/user/card/BlogCard'
+import ChipCard from '@/app/components/user/card/ChipCard'
 
 const CATEGORIES = [
     { key: 'all', t: 'همه' },
@@ -66,43 +67,32 @@ const ICONS = {
 }
 const CAT_LABEL = Object.fromEntries(CATEGORIES.map((c) => [c.key, c.t]))
 
-const Svg = ({ children, sw = 1.7 }) => (
-    <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth={sw} strokeLinecap='round' strokeLinejoin='round'>{children}</svg>
-)
-const BOOK = 'M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5v-15z M20 18H6.5A2.5 2.5 0 0 0 4 20.5'
 
-function Reveal({ children, delay = 0, className = '' }) {
-    const ref = useRef(null)
-    useEffect(() => {
-        const el = ref.current
-        if (!el) return
-        const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { el.classList.add('ab-in'); io.disconnect() } }, { threshold: 0.1 })
-        io.observe(el)
-        return () => io.disconnect()
-    }, [])
-    return <div ref={ref} className={`ab-reveal ${className}`} style={{ '--d': `${delay}ms` }}>{children}</div>
-}
 
 export default function UserHomeBlogs() {
     const [cat, setCat] = useState('all')
     const [q, setQ] = useState('')
 
-    const list = useMemo(() => {
-        return ARTICLES.filter((a) => (cat === 'all' || a.cat === cat) && a.title.includes(q.trim()))
-    }, [cat, q])
+    const list = useMemo(
+        () => ARTICLES.filter((a) => (cat === 'all' || a.cat === cat) && a.title.includes(q.trim())),
+        [cat, q]
+    )
 
     const featured = list[0]
     const rest = list.slice(1)
 
     return (
         <div className='ab ar' dir='rtl'>
-
             <div className='main-user-layout'>
                 <section className='ar-list'>
                     <div className='ar-cats' role='tablist'>
                         {CATEGORIES.map((c) => (
-                            <button key={c.key} type='button' role='tab' aria-selected={cat === c.key}
-                                className={`ar-cat${cat === c.key ? ' is-active' : ''}`} onClick={() => setCat(c.key)}>{c.t}</button>
+                            <ChipCard
+                                key={c.key}
+                                label={c.t}
+                                active={cat === c.key}
+                                onClick={() => setCat(c.key)}
+                            />
                         ))}
                     </div>
 
@@ -111,22 +101,16 @@ export default function UserHomeBlogs() {
                     ) : (
                         <div className='ar-grid'>
                             {featured && (
-                                <Link href={`/articles/${featured.slug}`} className='ar-card ar-card--feat hover-to-background-navy bg-bone border border-1'>
-                                    <span className='ar-tag'>{CAT_LABEL[featured.cat]}</span>
-                                    <svg className='ar-ico' viewBox='0 0 24 24' aria-hidden><Svg sw={0.9}>{ICONS[featured.cat]}</Svg></svg>
-                                    <h2>{featured.title}</h2>
-                                    <p>{featured.excerpt}</p>
-                                    <div className='ar-meta'><span>{featured.date}</span><i /><span>{featured.read} دقیقه مطالعه</span></div>
-                                </Link>
+                                <BlogCard
+                                    featured
+                                    article={featured}
+                                    categoryLabel={CAT_LABEL[featured.cat]}
+                                    icon={ICONS[featured.cat]}
+                                />
                             )}
                             {rest.map((a, i) => (
                                 <Reveal key={a.slug} delay={i * 60} className={`ar-cell ar-cell--${a.size}`}>
-                                    <Link href={`/articles/${a.slug}`} className='ar-card hover-to-background-navy bg-bone border border-1'>
-                                        <span className='ar-tag'>{CAT_LABEL[a.cat]}</span>
-                                        <h3>{a.title}</h3>
-                                        <p>{a.excerpt}</p>
-                                        <div className='ar-meta'><span>{a.date}</span><i /><span>{a.read} دقیقه مطالعه</span></div>
-                                    </Link>
+                                    <BlogCard article={a} categoryLabel={CAT_LABEL[a.cat]} />
                                 </Reveal>
                             ))}
                         </div>

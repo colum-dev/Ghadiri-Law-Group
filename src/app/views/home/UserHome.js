@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import UserHomeHeroBannerOne from './UserHomeHeroBannerOne';
 import UserHomeAboutUs from './UserHomeAboutUs';
