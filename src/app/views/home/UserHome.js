@@ -10,10 +10,10 @@ import UserHomeBestCases from './UserHomeBestCases';
 import UserHomeBlogs from './UserHomeBlogs';
 import UserHomeCoworkers from './UserHomeCoworkers';
 
-export default function UserHome() {
+export default function UserHome({ hero }) {
     return (
         <div>
-            <UserHomeHeroBannerOne />
+            <UserHomeHeroBannerOne hero={hero} />
             <UserHomeAboutUs />
             <UserHomeDeprtments />
             <UserHomeBestCases />
