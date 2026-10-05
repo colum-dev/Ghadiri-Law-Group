@@ -1,46 +1,9 @@
 'use client'
-
-import React, { useEffect, useState } from 'react'
-import { api, ApiError } from '@/app/utilities/api'
-import { useAdminAuth } from '@/app/layouts/admin/admin/AdminAuthContext'
-
-const labels = { departments: 'دپارتمان‌ها', cases: 'پرونده‌ها', bestCases: 'پرونده‌های برتر', coworkers: 'همکاران', contact: 'تماس با ما', blogs: 'وبلاگ‌ها' }
-
-export default function AdminHomeSections() {
-    const { expire } = useAdminAuth()
-    const [content, setContent] = useState(null)
-    const [error, setError] = useState('')
-    const [notice, setNotice] = useState('')
-    const [saving, setSaving] = useState(false)
-
-    useEffect(() => {
-        api('/api/admin/home').then(setContent).catch((err) => {
-            if (err instanceof ApiError && err.status === 401) return expire()
-            setError(err.message)
-        })
-    }, [expire])
-
-    const update = (slug, key, value) => setContent((current) => ({ ...current, [slug]: { ...current[slug], [key]: value } }))
-    const submit = async (event) => {
-        event.preventDefault()
-        setSaving(true); setNotice(''); setError('')
-        try { setContent(await api('/api/admin/home', { method: 'PUT', body: content })); setNotice('تغییرات همه سکشن‌ها ذخیره شد.') }
-        catch (err) { if (err instanceof ApiError && err.status === 401) return expire(); setError(err.message) }
-        finally { setSaving(false) }
-    }
-
-    if (error) return <div className='alert alert-danger'>{error}</div>
-    if (!content) return <span className='spinner-border' role='status' aria-label='در حال بارگذاری' />
-
-    return <form onSubmit={submit} className='d-grid gap-4'>
-        <h1 className='h4 mb-0'>سکشن‌های صفحه اصلی</h1>
-        {Object.entries(labels).map(([slug, label]) => <section className='adm-card d-grid gap-3' key={slug}>
-            <h2 className='h6 mb-0'>{label}</h2>
-            <input className='form-control' value={content[slug]?.title || ''} placeholder='عنوان' onChange={(e) => update(slug, 'title', e.target.value)} />
-            <textarea className='form-control' rows={3} value={content[slug]?.subtitle || ''} placeholder='توضیح کوتاه' onChange={(e) => update(slug, 'subtitle', e.target.value)} />
-            {slug === 'contact' && <input className='form-control' value={content[slug]?.status || ''} placeholder='وضعیت' onChange={(e) => update(slug, 'status', e.target.value)} />}
-        </section>)}
-        {notice && <div className='alert alert-success'>{notice}</div>}
-        <button className='btn btn-dark align-self-start' disabled={saving}>{saving ? 'در حال ذخیره…' : 'ذخیره تغییرات'}</button>
-    </form>
-}
+import React,{useEffect,useState} from 'react'
+import {api,ApiError} from '@/app/utilities/api'
+import {useAdminAuth} from '@/app/layouts/admin/admin/AdminAuthContext'
+import ListEditor,{FieldInput} from '@/app/components/admin/ListEditor'
+import {ICON_OPTIONS} from '@/app/data/icons'
+const T=(key,label,type='text',extra={})=>({key,label,type,...extra}); const iconField=T('icon','آیکون','select',{options:ICON_OPTIONS})
+const SECTIONS=[{slug:'departments',label:'دپارتمان‌ها',fields:[T('title','عنوان'),T('subtitle','توضیحات','textarea'),T('buttonText','متن دکمه'),T('buttonLink','لینک دکمه')],lists:[{key:'items',label:'دپارتمان‌ها',newItem:{title:'',text:'',icon:'family'},fields:[T('title','نام دپارتمان'),T('text','توضیح','textarea'),iconField]}]},{slug:'bestCases',label:'پرونده‌های برتر',fields:[T('title','عنوان'),T('subtitle','توضیحات','textarea'),T('buttonText','متن دکمه'),T('buttonLink','لینک دکمه')],lists:[{key:'items',label:'پرونده‌ها',newItem:{tag:'',title:'',result:'',statValue:'',statUnit:'',text:''},fields:[T('tag','برچسب'),T('title','عنوان'),T('result','نتیجه'),T('text','توضیح','textarea'),T('statValue','عدد آمار'),T('statUnit','واحد آمار')]}]},{slug:'cases',label:'خلاصه پرونده‌ها',fields:[T('title','عنوان'),T('subtitle','توضیحات','textarea')],lists:[{key:'items',label:'پرونده‌ها',newItem:{type:'cover',tag:'',title:'',result:'',summary:'',steps:[],icon:'family',pattern:'dots',size:'m',inv:false},fields:[T('type','نوع کارت','select',{options:[{value:'cover',label:'کاور'},{value:'quote',label:'نقل‌قول'},{value:'stat',label:'آمار'}]}),T('tag','برچسب'),T('title','عنوان'),T('result','نتیجه'),T('summary','شرح','textarea'),T('quote','نقل‌قول','textarea'),T('statValue','عدد آمار'),T('statUnit','واحد'),T('steps','مراحل','lines'),iconField]}]},{slug:'coworkers',label:'همکاران',fields:[T('title','عنوان'),T('subtitle','توضیحات','textarea'),T('principlesTitle','عنوان اصول'),T('principlesSubtitle','زیرعنوان اصول'),T('reasonsTitle','عنوان چرا ما'),T('reasonsSubtitle','توضیح چرا ما','textarea')],lists:[{key:'team',label:'اعضای تیم',newItem:{name:'',field:'',edu:'',photo:null},fields:[T('name','نام'),T('field','حوزه'),T('edu','تحصیلات'),T('photo','عکس','image')]},{key:'principles',label:'اصول',newItem:{title:'',text:''},fields:[T('title','عنوان'),T('text','متن','textarea')]},{key:'reasons',label:'چرا ما',newItem:{title:'',text:'',icon:'scale'},fields:[T('title','عنوان'),T('text','متن','textarea'),iconField]}]},{slug:'contact',label:'تماس با ما',fields:[T('status','وضعیت'),T('title','عنوان'),T('subtitle','توضیحات','textarea'),T('marqueeWords','کلمات متحرک','lines')],lists:[]},{slug:'blogs',label:'وبلاگ‌ها',fields:[T('title','عنوان'),T('subtitle','توضیحات','textarea')],lists:[]}]
+export default function AdminHomeSections(){const {expire}=useAdminAuth();const [content,setContent]=useState(null);const [active,setActive]=useState('departments');const [error,setError]=useState('');const [notice,setNotice]=useState('');const [saving,setSaving]=useState(false);useEffect(()=>{api('/api/admin/home').then(setContent).catch(e=>{if(e instanceof ApiError&&e.status===401)return expire();setError(e.message)})},[expire]);const update=(s,k,v)=>setContent(c=>({...c,[s]:{...c[s],[k]:v}}));const submit=async e=>{e.preventDefault();setSaving(true);try{setContent(await api('/api/admin/home',{method:'PUT',body:content}));setNotice('تغییرات ذخیره شد.')}catch(e){if(e instanceof ApiError&&e.status===401)return expire();setError(e.message)}finally{setSaving(false)}};if(!content)return <div className='p-4'>{error||'در حال بارگذاری…'}</div>;const s=SECTIONS.find(x=>x.slug===active),d=content[active]||{};return <form onSubmit={submit} className='p-4' dir='rtl'><h1>سکشن‌های صفحه اصلی</h1><div className='d-flex flex-wrap gap-2 mb-4'>{SECTIONS.map(x=><button key={x.slug} type='button' onClick={()=>setActive(x.slug)} className={`btn btn-sm ${active===x.slug?'btn-dark':'btn-outline-dark'}`}>{x.label}</button>)}</div>{s.fields.map(f=><label key={f.key} className='d-block mb-3'><span className='d-block mb-1'>{f.label}</span><FieldInput field={f} value={d[f.key]} onChange={v=>update(active,f.key,v)}/></label>)}{s.lists.map(l=><ListEditor key={l.key} {...l} items={d[l.key]||[]} onChange={v=>update(active,l.key,v)}/>)}{error&&<div className='alert alert-danger'>{error}</div>}{notice&&<div className='alert alert-success'>{notice}</div>}<button type='submit' className='btn btn-success' disabled={saving}>{saving?'در حال ذخیره…':'ذخیره همه تغییرات'}</button></form>}
