@@ -10,7 +10,7 @@ import UserCaseCard from '@/app/components/user/card/UserCaseCard'
 export default function UserHomeBestCases({ content }) {
     const cases = (content?.items || []).map(({ statValue, statUnit, text, ...item }) => ({
         ...item,
-        summary: item.summary || text || '',
+        text: text || item.text || item.summary || '',
         ...(statValue ? { stat: { v: statValue, u: statUnit || '' } } : {}),
     }))
 
