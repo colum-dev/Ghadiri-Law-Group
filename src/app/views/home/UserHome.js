@@ -1,26 +1,11 @@
 'use client'
-
 import React from 'react'
-import UserHomeHeroBannerOne from './UserHomeHeroBannerOne';
-import UserHomeAboutUs from './UserHomeAboutUs';
-import UserHomeDeprtments from './UserHomeDeprtments';
-import UserHomeCases from './UserHomeCases';
-import UserHomeContact from './UserHomeContact';
-import UserHomeBestCases from './UserHomeBestCases';
-import UserHomeBlogs from './UserHomeBlogs';
-import UserHomeCoworkers from './UserHomeCoworkers';
-
-export default function UserHome({ hero, about, content = {} }) {
-    return (
-        <div>
-            <UserHomeHeroBannerOne hero={hero} />
-            <UserHomeAboutUs about={about} />
-            <UserHomeDeprtments content={content.departments} />
-            <UserHomeBestCases content={content.bestCases} />
-            <UserHomeCases content={content.cases} />
-            <UserHomeCoworkers content={content.coworkers} />
-            <UserHomeContact content={content.contact} />
-            <UserHomeBlogs content={content.blogs} />
-        </div>
-    )
-}
+import UserHomeHeroBannerOne from './UserHomeHeroBannerOne'
+import UserHomeAboutUs from './UserHomeAboutUs'
+import UserHomeDeprtments from './UserHomeDeprtments'
+import UserHomeCases from './UserHomeCases'
+import UserHomeContact from './UserHomeContact'
+import UserHomeBestCases from './UserHomeBestCases'
+import UserHomeBlogs from './UserHomeBlogs'
+import UserHomeCoworkers from './UserHomeCoworkers'
+export default function UserHome({ hero, about, content = {} }) { return <div><UserHomeHeroBannerOne hero={hero} /><UserHomeAboutUs about={about} /><UserHomeDeprtments content={content.departments} /><UserHomeBestCases content={content.bestCases} /><UserHomeCases content={content.cases} /><UserHomeCoworkers content={content.coworkers} /><UserHomeContact content={content.contact} departments={content.departments?.items} /><UserHomeBlogs content={content.blogs} /></div> }
