@@ -13,7 +13,7 @@ export default function AdminBanners() {
     const load = useCallback(async () => {
         try {
             setError('')
-            setBanners(await api('/api/admin/hero'))
+            setBanners(await api('/api/admin/heroes'))
         } catch (err) {
             if (err instanceof ApiError && err.status === 401) return expire()
             setError(err.message)
@@ -38,8 +38,10 @@ export default function AdminBanners() {
                         <div className='col-md-6 col-xl-4' key={banner.slug}>
                             <div className='adm-card h-100 d-flex flex-column gap-3'>
                                 <div className='d-flex align-items-center gap-3'>
-                                    <div className='adm-img-box adm-img--compact'>
-                                        {banner.imageUrl && <img src={banner.imageUrl} alt={banner.imageAlt || banner.title} />}
+                                    <div className='adm-img--compact'>
+                                        <div className='adm-img-box'>
+                                            {banner.imageUrl && <img src={banner.imageUrl} alt={banner.imageAlt || banner.title} />}
+                                        </div>
                                     </div>
                                     <div className='min-w-0'>
                                         <h2 className='h6 mb-1'>{banner.title || banner.slug}</h2>
