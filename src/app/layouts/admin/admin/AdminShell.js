@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import '../../../assets/styles/layouts/admin/Admin.scss'
 import { AdminAuthProvider, useAdminAuth } from './AdminAuthContext'
+import '../../../assets/styles/common/Common.scss'
 
 const NAV_GROUPS = [
     {
