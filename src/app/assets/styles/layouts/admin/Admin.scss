@@ -15,6 +15,10 @@
   .adm-side { width: 240px; flex: none; background: var(--dark-navy, #0b1b3a); color: #fff; padding: 1.25rem 1rem;
     display: flex; flex-direction: column; gap: 1.25rem; position: sticky; top: 0; height: 100vh; }
   .adm-brand { font-weight: 800; font-size: 1.1rem; padding-inline: .5rem; }
+  .adm-nav { display: grid; gap: .9rem; }
+  .adm-nav-group { display: grid; gap: .25rem; }
+  .adm-nav-title { color: #fff; font-weight: 700; padding: .6rem .75rem .35rem; }
+  .adm-sub-link { padding-inline-start: 1.5rem; font-size: .95rem; }
   .adm-link { display: block; padding: .6rem .75rem; border-radius: 10px; color: rgba(255, 255, 255, .8); text-decoration: none;
     &:hover { background: rgba(255, 255, 255, .08); color: #fff; }
     &.is-active { background: rgba(255, 255, 255, .15); color: #fff; font-weight: 700; } }
