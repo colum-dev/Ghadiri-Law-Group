@@ -10,7 +10,10 @@ import '../../../assets/styles/common/Common.scss'
 const NAV_GROUPS = [
     {
         title: 'تغییر محتوای وبسایت',
-        items: [{ t: 'بنرها', href: '/admin/banners' }],
+        items: [
+            { t: 'بنرها', href: '/admin/banners' },
+            { t: 'دربارهٔ ما', href: '/admin/about-us' },
+        ],
     },
 ]
 
