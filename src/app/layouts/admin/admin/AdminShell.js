@@ -14,6 +14,8 @@ const HOME_ITEMS=[
  {t:'پرونده‌های برتر',href:'/admin/home/best-cases'},
  {t:'خلاصه پرونده‌ها',href:'/admin/home/cases'},
  {t:'همکاران',href:'/admin/home/coworkers'},
+ {t:'اصول',href:'/admin/home/principles'},
+ {t:'چرا ما',href:'/admin/home/reasons'},
  {t:'تماس با ما',href:'/admin/home/contact'},
  {t:'وبلاگ‌ها',href:'/admin/home/blogs'},
  {t:'دربارهٔ ما',href:'/admin/about-us'},
