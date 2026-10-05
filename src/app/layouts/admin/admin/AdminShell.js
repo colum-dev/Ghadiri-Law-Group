@@ -16,7 +16,6 @@ const HOME_ITEMS=[
  {t:'اصول',href:'/admin/home/principles'},
  {t:'چرا ما',href:'/admin/home/reasons'},
  {t:'تماس با ما',href:'/admin/home/contact'},
- {t:'وبلاگ‌ها',href:'/admin/home/blogs'},
  {t:'دربارهٔ ما',href:'/admin/about-us'},
 ]
 function Shell({children}){
