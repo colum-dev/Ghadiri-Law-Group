@@ -9,7 +9,6 @@ import '../../../assets/styles/common/Common.scss'
 const HOME_ITEMS=[
  {t:'بنر',href:'/admin/home-hero'},
  {t:'بنرهای داخلی',href:'/admin/banners'},
- {t:'توضیحات',href:'/admin/home/descriptions'},
  {t:'دپارتمان‌ها',href:'/admin/home/departments'},
  {t:'پرونده‌های برتر',href:'/admin/home/best-cases'},
  {t:'خلاصه پرونده‌ها',href:'/admin/home/cases'},
