@@ -39,7 +39,7 @@ const departments = [
 export default function UserHomeDepartments() {
   return (
     <div className='my-5 main-user-layout'>
-      <SectionTitle title='حوزه های تخصصی ما'
+      <SectionTitle title='دپارتمان ها'
         subtitle='این یک متن نمونه است. این یک متن نمونه است. این یک متن نمونه است'
       />
 
@@ -48,6 +48,15 @@ export default function UserHomeDepartments() {
           <UserDetailCardSecondary detail={d} key={i} />
         ))}
       </Row>
+
+      <div className='d-flex justify-content-center mt-5'>
+        <Link
+          href='/departments'
+          className='bg-gold color-white pb-1 pt-2 px-4 rounded-pill glass-hover-effect cursor-pointer hover-to-background-navy fw-bold shadow text-decoration-none'
+        >
+          مشاهده بیشتر <span aria-hidden>←</span>
+        </Link>
+      </div>
     </div>
   )
 }
