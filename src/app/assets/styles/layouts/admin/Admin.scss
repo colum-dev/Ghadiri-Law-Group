@@ -22,6 +22,24 @@
   .adm-link { display: block; padding: .6rem .75rem; border-radius: 10px; color: rgba(255, 255, 255, .8); text-decoration: none;
     &:hover { background: rgba(255, 255, 255, .08); color: #fff; }
     &.is-active { background: rgba(255, 255, 255, .15); color: #fff; font-weight: 700; } }
+  .adm-nav details { display: block; }
+  .adm-nav summary { list-style: none; cursor: pointer; position: relative; user-select: none; padding-inline-start: 2.25rem; }
+  .adm-nav summary::-webkit-details-marker { display: none; }
+  .adm-nav summary::before { content: '‹'; position: absolute; inset-inline-start: .75rem; top: 50%; font-size: 1.25rem; line-height: 1; transform: translateY(-50%) rotate(0deg); transition: transform .25s ease; }
+  .adm-nav details[open] > summary::before { transform: translateY(-50%) rotate(-90deg); }
+  .adm-tree-children { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .28s ease, opacity .28s ease; opacity: 0; }
+  .adm-tree-children > div { overflow: hidden; min-height: 0; }
+  .adm-nav details[open] > .adm-tree-children { grid-template-rows: 1fr; opacity: 1; }
+  .adm-tree-children .adm-link { padding-inline-start: 2.5rem; transform: translateX(8px); opacity: 0; transition: transform .25s ease, opacity .2s ease, background .2s ease; }
+  .adm-nav details[open] .adm-tree-children .adm-link { transform: translateX(0); opacity: 1; }
+  .adm-nav details[open] .adm-tree-children .adm-link:nth-child(2) { transition-delay: .02s; }
+  .adm-nav details[open] .adm-tree-children .adm-link:nth-child(3) { transition-delay: .04s; }
+  .adm-nav details[open] .adm-tree-children .adm-link:nth-child(4) { transition-delay: .06s; }
+  .adm-nav details[open] .adm-tree-children .adm-link:nth-child(5) { transition-delay: .08s; }
+  .adm-nav details[open] .adm-tree-children .adm-link:nth-child(6) { transition-delay: .1s; }
+  .adm-nav details[open] .adm-tree-children .adm-link:nth-child(7) { transition-delay: .12s; }
+  .adm-nav details[open] .adm-tree-children .adm-link:nth-child(8) { transition-delay: .14s; }
+  .adm-nav details[open] .adm-tree-children .adm-link:nth-child(9) { transition-delay: .16s; }
   .adm-side-foot { margin-top: auto; display: grid; gap: .6rem; }
   .adm-user { font-size: .85rem; opacity: .7; padding-inline: .75rem; }
 
@@ -34,6 +52,10 @@
   .adm-stat { border: 1px solid rgba(0, 0, 0, .1); border-radius: 12px; padding: .9rem; background: #fcfcfd; }
 
   .adm-preview { border: 1px solid rgba(0, 0, 0, .1); border-radius: 14px; overflow: hidden; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .adm-tree-children, .adm-tree-children .adm-link, .adm-nav summary::before { transition: none; }
+  }
 
   @media (max-width: 860px) {
     flex-direction: column;
