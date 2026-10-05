@@ -6,9 +6,11 @@ import { usePathname, useRouter } from 'next/navigation'
 import '../../../assets/styles/layouts/admin/Admin.scss'
 import { AdminAuthProvider, useAdminAuth } from './AdminAuthContext'
 
-const NAV = [
-    { t: 'داشبورد', href: '/admin' },
-    { t: 'بنر صفحهٔ اول', href: '/admin/home-hero' },
+const NAV_GROUPS = [
+    {
+        title: 'تغییر محتوای وبسایت',
+        items: [{ t: 'بنرها', href: '/admin/banners' }],
+    },
 ]
 
 function Shell({ children }) {
@@ -32,10 +34,15 @@ function Shell({ children }) {
         <div className='adm yekan-bakh-bold' dir='rtl'>
             <aside className='adm-side'>
                 <div className='adm-brand'>پنل مدیریت</div>
-                <nav aria-label='منوی مدیریت'>
-                    {NAV.map((n) => (
-                        <Link key={n.href} href={n.href}
-                            className={`adm-link${pathname === n.href ? ' is-active' : ''}`}>{n.t}</Link>
+                <nav aria-label='منوی مدیریت' className='adm-nav'>
+                    {NAV_GROUPS.map((group) => (
+                        <div className='adm-nav-group' key={group.title}>
+                            <div className='adm-nav-title'>{group.title}</div>
+                            {group.items.map((item) => (
+                                <Link key={item.href} href={item.href}
+                                    className={`adm-link adm-sub-link${pathname.startsWith(item.href) ? ' is-active' : ''}`}>{item.t}</Link>
+                            ))}
+                        </div>
                     ))}
                 </nav>
                 <div className='adm-side-foot'>
