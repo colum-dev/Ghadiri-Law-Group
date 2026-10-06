@@ -1,94 +1,12 @@
 'use client'
-
-import React, { useEffect, useMemo, useState } from 'react'
-import { api, ApiError } from '@/app/utilities/api'
-import { useAdminAuth } from '@/app/layouts/admin/admin/AdminAuthContext'
+import React,{useEffect,useState} from 'react'
+import {api,ApiError} from '@/app/utilities/api'
+import {useAdminAuth} from '@/app/layouts/admin/admin/AdminAuthContext'
 import ImageUploadField from '@/app/components/admin/ImageUploadField'
-
-const toForm = (data) => ({
-    title: data.title,
-    imageAlt: data.imageAlt || '',
-    image: data.imagePath ? { path: data.imagePath, url: data.imageUrl, width: data.imageWidth, height: data.imageHeight } : null,
-    descriptions: data.descriptions?.length ? data.descriptions.map((item) => item.description) : [''],
-})
-
-const toPayload = (form) => ({
-    title: form.title,
-    imageAlt: form.imageAlt,
-    imagePath: form.image?.path ?? null,
-    descriptions: form.descriptions.map((description) => ({ description })),
-})
-
-export default function AdminAboutUs() {
-    const { expire } = useAdminAuth()
-    const [form, setForm] = useState(null)
-    const [saved, setSaved] = useState('')
-    const [error, setError] = useState('')
-    const [notice, setNotice] = useState('')
-    const [saving, setSaving] = useState(false)
-
-    useEffect(() => {
-        api('/api/admin/about')
-            .then((data) => {
-                const next = toForm(data)
-                setForm(next)
-                setSaved(JSON.stringify(toPayload(next)))
-            })
-            .catch((err) => {
-                if (err instanceof ApiError && err.status === 401) return expire()
-                setError(err.message)
-            })
-    }, [expire])
-
-    const dirty = useMemo(() => form && JSON.stringify(toPayload(form)) !== saved, [form, saved])
-    const update = (patch) => { setNotice(''); setForm((current) => ({ ...current, ...patch })) }
-    const updateDescription = (index, value) => update({ descriptions: form.descriptions.map((item, i) => i === index ? value : item) })
-
-    const submit = async (event) => {
-        event.preventDefault()
-        setSaving(true)
-        setError('')
-        setNotice('')
-        try {
-            const data = await api('/api/admin/about', { method: 'PUT', body: toPayload(form) })
-            const next = toForm(data)
-            setForm(next)
-            setSaved(JSON.stringify(toPayload(next)))
-            setNotice('تغییرات دربارهٔ ما ذخیره شد.')
-        } catch (err) {
-            if (err instanceof ApiError && err.status === 401) return expire()
-            setError(err.message)
-        } finally {
-            setSaving(false)
-        }
-    }
-
-    if (error) return <div className='alert alert-danger'>{error}</div>
-    if (!form) return <span className='spinner-border' role='status' aria-label='در حال بارگذاری' />
-
-    return (
-        <div>
-            <h1 className='h4 mb-4'>دربارهٔ ما</h1>
-            <form onSubmit={submit} className='adm-card d-grid gap-4'>
-                <div>
-                    <label className='form-label' htmlFor='about-title'>عنوان</label>
-                    <input id='about-title' className='form-control' value={form.title} maxLength={255} required onChange={(e) => update({ title: e.target.value })} />
-                </div>
-                <div>
-                    <label className='form-label'>توضیحات</label>
-                    {form.descriptions.map((description, index) => (
-                        <textarea key={index} className='form-control mb-2' rows={3} maxLength={5000} required value={description} onChange={(e) => updateDescription(index, e.target.value)} />
-                    ))}
-                    {form.descriptions.length < 20 && <button type='button' className='btn btn-outline-secondary btn-sm' onClick={() => update({ descriptions: [...form.descriptions, ''] })}>افزودن پاراگراف</button>}
-                </div>
-                <div>
-                    <ImageUploadField label='تصویر دربارهٔ ما' value={form.image} onChange={(image) => update({ image })} onError={setError} help='PNG، JPG یا WebP تا ۳ مگابایت.' />
-                    <label className='form-label mt-3' htmlFor='about-alt'>متن جایگزین تصویر</label>
-                    <input id='about-alt' className='form-control' value={form.imageAlt} maxLength={255} onChange={(e) => update({ imageAlt: e.target.value })} />
-                </div>
-                {notice && <div className='alert alert-success'>{notice}</div>}
-                <button type='submit' className='btn btn-dark align-self-start' disabled={saving || !dirty}>{saving ? 'در حال ذخیره…' : 'ذخیرهٔ تغییرات'}</button>
-            </form>
-        </div>
-    )
-}
+import ListEditor from '@/app/components/admin/ListEditor'
+const F=(key,label,type='text')=>({key,label,type})
+const empty={hero:{badge:'',title:'',description:'',primaryLabel:'',primaryLink:'',secondaryLabel:'',secondaryLink:'',keywords:[]},policiesTitle:'',policiesSubtitle:'',policies:[],ethicsTitle:'',ethicsSubtitle:'',ethics:[],ethicsQuote:'',teamTitle:'',teamSubtitle:'',team:[],principlesTitle:'',principlesSubtitle:'',principles:[],reasonsTitle:'',reasonsSubtitle:'',reasons:[],casesTitle:'',casesSubtitle:'',cases:[],reviewsTitle:'',reviewsSubtitle:'',reviews:[],stats:[]}
+const toForm=d=>({...empty,...(d.page||{}),hero:{...empty.hero,...(d.page?.hero||{})},title:d.title||'',imageAlt:d.imageAlt||'',image:d.imagePath?{path:d.imagePath,url:d.imageUrl,width:d.imageWidth,height:d.imageHeight}:null,descriptions:d.descriptions?.map(x=>x.description)||['']})
+const payload=f=>({title:f.title,imageAlt:f.imageAlt,imagePath:f.image?.path||null,descriptions:f.descriptions.map(description=>({description})),page:{...f, image:undefined, title:undefined, imageAlt:undefined, descriptions:undefined}})
+const fields={policy:[F('title','عنوان'),F('short','خلاصه','textarea'),F('heading','عنوان جزئیات'),F('text','متن','textarea'),F('practice','رویه','textarea'),F('points','نکات (هر خط یکی)','lines')],reason:[F('title','عنوان'),F('text','متن','textarea'),F('icon','کلید آیکون')],principle:[F('title','عنوان'),F('text','متن','textarea')],team:[F('name','نام'),F('field','حوزه'),F('edu','تحصیلات'),F('photo','عکس','image')],case:[F('tag','برچسب'),F('title','عنوان'),F('result','نتیجه'),F('text','توضیح','textarea'),F('statValue','عدد'),F('statUnit','واحد')],review:[F('text','متن','textarea'),F('name','نام'),F('kind','نوع موکل')],stat:[F('to','عدد','number'),F('suffix','پسوند'),F('label','عنوان')]}
+export default function AdminAboutUs(){const {expire}=useAdminAuth();const [form,setForm]=useState(null);const [error,setError]=useState('');const [notice,setNotice]=useState('');const [saving,setSaving]=useState(false);useEffect(()=>{api('/api/admin/about').then(d=>setForm(toForm(d))).catch(e=>{if(e instanceof ApiError&&e.status===401)return expire();setError(e.message)})},[expire]);const update=(k,v)=>setForm(f=>({...f,[k]:v}));const updateHero=(k,v)=>setForm(f=>({...f,hero:{...f.hero,[k]:v}}));const save=async e=>{e.preventDefault();setSaving(true);setError('');try{setForm(toForm(await api('/api/admin/about',{method:'PUT',body:payload(form)})));setNotice('تغییرات درباره ما ذخیره شد.')}catch(e){setError(e.message)}finally{setSaving(false)}};if(error)return <div className='alert alert-danger'>{error}</div>;if(!form)return <div className='p-4'>در حال بارگذاری…</div>;const list=(key,label,newItem,fs)=><ListEditor label={label} items={form[key]||[]} fields={fs} newItem={newItem} onChange={v=>update(key,v)}/>;return <form onSubmit={save} className='p-4 d-grid gap-3' dir='rtl'><h1 className='h4'>ویرایش کامل درباره ما</h1><div className='adm-card d-grid gap-3'><label>عنوان اصلی<input className='form-control' value={form.title} onChange={e=>update('title',e.target.value)}/></label><label>متن جایگزین تصویر<input className='form-control' value={form.imageAlt} onChange={e=>update('imageAlt',e.target.value)}/></label><ImageUploadField label='تصویر' value={form.image} onChange={image=>update('image',image)} onError={setError}/><label>توضیحات اصلی{form.descriptions.map((x,i)=><textarea key={i} className='form-control mb-2' rows={3} value={x} onChange={e=>update('descriptions',form.descriptions.map((v,j)=>j===i?e.target.value:v))}/>) }<button type='button' className='btn btn-outline-secondary btn-sm' onClick={()=>update('descriptions',[...form.descriptions,''])}>افزودن پاراگراف</button></label></div><div className='adm-card d-grid gap-3'><h2 className='h5'>بنر درباره ما</h2>{['badge','title','description','primaryLabel','primaryLink','secondaryLabel','secondaryLink'].map(k=><label key={k}>{k}<input className='form-control' value={form.hero[k]||''} onChange={e=>updateHero(k,e.target.value)}/></label>)}<label>کلمات کلیدی (هر خط یکی)<textarea className='form-control' value={(form.hero.keywords||[]).join('\n')} onChange={e=>updateHero('keywords',e.target.value.split('\n'))}/></label></div>{list('policies','خط‌مشی‌ها',{title:'',short:'',heading:'',text:'',practice:'',points:[]},fields.policy)}<div className='adm-card d-grid gap-3'><label>عنوان تعهدات<input className='form-control' value={form.ethicsTitle} onChange={e=>update('ethicsTitle',e.target.value)}/></label><label>توضیحات تعهدات<textarea className='form-control' value={form.ethicsSubtitle} onChange={e=>update('ethicsSubtitle',e.target.value)}/></label><label>نقل‌قول<textarea className='form-control' value={form.ethicsQuote} onChange={e=>update('ethicsQuote',e.target.value)}/></label><label>تعهدات، هر خط یکی<textarea className='form-control' value={(form.ethics||[]).join('\n')} onChange={e=>update('ethics',e.target.value.split('\n'))}/></label></div><div className='adm-card d-grid gap-3'><label>عنوان تیم<input className='form-control' value={form.teamTitle} onChange={e=>update('teamTitle',e.target.value)}/></label><label>توضیحات تیم<textarea className='form-control' value={form.teamSubtitle} onChange={e=>update('teamSubtitle',e.target.value)}/></label></div>{list('team','اعضای تیم',{name:'',field:'',edu:'',photo:null},fields.team)}<div className='adm-card d-grid gap-3'><label>عنوان اصول<input className='form-control' value={form.principlesTitle} onChange={e=>update('principlesTitle',e.target.value)}/></label><label>زیرعنوان اصول<textarea className='form-control' value={form.principlesSubtitle} onChange={e=>update('principlesSubtitle',e.target.value)}/></label></div>{list('principles','اصول',{title:'',text:''},fields.principle)}<div className='adm-card d-grid gap-3'><label>عنوان چرا ما<input className='form-control' value={form.reasonsTitle} onChange={e=>update('reasonsTitle',e.target.value)}/></label><label>توضیحات چرا ما<textarea className='form-control' value={form.reasonsSubtitle} onChange={e=>update('reasonsSubtitle',e.target.value)}/></label></div>{list('reasons','دلایل انتخاب ما',{title:'',text:'',icon:''},fields.reason)}<div className='adm-card d-grid gap-3'><label>عنوان پرونده‌ها<input className='form-control' value={form.casesTitle} onChange={e=>update('casesTitle',e.target.value)}/></label><label>توضیحات پرونده‌ها<textarea className='form-control' value={form.casesSubtitle} onChange={e=>update('casesSubtitle',e.target.value)}/></label></div>{list('cases','پرونده‌ها',{tag:'',title:'',result:'',text:'',statValue:'',statUnit:''},fields.case)}<div className='adm-card d-grid gap-3'><label>عنوان نظرات<input className='form-control' value={form.reviewsTitle} onChange={e=>update('reviewsTitle',e.target.value)}/></label><label>توضیحات نظرات<textarea className='form-control' value={form.reviewsSubtitle} onChange={e=>update('reviewsSubtitle',e.target.value)}/></label></div>{list('reviews','نظرات موکلان',{text:'',name:'',kind:''},fields.review)}{list('stats','آمار',{to:0,suffix:'',label:''},fields.stat)}{notice&&<div className='alert alert-success'>{notice}</div>}<button className='btn btn-success' disabled={saving}>{saving?'در حال ذخیره…':'ذخیره تغییرات'}</button></form>}
