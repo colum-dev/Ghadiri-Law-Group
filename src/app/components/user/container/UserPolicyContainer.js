@@ -8,8 +8,12 @@ import Svg from '../common/Svg'
 const DIGITS = ['۰۱', '۰۲', '۰۳', '۰۴', '۰۵', '۰۶']
 
 export default function UserPolicyContainer({ title, subtitle, policies }) {
+    const items = Array.isArray(policies) ? policies.filter(Boolean) : []
     const [pol, setPol] = useState(0)
-    const P = policies[pol]
+    const P = items[pol]
+
+    // صفحهٔ قدیمی/نیمه‌پر نباید کل build سایت را منفجر کند.
+    if (!P) return null
 
     return (
         <div className='main-user-layout'>
