@@ -1,0 +1,16 @@
+'use client'
+import React from 'react'
+import '../../assets/styles/views/user/aboutUs/AboutUs.scss'
+import '../../assets/styles/common/Common.scss'
+import '../../assets/styles/views/user/blogs/Blogs.scss'
+import '../../assets/styles/views/user/blogs/Article.scss'
+import '../../assets/styles/common/ArticleBody.scss'
+import MainUserLayout from '../../layouts/admin/user/MainUserLayout'
+import UserHeroBannerTertiary from '@/app/components/user/banner/UserHeroBannerTertiary'
+import BlogCard from '@/app/components/user/card/BlogCard'
+import ArticleToc from '@/app/components/user/blog/ArticleToc'
+import UserNewsletterContainer from '@/app/components/user/container/UserNewsletterContainer'
+import UserHomeContact from '../home/UserHomeContact'
+import {CATEGORIES,ICONS} from '@/app/data/blogs'
+const labels=Object.fromEntries(CATEGORIES.map(c=>[c.key,c.t]))
+export default function UserArticle({article,related=[]}){const {title,excerpt,category,author,dateLabel,readLabel,coverUrl,coverImage,contentHtml,toc=[]}=article;return <MainUserLayout><div className='ab ar art' dir='rtl'><UserHeroBannerTertiary crumb={[{label:'خانه',href:'/'},{label:'مقالات',href:'/blogs'},{label:title}]} badge={labels[category]||'مقاله'} title={title} description={excerpt} icon={ICONS[category]}><div className='art-meta'><span>{author||'گروه حقوقی غدیری'}</span><span>{dateLabel}</span><i/><span>{readLabel} دقیقه مطالعه</span></div></UserHeroBannerTertiary><div className='main-user-layout'>{coverUrl&&<figure className='art-cover'><img src={coverUrl} width={coverImage?.width||undefined} height={coverImage?.height||undefined} alt={coverImage?.alt||title}/></figure>}<div className={`art-layout${toc.length>=2?'':' art-layout--single'}`}>{toc.length>=2&&<aside className='art-aside'><ArticleToc items={toc}/></aside>}<div className='art-body article-body' dangerouslySetInnerHTML={{__html:contentHtml}}/></div>{related.length>0&&<section className='art-related'><h2>مقالات مرتبط</h2><div className='art-related-grid'>{related.map(a=><BlogCard key={a.slug} article={a} categoryLabel={labels[a.cat]}/>)}</div></section>}</div><UserNewsletterContainer/><UserHomeContact/></div></MainUserLayout>}

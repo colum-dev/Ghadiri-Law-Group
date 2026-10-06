@@ -1,0 +1,5 @@
+'use client'
+import React,{useEffect,useState} from 'react'
+import Link from 'next/link'
+import {api} from '../../utilities/api'
+export default function Page(){const [posts,setPosts]=useState([]);useEffect(()=>{api('/api/admin/blog-posts').then(setPosts).catch(()=>{})},[]);return <div className='p-4' dir='rtl'><div className='d-flex justify-content-between align-items-center mb-3'><h1 className='h4'>مقالات بلاگ</h1><Link className='btn btn-success' href='/admin/blog/new'>+ مقاله جدید</Link></div><div className='adm-card p-0 overflow-auto'><table className='table align-middle mb-0'><thead><tr><th>عنوان</th><th>دسته</th><th>وضعیت</th><th/></tr></thead><tbody>{posts.map(p=><tr key={p.id}><td><Link href={`/admin/blog/${p.id}`}>{p.title}</Link><div className='small text-secondary' dir='ltr'>/articles/{p.slug}</div></td><td>{p.category}</td><td>{p.status==='published'?'منتشرشده':'پیش‌نویس'}</td><td><Link className='btn btn-sm btn-outline-dark' href={`/admin/blog/${p.id}`}>ویرایش</Link></td></tr>)}</tbody></table>{!posts.length&&<div className='p-4 text-secondary'>هنوز مقاله‌ای وجود ندارد.</div>}</div></div>}
