@@ -14,33 +14,16 @@ import { ARTICLES, CATEGORIES, ICONS } from '@/app/data/blogs'
 
 const BOOK_ICON = <path d='M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5v-15z M20 18H6.5A2.5 2.5 0 0 0 4 20.5' />
 
-export default function UserBlogs() {
+export default function UserBlogs({ content }) {
     const [q, setQ] = useState('')
-
-    return (
-        <MainUserLayout>
-            <div className='ab ar' dir='rtl'>
-                <UserHeroBannerTertiary
-                    crumb={[{ label: 'خانه', href: '/' }, { label: 'مقالات' }]}
-                    badge='یادداشت‌هایی از دل پرونده‌های واقعی'
-                    title={<>حقوق را <em>ساده</em> بخوانید</>}
-                    description='این یک متن نمونه است. مقالاتی کوتاه دربارهٔ سؤالاتی که موکلان بیشتر از همه از ما می‌پرسند.'
-                    icon={BOOK_ICON}
-                >
-                    <SearchInput value={q} onChange={setQ} placeholder='جست‌وجو در عنوان مقالات…' />
-                </UserHeroBannerTertiary>
-
-                <UserBlogListContainer
-                    articles={ARTICLES}
-                    categories={CATEGORIES}
-                    icons={ICONS}
-                    query={q}
-                />
-
-                <UserNewsletterContainer />
-
-                <UserHomeContact />
-            </div>
-        </MainUserLayout>
-    )
+    const hero = content?.hero || {}
+    const articles = content?.articles?.length ? content.articles : ARTICLES
+    const categories = content?.categories?.length ? content.categories : CATEGORIES
+    return <MainUserLayout><div className='ab ar' dir='rtl'>
+        <UserHeroBannerTertiary crumb={[{ label: 'خانه', href: '/' }, { label: 'مقالات' }]} badge={hero.badge || 'یادداشت‌هایی از دل پرونده‌های واقعی'} title={hero.title || <>حقوق را <em>ساده</em> بخوانید</>} description={hero.description || 'این یک متن نمونه است. مقالاتی کوتاه دربارهٔ سؤالاتی که موکلان بیشتر از همه از ما می‌پرسند.'} icon={BOOK_ICON}>
+            <SearchInput value={q} onChange={setQ} placeholder={hero.searchPlaceholder || 'جست‌وجو در عنوان مقالات…'} />
+        </UserHeroBannerTertiary>
+        <UserBlogListContainer articles={articles} categories={categories} icons={ICONS} query={q} />
+        <UserNewsletterContainer /><UserHomeContact />
+    </div></MainUserLayout>
 }

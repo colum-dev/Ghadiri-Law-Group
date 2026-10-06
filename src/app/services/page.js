@@ -1,8 +1,7 @@
-import React from 'react'
 import UserServices from '../views/services/UserServices'
+import { getPublicPage } from '../utilities/serverApi'
 
-export default function page() {
-    return (
-        <UserServices />
-    )
+export default async function Page() {
+    const result = await getPublicPage('services')
+    return <UserServices content={result?.content} />
 }

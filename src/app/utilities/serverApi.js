@@ -15,3 +15,4 @@ async function getJson(path) {
 export function getPublicHero(slug) { return getJson(`/api/public/hero/${slug}`) }
 export function getPublicAbout() { return getJson('/api/public/about') }
 export function getPublicHome() { return getJson('/api/public/home') }
+export function getPublicPage(slug) { return getJson(`/api/public/pages/${slug}`) }
