@@ -1,8 +1,7 @@
-import React from 'react'
 import UserDepartments from '../views/departments/UserDepartments'
+import { getPublicPage } from '../utilities/serverApi'
 
-export default function page() {
-    return (
-        <UserDepartments />
-    )
+export default async function Page() {
+    const result = await getPublicPage('departments')
+    return <UserDepartments content={result?.content} />
 }
