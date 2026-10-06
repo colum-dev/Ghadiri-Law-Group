@@ -57,6 +57,14 @@ function ItemList({ label, items, onChange }) {
     )
 }
 
+// داده‌های نمایشی مثل React icon و style را از payload دیتابیس حذف می‌کنیم.
+function serializable(value) {
+    if (Array.isArray(value)) return value.map(serializable)
+    if (!value || typeof value !== 'object') return value
+    if (value.$$typeof || value.type === Symbol.for('react.element')) return undefined
+    return Object.fromEntries(Object.entries(value).filter(([key]) => key !== 'icon' && key !== 's' && key !== 'Provider' && key !== 'Consumer').map(([key, item]) => [key, serializable(item)]).filter(([, item]) => item !== undefined))
+}
+
 export default function AdminServiceContent({ slug = 'services' }) {
     const { expire } = useAdminAuth()
     const config = CONFIG[slug]
@@ -70,8 +78,8 @@ export default function AdminServiceContent({ slug = 'services' }) {
             const content = result.content || {}
             setForm({
                 hero: { ...(content.hero || {}) },
-                items: content.services || content.items || SERVICES,
-                sections: Object.fromEntries((config?.sections || []).map(([key, , defaults]) => [key, content.sections?.[key] || defaults])),
+                items: (content.services || content.items || SERVICES).map(serializable),
+                sections: Object.fromEntries((config?.sections || []).map(([key, , defaults]) => [key, serializable(content.sections?.[key] || defaults)])),
                 cta: { ...(content.cta || {}) },
             })
         }).catch((err) => {
@@ -89,12 +97,12 @@ export default function AdminServiceContent({ slug = 'services' }) {
         setError('')
         setNotice('')
         try {
-            const content = { ...form, services: slug === 'services' ? form.items : undefined }
+            const content = serializable({ ...form, services: slug === 'services' ? form.items : undefined })
             await api(`/api/admin/pages/${slug}`, { method: 'PUT', body: { content } })
             setNotice('تغییرات ذخیره شد.')
         } catch (err) {
             if (err instanceof ApiError && err.status === 401) return expire()
-            setError(err.message)
+            setError(err.message || 'ذخیره‌سازی انجام نشد')
         } finally {
             setSaving(false)
         }
