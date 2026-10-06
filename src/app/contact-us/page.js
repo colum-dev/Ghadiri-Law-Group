@@ -1,7 +1,7 @@
 import UserContactUs from '../views/contactUs/UserContactUs'
+import { getPublicPage } from '../utilities/serverApi'
 
-export default function page() {
-    return (
-        <UserContactUs />
-    )
+export default async function Page() {
+    const result = await getPublicPage('contact')
+    return <UserContactUs content={result?.content} />
 }
