@@ -8,8 +8,9 @@ import UserHomeCases from './UserHomeCases'
 import UserHomeContact from './UserHomeContact'
 import UserHomeBestCases from './UserHomeBestCases'
 import UserHomeCoworkers from './UserHomeCoworkers'
+import UserHomeBlogs from './UserHomeBlogs'
 
-export default function UserHome({ hero, about, content = {} }) {
+export default function UserHome({ hero, about, content = {}, blogs = [] }) {
     return <div>
         <UserHomeHeroBannerOne hero={hero} />
         <UserHomeAboutUs about={about} />
@@ -17,6 +18,7 @@ export default function UserHome({ hero, about, content = {} }) {
         <UserHomeBestCases content={content.bestCases} />
         <UserHomeCases content={content.cases} />
         <UserHomeCoworkers content={content.coworkers} />
+        <UserHomeBlogs posts={blogs} />
         <UserHomeContact content={content.contact} departments={content.departments?.items} />
     </div>
 }
