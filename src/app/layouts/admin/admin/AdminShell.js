@@ -5,6 +5,7 @@ import {usePathname,useRouter} from 'next/navigation'
 import '../../../assets/styles/layouts/admin/Admin.scss'
 import {AdminAuthProvider,useAdminAuth} from './AdminAuthContext'
 import '../../../assets/styles/common/Common.scss'
+import { PAGE_META } from '../../../data/pageContent'
 
 const HOME_ITEMS=[
  {t:'بنر',href:'/admin/home-hero'},
@@ -19,6 +20,7 @@ const HOME_ITEMS=[
 ]
 const PAGE_ITEMS=[
  {t:'دربارهٔ ما',href:'/admin/about-us'},
+ ...PAGE_META.map((item)=>({t:item.label,href:`/admin/pages/${item.slug}`})),
 ]
 function Shell({children}){
  const {status,username,logout}=useAdminAuth(); const pathname=usePathname(); const router=useRouter(); const isLogin=pathname==='/admin/login'
@@ -26,6 +28,7 @@ function Shell({children}){
  if(status==='loading'||(status==='out'&&!isLogin)||(status==='in'&&isLogin))return <div className='adm adm-center' dir='rtl'><span className='spinner-border' role='status' aria-label='در حال بارگذاری'/></div>
  if(isLogin)return <div className='adm adm-center' dir='rtl'>{children}</div>
  const homeOpen=pathname.startsWith('/admin/home')||pathname==='/admin/home-sections'||pathname.startsWith('/admin/banners')
- return <div className='adm yekan-bakh-bold' dir='rtl'><aside className='adm-side'><div className='adm-brand'>پنل مدیریت</div><nav aria-label='منوی مدیریت' className='adm-nav'><div className='adm-nav-group'><div className='adm-nav-title'>تغییر محتوای سایت</div><details open={homeOpen}><summary className='adm-link adm-sub-link'>صفحه اصلی</summary><div className='adm-tree-children'><div>{HOME_ITEMS.map(item=><Link key={item.href} href={item.href} className={`adm-link adm-sub-link${pathname.startsWith(item.href)?' is-active':''}`}>{item.t}</Link>)}</div></div></details>{PAGE_ITEMS.map(item=><Link key={item.href} href={item.href} className={`adm-link adm-sub-link${pathname.startsWith(item.href)?' is-active':''}`}>{item.t}</Link>)}</div></nav><div className='adm-side-foot'><Link href='/' target='_blank' className='adm-link'>مشاهدهٔ سایت</Link><div className='adm-user'>{username}</div><button type='button' className='btn btn-outline-light btn-sm' onClick={logout}>خروج</button></div></aside><main className='adm-main'>{children}</main></div>
+ const pagesOpen=pathname.startsWith('/admin/pages/')
+ return <div className='adm yekan-bakh-bold' dir='rtl'><aside className='adm-side'><div className='adm-brand'>پنل مدیریت</div><nav aria-label='منوی مدیریت' className='adm-nav'><div className='adm-nav-group'><div className='adm-nav-title'>تغییر محتوای سایت</div><details open={homeOpen}><summary className='adm-link adm-sub-link'>صفحه اصلی</summary><div className='adm-tree-children'><div>{HOME_ITEMS.map(item=><Link key={item.href} href={item.href} className={`adm-link adm-sub-link${pathname.startsWith(item.href)?' is-active':''}`}>{item.t}</Link>)}</div></div></details><details open={pagesOpen}><summary className='adm-link adm-sub-link'>صفحات سایت</summary><div className='adm-tree-children'><div>{PAGE_ITEMS.map(item=><Link key={item.href} href={item.href} className={`adm-link adm-sub-link${pathname.startsWith(item.href)?' is-active':''}`}>{item.t}</Link>)}</div></div></details></div></nav><div className='adm-side-foot'><Link href='/' target='_blank' className='adm-link'>مشاهدهٔ سایت</Link><div className='adm-user'>{username}</div><button type='button' className='btn btn-outline-light btn-sm' onClick={logout}>خروج</button></div></aside><main className='adm-main'>{children}</main></div>
 }
 export default function AdminShell({children}){return <AdminAuthProvider><Shell>{children}</Shell></AdminAuthProvider>}
