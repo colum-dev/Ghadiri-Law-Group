@@ -1,63 +1,10 @@
 import React from 'react'
 import '../../assets/styles/views/user/aboutUs/AboutUs.scss'
-import '../../assets/styles/common/Common.scss'
 import MainUserLayout from '@/app/layouts/admin/user/MainUserLayout'
 import UserHeroBannerTertiary from '@/app/components/user/banner/UserHeroBannerTertiary'
-import StageTrackContainer from '@/app/components/user/container/StageTrackContainer'
-import UserPledgeContainer from '@/app/components/user/container/UserPledgeContainer'
-import ClockCardsContainer from '@/app/components/user/container/ClockCardsContainer'
 import StaticDescriptionTextContainerSecondary from '@/app/components/user/container/StaticDescriptionTextContainerSecondary'
 import UserCtaContainer from '@/app/components/user/container/UserCtaContainer'
-import { DIGITS } from '@/app/data/services'
-import { CHIPS, CLOCK, FAQ, RIGHTS, SHIELD, STAGES } from '@/app/data/criminal'
-
-export default function UserCriminalPage() {
-    return (
-        <MainUserLayout>
-            <div className='ab cr' dir='rtl'>
-                <UserHeroBannerTertiary
-                    crumb={[{ label: 'خانه', href: '/' }, { label: 'خدمات حقوقی', href: '/services' }, { label: 'دعاوی کیفری' }]}
-                    badge='خط تماس فوری، شبانه‌روزی'
-                    badgeClassName='cr-pulse'
-                    title={<>دفاع از <em>ساعت‌های اول</em></>}
-                    description='این یک متن نمونه است. در پروندهٔ کیفری، هر ساعتی که بدون وکیل می‌گذرد ممکن است جبران‌ناپذیر باشد. از همان لحظهٔ اول کنار شما هستیم.'
-                    primaryAction={{ href: '#', label: 'تماس فوری با وکیل' }}
-                    secondaryAction={{ href: '#stage', label: 'در کدام مرحله هستید؟' }}
-                    icon={<path d={SHIELD} />}
-                    chips={CHIPS}
-                />
-
-                <StageTrackContainer
-                    id='stage'
-                    title='در کدام مرحله هستید؟'
-                    subtitle='روی هر ایستگاه بزنید تا ببینید در آن مرحله چه کاری برای شما انجام می‌دهیم.'
-                    stages={STAGES}
-                    digits={DIGITS}
-                />
-
-                <UserPledgeContainer
-                    title='حقوق شما در بازداشت و بازجویی'
-                    subtitle='این یک متن نمونه است. دانستن این حقوق، اولین خط دفاع از خودتان است.'
-                    pledges={RIGHTS}
-                />
-
-                <ClockCardsContainer
-                    title='چرا ساعت‌های اول این‌قدر مهم است؟'
-                    subtitle='بازه‌های زیر نمونه‌اند و باید با مهلت‌های قانونی به‌روز جایگزین شوند.'
-                    clocks={CLOCK}
-                />
-
-                <StaticDescriptionTextContainerSecondary
-                    containerTitle='قبل از تماس، شاید بپرسید'
-                    contents={FAQ}
-                />
-
-                <UserCtaContainer
-                    title='همین حالا نیاز به وکیل دارید؟'
-                    subtitle='خط تماس فوری ما شبانه‌روزی پاسخگوی شماست.'
-                    action={{ href: '/contact-us', label: 'تماس فوری با وکیل' }}
-                />
-            </div>
-        </MainUserLayout>
-    )
-}
+import {DIGITS} from '@/app/data/services'
+import {CHIPS,FAQ,RIGHTS,STAGES,SHIELD,CLOCK} from '@/app/data/criminal'
+const titleNode=(x,f)=><>{String(x||f).split(/\{\{(.+?)\}\}/g).map((p,i)=>i%2?<em key={i}>{p}</em>:p)}</>
+export default function UserCriminalPage({content}){const h=content?.hero||{},c=content?.cta||{},s=content?.sections||{};return <MainUserLayout><div className='ab cr' dir='rtl'><UserHeroBannerTertiary crumb={[{label:'خانه',href:'/'},{label:'خدمات حقوقی',href:'/services'},{label:'دعاوی کیفری'}]} badge={h.badge||'خط تماس فوری، شبانه‌روزی'} title={titleNode(h.title,'دفاع از {{ساعت‌های اول}}')} description={h.description||'این یک متن نمونه است.'} icon={<path d={SHIELD}/>} chips={CHIPS}/><StaticDescriptionTextContainerSecondary containerTitle='مراحل پرونده' contents={s.stages||STAGES}/><StaticDescriptionTextContainerSecondary containerTitle='حقوق شما' contents={s.rights||RIGHTS.map(x=>({title:x,text:''}))}/><StaticDescriptionTextContainerSecondary containerTitle='زمان‌های مهم' contents={s.clocks||CLOCK.map(x=>({title:`${x.h} ${x.u}`,text:x.l}))}/><StaticDescriptionTextContainerSecondary containerTitle='قبل از تماس، شاید بپرسید' contents={s.faq||FAQ}/><UserCtaContainer title={c.title||'همین حالا نیاز به وکیل دارید؟'} subtitle={c.subtitle||''} action={{href:c.actionHref||'/contact-us',label:c.actionLabel||'تماس فوری با وکیل'}}/></div></MainUserLayout>}

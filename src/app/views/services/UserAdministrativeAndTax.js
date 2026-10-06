@@ -1,65 +1,9 @@
 import React from 'react'
 import '../../assets/styles/views/user/aboutUs/AboutUs.scss'
-import '../../assets/styles/common/Common.scss'
 import MainUserLayout from '../../layouts/admin/user/MainUserLayout'
 import UserHeroBannerTertiary from '@/app/components/user/banner/UserHeroBannerTertiary'
-import DeadlineFinderContainer from '@/app/components/user/container/DeadlineFinderContainer'
-import StairsContainer from '@/app/components/user/container/StairsContainer'
-import CaseResultContainer from '@/app/components/user/container/CaseResultContainer'
 import StaticDescriptionTextContainerSecondary from '@/app/components/user/container/StaticDescriptionTextContainerSecondary'
 import UserCtaContainer from '@/app/components/user/container/UserCtaContainer'
-import { DIGITS } from '@/app/data/services'
-import { CHIPS, DOC_ICON, FAQ, NOTICES, STAIRS} from '../../data/administrativeandtax';
-
-export default function UserAdministrativeAndTax() {
-    return (
-        <MainUserLayout>
-            <div className='ab' dir='rtl'>
-                <UserHeroBannerTertiary
-                    crumb={[{ label: 'خانه', href: '/' }, { label: 'خدمات حقوقی', href: '/services' }, { label: 'دعاوی اداری و مالیاتی' }]}
-                    badge='اعتراض در مهلت قانونی'
-                    title={<>برگ تشخیص گرفته‌اید؟ <em>مهلت دارید</em></>}
-                    description='این یک متن نمونه است. اعتراض به تصمیم ادارات و سازمان‌ها یک مهلت قانونی محدود دارد؛ از آن مهلت عبور نکنید.'
-                    primaryAction={{ href: '#', label: 'بررسی فوری برگه‌ام' }}
-                    secondaryAction={{ href: '#deadline', label: 'مهلت من چقدر است؟' }}
-                    icon={<path d={DOC_ICON} />}
-                    chips={CHIPS}
-                />
-
-                <DeadlineFinderContainer
-                    id='deadline'
-                    title='چه چیزی به دستتان رسیده؟'
-                    subtitle='یکی را انتخاب کنید تا مهلت نمونهٔ اعتراض و قدم بعدی را ببینید.'
-                    notices={NOTICES}
-                />
-
-                <StairsContainer
-                    title='پرونده چگونه بالا می‌رود؟'
-                    subtitle='اگر مرحلهٔ اول نتیجه ندهد، پرونده به مرجع بالاتر می‌رود.'
-                    steps={STAIRS}
-                    digits={DIGITS}
-                />
-
-                <CaseResultContainer
-                    eyebrow='نمونه پرونده'
-                    title='اعتراض به برگ تشخیص مالیات'
-                    subtitle='این یک متن نمونه است. اطلاعات موکل محرمانه است و فقط نتیجهٔ کلی نمایش داده می‌شود.'
-                    text='لایحهٔ اعتراض در مهلت قانونی تنظیم و در هیئت حل اختلاف مالیاتی دفاع شد؛ جریمهٔ مالیاتی به‌طور محسوسی کاهش یافت.'
-                    action={{ href: '#', label: 'بررسی فوری برگه‌ام' }}
-                    stat={{ to: 70, label: 'کاهش جریمهٔ مالیاتی' }}
-                />
-
-                <StaticDescriptionTextContainerSecondary
-                    containerTitle='قبل از تماس، شاید بپرسید'
-                    contents={FAQ}
-                />
-
-                <UserCtaContainer
-                    title='مهلت اعتراضتان را از دست ندهید.'
-                    subtitle='برگه یا ابلاغیهٔ خود را بفرستید تا مهلت و راه‌حل را بررسی کنیم.'
-                    action={{ href: '/contact-us', label: 'بررسی فوری برگه‌ام' }}
-                />
-            </div>
-        </MainUserLayout>
-    )
-}
+import {CHIPS,DOC_ICON,FAQ,NOTICES,STAIRS} from '@/app/data/administrativeandtax'
+const titleNode=(x,f)=><>{String(x||f).split(/\{\{(.+?)\}\}/g).map((p,i)=>i%2?<em key={i}>{p}</em>:p)}</>
+export default function UserAdministrativeAndTax({content}){const h=content?.hero||{},c=content?.cta||{},s=content?.sections||{};return <MainUserLayout><div className='ab' dir='rtl'><UserHeroBannerTertiary crumb={[{label:'خانه',href:'/'},{label:'خدمات حقوقی',href:'/services'},{label:'دعاوی اداری و مالیاتی'}]} badge={h.badge||'اعتراض در مهلت قانونی'} title={titleNode(h.title,'برگ تشخیص گرفته‌اید؟ {{مهلت دارید}}')} description={h.description||'این یک متن نمونه است.'} icon={<path d={DOC_ICON}/>} chips={CHIPS}/><StaticDescriptionTextContainerSecondary containerTitle='ابلاغیه‌ها' contents={s.notices||NOTICES}/><StaticDescriptionTextContainerSecondary containerTitle='مراحل رسیدگی' contents={s.stairs||STAIRS}/><StaticDescriptionTextContainerSecondary containerTitle='سؤالات متداول' contents={s.faq||FAQ}/><UserCtaContainer title={c.title||'مهلت اعتراضتان را از دست ندهید.'} subtitle={c.subtitle||''} action={{href:c.actionHref||'/contact-us',label:c.actionLabel||'بررسی فوری برگه‌ام'}}/></div></MainUserLayout>}
