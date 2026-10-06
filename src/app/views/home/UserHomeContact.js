@@ -1,5 +1,16 @@
 import React from 'react'
 import UserContactCtaContainer from '@/app/components/user/container/UserContactCtaContainer'
-import { CONTACT, MARQUEE_WORDS } from '@/app/data/contact'
+import { MARQUEE_WORDS } from '@/app/data/contact'
 import { SERVICES } from '@/app/data/services'
-export default function UserHomeContact({ content, departments }) { const deptTitles=departments?.length?departments.map(d=>d.title):SERVICES.map(s=>s.title); const words=content?.marqueeWords?.length?content.marqueeWords:MARQUEE_WORDS; return <UserContactCtaContainer contact={CONTACT} words={words} departments={deptTitles} status={content?.status||''} title={content?.title||''} subtitle={content?.subtitle||''}/> }
+
+export default function UserHomeContact({ content, departments }) {
+  const data = content || {}
+  const deptTitles = departments?.length ? departments.map((d) => d.title) : SERVICES.map((s) => s.title)
+  const words = data.marqueeWords?.length ? data.marqueeWords : MARQUEE_WORDS
+  const contact = {
+    phone: data.phone || '', phoneLabel: data.phoneLabel || data.phone || '', whatsapp: data.whatsapp || '',
+    email: data.email || '', address: data.address || '', hours: data.hours || '',
+  }
+  return <UserContactCtaContainer contact={contact} words={words} departments={deptTitles} endpoint={data.endpoint || ''}
+    status={data.status || ''} title={data.title || ''} subtitle={data.subtitle || ''} />
+}
