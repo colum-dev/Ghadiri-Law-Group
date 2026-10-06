@@ -1,139 +1,63 @@
 'use client'
 
-import React, { useMemo, useRef, useState } from 'react'
-import { Editor } from '@tinymce/tinymce-react'
-import 'tinymce/tinymce'
-import 'tinymce/icons/default'
-import 'tinymce/themes/silver'
-import 'tinymce/models/dom'
-import 'tinymce/plugins/advlist'
-import 'tinymce/plugins/autolink'
-import 'tinymce/plugins/code'
-import 'tinymce/plugins/codesample'
-import 'tinymce/plugins/emoticons'
-import 'tinymce/plugins/image'
-import 'tinymce/plugins/link'
-import 'tinymce/plugins/lists'
-import 'tinymce/plugins/media'
-import 'tinymce/plugins/searchreplace'
-import 'tinymce/plugins/table'
-import 'tinymce/plugins/wordcount'
+import React, { useRef, useState } from 'react'
+import { EditorContent, useEditor, useEditorState } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
+import Image from '@tiptap/extension-image'
+import TextAlign from '@tiptap/extension-text-align'
+import Highlight from '@tiptap/extension-highlight'
+import { TableKit } from '@tiptap/extension-table'
+import { CharacterCount, Placeholder } from '@tiptap/extensions'
+import FormatBold from '@mui/icons-material/FormatBold'
+import FormatItalic from '@mui/icons-material/FormatItalic'
+import FormatUnderlined from '@mui/icons-material/FormatUnderlined'
+import StrikethroughS from '@mui/icons-material/StrikethroughS'
+import BorderColor from '@mui/icons-material/BorderColor'
+import Code from '@mui/icons-material/Code'
+import DataObject from '@mui/icons-material/DataObject'
+import FormatQuote from '@mui/icons-material/FormatQuote'
+import FormatListBulleted from '@mui/icons-material/FormatListBulleted'
+import FormatListNumbered from '@mui/icons-material/FormatListNumbered'
+import HorizontalRule from '@mui/icons-material/HorizontalRule'
+import InsertLink from '@mui/icons-material/InsertLink'
+import LinkOff from '@mui/icons-material/LinkOff'
+import ImageIcon from '@mui/icons-material/Image'
+import TableChart from '@mui/icons-material/TableChart'
+import FormatAlignRight from '@mui/icons-material/FormatAlignRight'
+import FormatAlignCenter from '@mui/icons-material/FormatAlignCenter'
+import FormatAlignLeft from '@mui/icons-material/FormatAlignLeft'
+import FormatAlignJustify from '@mui/icons-material/FormatAlignJustify'
+import Undo from '@mui/icons-material/Undo'
+import Redo from '@mui/icons-material/Redo'
+import FormatClear from '@mui/icons-material/FormatClear'
 import { api, API_URL } from '@/app/utilities/api'
 import '../../assets/styles/common/ArticleBody.scss'
 import '../../assets/styles/components/admin/RichTextEditor.scss'
 
 const MAX_IMAGE = 3 * 1024 * 1024
-const PLUGINS = 'advlist autolink code codesample emoticons image link lists media searchreplace table wordcount'
-const TOOLBAR = [
-    'undo redo | blocks | bold italic underline strikethrough | forecolor backcolor',
-    'alignright aligncenter alignleft alignjustify | bullist numlist outdent indent | blockquote codesample',
-    'link image media table | hr removeformat code',
-].join(' ')
-
-function getHeadings(html) {
-    const result = []
-    const used = new Map()
-    const source = html || ''
-    source.replace(/<h([2-4])(?:\s[^>]*)?>([\s\S]*?)<\/h\1>/gi, (_match, level, raw) => {
-        const text = raw.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').trim()
-        if (!text) return _match
-        const base = text.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-|-$/g, '') || 'section'
-        const index = used.get(base) || 0
-        used.set(base, index + 1)
-        result.push({ level: Number(level), text, id: index ? `${base}-${index + 1}` : base })
-        return _match
-    })
-    return result
-}
-
-function addTocIds(html) {
-    const used = new Map()
-    return (html || '').replace(/<h([2-4])((?:\s[^>]*)?)>([\s\S]*?)<\/h\1>/gi, (match, level, attrs, inner) => {
-        const text = inner.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim()
-        if (!text) return match
-        const base = text.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-|-$/g, '') || 'section'
-        const index = used.get(base) || 0
-        used.set(base, index + 1)
-        const id = index ? `${base}-${index + 1}` : base
-        const cleaned = attrs.replace(/\s+id=(['"]).*?\1/gi, '')
-        return `<h${level}${cleaned} id="${id}">${inner}</h${level}>`
-    })
-}
+const ALIGNS = [['right', FormatAlignRight, 'راست‌چین'], ['center', FormatAlignCenter, 'وسط‌چین'], ['left', FormatAlignLeft, 'چپ‌چین'], ['justify', FormatAlignJustify, 'تراز دوطرفه']]
+const EXTENSIONS = [
+    StarterKit.configure({ heading: { levels: [2, 3, 4] }, link: { openOnClick: false, autolink: true, defaultProtocol: 'https' } }),
+    Image.configure({ allowBase64: false }),
+    TextAlign.configure({ types: ['heading', 'paragraph'], alignments: ['right', 'center', 'left', 'justify'], defaultAlignment: 'right' }),
+    Highlight,
+    TableKit.configure({ table: { resizable: false } }),
+    Placeholder.configure({ placeholder: 'متن مقاله را اینجا بنویسید… برای ساخت فهرست مطالب از تیترهای H2 و H3 استفاده کنید.' }),
+    CharacterCount,
+]
+function Btn({ icon: Icon, label, active, disabled, onClick, children }) { return <button type='button' className={`rte-btn${active ? ' is-active' : ''}${children ? ' rte-btn--text' : ''}`} title={label} aria-label={label} aria-pressed={active ?? undefined} disabled={disabled} onMouseDown={e => e.preventDefault()} onClick={onClick}>{Icon ? <Icon fontSize='small' /> : children}</button> }
+const Sep = () => <span className='rte-sep' aria-hidden />
 
 export default function RichTextEditor({ value, onChange, onError }) {
-    const editorRef = useRef(null)
+    const fileRef = useRef(null)
     const [uploading, setUploading] = useState(false)
-    const headings = useMemo(() => getHeadings(value), [value])
-
-    const uploadImage = async (blobInfo, progress) => {
-        const file = blobInfo.blob()
-        if (file.size > MAX_IMAGE) throw new Error('حجم تصویر نباید بیشتر از ۳ مگابایت باشد')
-        setUploading(true)
-        try {
-            const formData = new FormData()
-            formData.append('file', file, blobInfo.filename())
-            const uploaded = await api('/api/admin/uploads', { method: 'POST', formData })
-            progress?.(100)
-            return `${API_URL}${uploaded.path}`
-        } catch (error) {
-            onError?.(error.message)
-            throw error
-        } finally {
-            setUploading(false)
-        }
-    }
-
-    const focusHeading = (heading) => {
-        const editor = editorRef.current
-        if (!editor) return
-        const node = editor.getBody().querySelector(`#${CSS.escape(heading.id)}`)
-        node?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-        if (node) editor.selection.select(node, true)
-    }
-
-    return (
-        <div className='rte-wrap rte-wrap--tinymce'>
-            <div className='rte rte--tinymce'>
-                <Editor
-                    onInit={(_event, editor) => { editorRef.current = editor }}
-                    initialValue={value || ''}
-                    onEditorChange={(html) => onChange(addTocIds(html))}
-                    init={{
-                        license_key: 'gpl',
-                        height: 620,
-                        menubar: 'file edit view insert format tools table help',
-                        plugins: PLUGINS,
-                        toolbar: TOOLBAR,
-                        directionality: 'rtl',
-                        language: 'fa',
-                        language_url: '/tinymce/langs/fa.js',
-                        branding: false,
-                        promotion: false,
-                        resize: true,
-                        statusbar: true,
-                        elementpath: false,
-                        browser_spellcheck: true,
-                        content_css: false,
-                        content_style: `body { font-family: YekanBakh, Tahoma, sans-serif; font-size: 16px; line-height: 2; padding: 1rem 1.5rem; color: #1d2433; } h2,h3,h4 { color: #0f1e36; scroll-margin-top: 100px; } table { width: 100%; border-collapse: collapse; } th,td { border: 1px solid #e4ddd0; padding: 8px; } th { background: #0f1e36; color: white; } blockquote { border-right: 4px solid #b8955a; padding: 8px 16px; background: #f7f3ec; } img { max-width: 100%; height: auto; }`,
-                        images_upload_handler: uploadImage,
-                        automatic_uploads: true,
-                        image_advtab: true,
-                        image_caption: true,
-                        table_default_attributes: { border: '1' },
-                        table_default_styles: { width: '100%' },
-                        block_formats: 'متن معمولی=p; تیتر ۱=h2; تیتر ۲=h3; تیتر ۳=h4; نقل‌قول=blockquote; کد=pre',
-                        setup: (editor) => {
-                            editor.on('init', () => editor.setContent(addTocIds(value || '')))
-                        },
-                    }}
-                />
-                {uploading && <div className='rte-uploading'>در حال آپلود تصویر…</div>}
-                <div className='rte-footer'><span>ویرایشگر TinyMCE</span><span>تیترهای H2/H3/H4 فهرست مطالب را خودکار می‌سازند</span></div>
-            </div>
-            <aside className='rte-outline'>
-                <div className='rte-outline-title'>فهرست مطالب (خودکار)</div>
-                {headings.length === 0 ? <p className='rte-outline-empty'>برای ساخت فهرست مطالب، تیترهای H2 و H3 بنویسید.</p> : <ol>{headings.map((heading, index) => <li key={`${heading.id}-${index}`} className={`lvl-${heading.level}`}><button type='button' onClick={() => focusHeading(heading)}>{heading.text}</button></li>)}</ol>}
-            </aside>
-        </div>
-    )
+    const editor = useEditor({ extensions: EXTENSIONS, content: value || '', immediatelyRender: false, editorProps: { attributes: { class: 'rte-content article-body', dir: 'rtl', spellcheck: 'false' } }, onUpdate: ({ editor: e }) => onChange(e.isEmpty ? '' : e.getHTML()) })
+    const s = useEditorState({ editor, selector: ({ editor: e }) => { if (!e) return null; const headings = []; e.state.doc.descendants((node, pos) => { if (node.type.name === 'heading') { headings.push({ level: node.attrs.level, text: node.textContent, pos }); return false } return true }); return { bold: e.isActive('bold'), italic: e.isActive('italic'), underline: e.isActive('underline'), strike: e.isActive('strike'), highlight: e.isActive('highlight'), code: e.isActive('code'), codeBlock: e.isActive('codeBlock'), quote: e.isActive('blockquote'), bullet: e.isActive('bulletList'), ordered: e.isActive('orderedList'), link: e.isActive('link'), inTable: e.isActive('table'), block: e.isActive('heading', { level: 2 }) ? '2' : e.isActive('heading', { level: 3 }) ? '3' : e.isActive('heading', { level: 4 }) ? '4' : 'p', align: ALIGNS.find(([a]) => e.isActive({ textAlign: a }))?.[0] || 'right', canUndo: e.can().undo(), canRedo: e.can().redo(), words: e.storage.characterCount.words(), chars: e.storage.characterCount.characters(), headings } } })
+    if (!editor || !s) return <div className='rte rte--loading'>در حال آماده‌سازی ویرایشگر…</div>
+    const chain = () => editor.chain().focus()
+    const setBlock = v => (v === 'p' ? chain().setParagraph().run() : chain().toggleHeading({ level: Number(v) }).run())
+    const setLink = () => { const prev = editor.getAttributes('link').href || ''; const input = window.prompt('آدرس لینک (برای حذف لینک خالی بگذارید):', prev); if (input === null) return; const url = input.trim(); if (!url) return chain().extendMarkRange('link').unsetLink().run(); const href = /^(https?:|mailto:|tel:|\/|#)/i.test(url) ? url : `https://${url}`; chain().extendMarkRange('link').setLink({ href }).run() }
+    const pickImage = async e => { const file = e.target.files?.[0]; e.target.value = ''; if (!file) return; if (file.size > MAX_IMAGE) return onError?.('حجم تصویر نباید بیشتر از ۳ مگابایت باشد'); setUploading(true); try { const fd = new FormData(); fd.append('file', file); const r = await api('/api/admin/uploads', { method: 'POST', formData: fd }); const alt = window.prompt('متن جایگزین تصویر:', '') || ''; chain().setImage({ src: `${API_URL}${r.path}`, alt }).run() } catch (err) { onError?.(err.message) } finally { setUploading(false) } }
+    const jumpTo = pos => { chain().setTextSelection(pos + 1).scrollIntoView().run(); const dom = editor.view.nodeDOM(pos); if (dom?.scrollIntoView) dom.scrollIntoView({ behavior: 'smooth', block: 'center' }) }
+    return <div className='rte-wrap'><div className='rte'><div className='rte-toolbar' role='toolbar' aria-label='ابزار ویرایش'><Btn icon={Undo} label='برگشت' disabled={!s.canUndo} onClick={() => chain().undo().run()} /><Btn icon={Redo} label='انجام دوباره' disabled={!s.canRedo} onClick={() => chain().redo().run()} /><Sep /><select className='rte-select' value={s.block} onChange={e => setBlock(e.target.value)} aria-label='نوع متن'><option value='p'>متن معمولی</option><option value='2'>تیتر ۱ (H2)</option><option value='3'>تیتر ۲ (H3)</option><option value='4'>تیتر ۳ (H4)</option></select><Sep /><Btn icon={FormatBold} label='پررنگ' active={s.bold} onClick={() => chain().toggleBold().run()} /><Btn icon={FormatItalic} label='ایتالیک' active={s.italic} onClick={() => chain().toggleItalic().run()} /><Btn icon={FormatUnderlined} label='زیرخط' active={s.underline} onClick={() => chain().toggleUnderline().run()} /><Btn icon={StrikethroughS} label='خط‌خورده' active={s.strike} onClick={() => chain().toggleStrike().run()} /><Btn icon={BorderColor} label='هایلایت' active={s.highlight} onClick={() => chain().toggleHighlight().run()} /><Btn icon={Code} label='کد درون‌خطی' active={s.code} onClick={() => chain().toggleCode().run()} /><Sep />{ALIGNS.map(([a, Icon, label]) => <Btn key={a} icon={Icon} label={label} active={s.align === a} onClick={() => chain().setTextAlign(a).run()} />)}<Sep /><Btn icon={FormatListBulleted} label='فهرست نقطه‌ای' active={s.bullet} onClick={() => chain().toggleBulletList().run()} /><Btn icon={FormatListNumbered} label='فهرست شماره‌دار' active={s.ordered} onClick={() => chain().toggleOrderedList().run()} /><Btn icon={FormatQuote} label='نقل‌قول' active={s.quote} onClick={() => chain().toggleBlockquote().run()} /><Btn icon={DataObject} label='بلوک کد' active={s.codeBlock} onClick={() => chain().toggleCodeBlock().run()} /><Btn icon={HorizontalRule} label='خط جداکننده' onClick={() => chain().setHorizontalRule().run()} /><Sep /><Btn icon={InsertLink} label='لینک' active={s.link} onClick={setLink} />{s.link && <Btn icon={LinkOff} label='حذف لینک' onClick={() => chain().extendMarkRange('link').unsetLink().run()} />}<Btn icon={ImageIcon} label={uploading ? 'در حال آپلود…' : 'درج تصویر'} disabled={uploading} onClick={() => fileRef.current?.click()} /><Btn icon={TableChart} label='درج جدول ۳×۳' disabled={s.inTable} onClick={() => chain().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()} /><Sep /><Btn icon={FormatClear} label='پاک کردن قالب‌بندی' onClick={() => chain().unsetAllMarks().clearNodes().run()} /><input ref={fileRef} type='file' accept='image/png,image/jpeg,image/webp' hidden onChange={pickImage} /></div>{s.inTable && <div className='rte-toolbar rte-toolbar--table'><span className='rte-label'>جدول:</span><Btn label='ستون قبل' onClick={() => chain().addColumnBefore().run()}>+ ستون قبل</Btn><Btn label='ستون بعد' onClick={() => chain().addColumnAfter().run()}>+ ستون بعد</Btn><Btn label='حذف ستون' onClick={() => chain().deleteColumn().run()}>− ستون</Btn><Sep /><Btn label='ردیف بالا' onClick={() => chain().addRowBefore().run()}>+ ردیف بالا</Btn><Btn label='ردیف پایین' onClick={() => chain().addRowAfter().run()}>+ ردیف پایین</Btn><Btn label='حذف ردیف' onClick={() => chain().deleteRow().run()}>− ردیف</Btn><Sep /><Btn label='ردیف عنوان' onClick={() => chain().toggleHeaderRow().run()}>ردیف عنوان</Btn><Btn label='ادغام/جداکردن خانه‌ها' onClick={() => chain().mergeOrSplit().run()}>ادغام/جداکردن</Btn><Btn label='حذف جدول' onClick={() => chain().deleteTable().run()}><span className='text-danger'>حذف جدول</span></Btn></div>}<EditorContent editor={editor} /><div className='rte-footer'><span>{s.words.toLocaleString('fa-IR')} کلمه</span><span>{s.chars.toLocaleString('fa-IR')} کاراکتر</span><span>حدود {Math.max(1, Math.round(s.words / 200)).toLocaleString('fa-IR')} دقیقه مطالعه</span></div></div><aside className='rte-outline'><div className='rte-outline-title'>فهرست مطالب (خودکار)</div>{s.headings.length===0?<p className='rte-outline-empty'>تیترهای H2/H3/H4 خودکار به فهرست مطالب مقاله اضافه می‌شوند.</p>:<ol>{s.headings.map((h,i)=><li key={`${h.pos}-${i}`} className={`lvl-${h.level}`}><button type='button' onClick={() => jumpTo(h.pos)}>{h.text || <em>(تیتر خالی)</em>}</button></li>)}</ol>}</aside></div>
 }
