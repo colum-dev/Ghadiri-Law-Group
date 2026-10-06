@@ -5,30 +5,8 @@ import {usePathname,useRouter} from 'next/navigation'
 import '../../../assets/styles/layouts/admin/Admin.scss'
 import {AdminAuthProvider,useAdminAuth} from './AdminAuthContext'
 import '../../../assets/styles/common/Common.scss'
-
-const SERVICE_ITEMS=[
- {t:'حقوق خانواده',href:'/admin/services/family'},
- {t:'دعاوی کیفری',href:'/admin/services/criminal'},
- {t:'تجارت و شرکت‌ها',href:'/admin/services/business'},
- {t:'املاک و ثبت اسناد',href:'/admin/services/real-estate'},
- {t:'قراردادها و مشاوره',href:'/admin/services/contracts'},
- {t:'اداری و مالیاتی',href:'/admin/services/tax'},
-]
-const SITE_ITEMS=[
- {t:'صفحه اصلی',href:'/admin/home'},
- {t:'درباره ما',href:'/admin/about-us'},
- {t:'همکاران',href:'/admin/colleagues'},
- {t:'دپارتمان‌ها',href:'/admin/departments'},
- {t:'تماس با ما',href:'/admin/contact-us'},
- {t:'سؤالات متداول',href:'/admin/faqs'},
- {t:'بلاگ حقوقی',href:'/admin/pages/blogs'},
-]
-function SidebarLink({item,pathname,child=false}){return <Link href={item.href} className={`adm-link adm-sub-link${child?' adm-service-link':''}${pathname.startsWith(item.href)?' is-active':''}`}>{item.t}</Link>}
-function Shell({children}){
- const {status,username,logout}=useAdminAuth();const pathname=usePathname();const router=useRouter();const isLogin=pathname==='/admin/login';const serviceOpen=pathname.startsWith('/admin/services')
- useEffect(()=>{if(status==='out'&&!isLogin)router.replace('/admin/login');if(status==='in'&&isLogin)router.replace('/admin')},[status,isLogin,router])
- if(status==='loading'||(status==='out'&&!isLogin)||(status==='in'&&isLogin))return <div className='adm adm-center' dir='rtl'><span className='spinner-border' role='status' aria-label='در حال بارگذاری'/></div>
- if(isLogin)return <div className='adm adm-center' dir='rtl'>{children}</div>
- return <div className='adm yekan-bakh-bold' dir='rtl'><aside className='adm-side'><div className='adm-brand'>پنل مدیریت</div><nav aria-label='منوی مدیریت' className='adm-nav'><div className='adm-nav-group'><div className='adm-nav-title'>ویرایش محتوای سایت</div><details open><summary className='adm-link adm-sub-link'>صفحات سایت</summary><div className='adm-tree-children'><div>{SITE_ITEMS.map(item=><SidebarLink key={item.href} item={item} pathname={pathname}/>)}<details className='adm-services-group' open={serviceOpen}><summary className='adm-link adm-sub-link'>خدمات</summary><div className='adm-tree-children'><div>{SERVICE_ITEMS.map(item=><SidebarLink key={item.href} item={item} pathname={pathname} child/>)}</div></div></details></div></div></details></div></nav><div className='adm-side-foot'><Link href='/' target='_blank' className='adm-link'>مشاهدهٔ سایت</Link><div className='adm-user'>{username}</div><button type='button' className='btn btn-outline-light btn-sm' onClick={logout}>خروج</button></div></aside><main className='adm-main'>{children}</main></div>
-}
+const SERVICE_ITEMS=[{t:'همه خدمات',href:'/admin/services'},{t:'حقوق خانواده',href:'/admin/services/family'},{t:'دعاوی کیفری',href:'/admin/services/criminal'},{t:'تجارت و شرکت‌ها',href:'/admin/services/business'},{t:'املاک و ثبت اسناد',href:'/admin/services/real-estate'},{t:'قراردادها و مشاوره',href:'/admin/services/contracts'},{t:'اداری و مالیاتی',href:'/admin/services/tax'}]
+const SITE_ITEMS=[{t:'صفحه اصلی',href:'/admin/home'},{t:'درباره ما',href:'/admin/about-us'},{t:'همکاران',href:'/admin/colleagues'},{t:'دپارتمان‌ها',href:'/admin/departments'},{t:'تماس با ما',href:'/admin/contact-us'},{t:'سؤالات متداول',href:'/admin/faqs'},{t:'بلاگ حقوقی',href:'/admin/pages/blogs'}]
+function SidebarLink({item,pathname,child=false}){const active=item.href==='/admin/services'?pathname==='/admin/services':pathname.startsWith(item.href);return <Link href={item.href} className={`adm-link adm-sub-link${child?' adm-service-link':''}${active?' is-active':''}`}>{item.t}</Link>}
+function Shell({children}){const {status,username,logout}=useAdminAuth();const pathname=usePathname();const router=useRouter();const isLogin=pathname==='/admin/login';const serviceOpen=pathname.startsWith('/admin/services');useEffect(()=>{if(status==='out'&&!isLogin)router.replace('/admin/login');if(status==='in'&&isLogin)router.replace('/admin')},[status,isLogin,router]);if(status==='loading'||(status==='out'&&!isLogin)||(status==='in'&&isLogin))return <div className='adm adm-center' dir='rtl'><span className='spinner-border' role='status' aria-label='در حال بارگذاری'/></div>;if(isLogin)return <div className='adm adm-center' dir='rtl'>{children}</div>;return <div className='adm yekan-bakh-bold' dir='rtl'><aside className='adm-side'><div className='adm-brand'>پنل مدیریت</div><nav aria-label='منوی مدیریت' className='adm-nav'><div className='adm-nav-group'><div className='adm-nav-title'>ویرایش محتوای سایت</div><details open><summary className='adm-link adm-sub-link'>صفحات سایت</summary><div className='adm-tree-children'><div>{SITE_ITEMS.map(item=><SidebarLink key={item.href} item={item} pathname={pathname}/>)}<details className='adm-services-group' open={serviceOpen}><summary className='adm-link adm-sub-link'>خدمات</summary><div className='adm-tree-children'><div>{SERVICE_ITEMS.map(item=><SidebarLink key={item.href} item={item} pathname={pathname} child/>)}</div></div></details></div></div></details></div></nav><div className='adm-side-foot'><Link href='/' target='_blank' className='adm-link'>مشاهدهٔ سایت</Link><div className='adm-user'>{username}</div><button type='button' className='btn btn-outline-light btn-sm' onClick={logout}>خروج</button></div></aside><main className='adm-main'>{children}</main></div>}
 export default function AdminShell({children}){return <AdminAuthProvider><Shell>{children}</Shell></AdminAuthProvider>}
