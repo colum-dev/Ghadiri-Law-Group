@@ -1,8 +1,3 @@
 import UserContractsPage from '@/app/views/services/UserContractsPage'
-import React from 'react'
-
-export default function page() {
-  return (
-    <UserContractsPage />
-  )
-}
+import { getPublicPage } from '@/app/utilities/serverApi'
+export default async function Page(){const r=await getPublicPage('contracts');return <UserContractsPage content={r?.content}/>}

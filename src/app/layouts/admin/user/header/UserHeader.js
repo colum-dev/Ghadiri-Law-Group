@@ -31,7 +31,7 @@ export const Svg = ({ d, sw = 1.7 }) => (
 
 export default function UserHeader() {
 
-    const isMobile = useIsMobile();
+    const isMobile = useIsMobile(992);
 
 
     return (

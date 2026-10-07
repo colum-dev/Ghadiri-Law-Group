@@ -1,0 +1,3 @@
+'use client'
+import React,{useEffect,useState} from 'react'
+export default function ArticleToc({items}){const [active,setActive]=useState(items[0]?.id);useEffect(()=>{const els=items.map(i=>document.getElementById(i.id)).filter(Boolean);const io=new IntersectionObserver(es=>{const v=es.filter(e=>e.isIntersecting)[0];if(v)setActive(v.target.id)},{rootMargin:'-90px 0px -65% 0px'});els.forEach(e=>io.observe(e));return()=>io.disconnect()},[items]);return <nav className='art-toc'><strong>فهرست مطالب</strong><ol>{items.map(i=><li key={i.id} className={`art-toc-item--h${i.level}${active===i.id?' is-active':''}`}><a href={`#${i.id}`}>{i.text}</a></li>)}</ol></nav>}

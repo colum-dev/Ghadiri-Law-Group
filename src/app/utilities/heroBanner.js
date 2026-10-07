@@ -20,7 +20,7 @@ export const DEFAULT_HERO = {
 }
 
 export function renderHeroTitle(title = '') {
-    return title.split('\n').map((line, i, lines) => (
+    return String(title || '').split('\n').map((line, i, lines) => (
         <React.Fragment key={i}>
             {line.split(/(\{\{.*?\}\})/g).map((part, j) =>
                 /^\{\{.*\}\}$/.test(part)
@@ -33,7 +33,7 @@ export function renderHeroTitle(title = '') {
 }
 
 export function toBannerProps(h) {
-    const hero = h || DEFAULT_HERO
+    const hero = { ...DEFAULT_HERO, ...(h || {}), stats: Array.isArray(h?.stats) ? h.stats : DEFAULT_HERO.stats }
     return {
         heroBannerImg: hero.imageUrl
             ? { src: hero.imageUrl, width: hero.imageWidth, height: hero.imageHeight }

@@ -11,55 +11,5 @@ import StaticDescriptionTextContainerSecondary from '@/app/components/user/conta
 import UserCtaContainer from '@/app/components/user/container/UserCtaContainer'
 import { DIGITS } from '@/app/data/services'
 import { CHIPS, DOCS, FAQ, HEART, LAWYER, PATHS, SITUATIONS } from '@/app/data/family'
-
-export default function UserFamilyPage() {
-    return (
-        <MainUserLayout>
-            <div className='ab fs' dir='rtl'>
-                <UserHeroBannerTertiary
-                    crumb={[{ label: 'خانه', href: '/' }, { label: 'خدمات حقوقی', href: '/services' }, { label: 'حقوق خانواده' }]}
-                    badge='جلسهٔ اول کاملاً محرمانه'
-                    title={<>پیش از دادگاه، <em>یک گفتگو</em></>}
-                    description='این یک متن نمونه است. در حقوق خانواده هر پرونده پشت خودش یک زندگی دارد. اول گوش می‌دهیم، بعد بهترین مسیر را با هم انتخاب می‌کنیم.'
-                    primaryAction={{ href: '#', label: 'رزرو جلسهٔ مشاوره' }}
-                    secondaryAction={{ href: '#situation', label: 'وضعیتم کدام است؟' }}
-                    icon={<path d={HEART} />}
-                    iconClassName='fs-heart'
-                    chips={CHIPS}
-                />
-
-                <SituationTabsContainer
-                    id='situation'
-                    title='مسئلهٔ شما کدام است؟'
-                    subtitle='یکی را انتخاب کنید تا ببینید ما چه می‌کنیم و چه مدتی طول می‌کشد.'
-                    situations={SITUATIONS}
-                    digits={DIGITS}
-                />
-
-                <PathSwitchContainer
-                    title='توافقی یا قضایی؟'
-                    subtitle='مسیر را عوض کنید و ببینید مراحل و حال‌وهوای کار چه فرقی می‌کند. (زمان‌ها و درصدها نمونه‌اند.)'
-                    paths={PATHS}
-                />
-
-                <DocsChecklistContainer
-                    title='برای جلسهٔ اول چه بیاورید؟'
-                    subtitle='هر چه دارید علامت بزنید؛ نبودن بعضی مدارک مانع شروع نیست.'
-                    docs={DOCS}
-                    aside={<LawyerAsideCard {...LAWYER} />}
-                />
-
-                <StaticDescriptionTextContainerSecondary
-                    containerTitle='قبل از تماس، شاید بپرسید'
-                    contents={FAQ}
-                />
-
-                <UserCtaContainer
-                    title='هر چه هست، از همین‌جا شروع می‌شود.'
-                    subtitle='یک جلسهٔ مشاوره، بدون تعهد و کاملاً محرمانه.'
-                    action={{ href: '/contact-us', label: 'رزرو جلسهٔ مشاوره' }}
-                />
-            </div>
-        </MainUserLayout>
-    )
-}
+const titleNode=(x,f)=><>{String(x||f).split(/\{\{(.+?)\}\}/g).map((p,i)=>i%2?<em key={i}>{p}</em>:p)}</>
+export default function UserFamilyPage({content}){const h=content?.hero||{},s=content?.sections||{},c=content?.cta||{};return <MainUserLayout><div className='ab fs' dir='rtl'><UserHeroBannerTertiary crumb={[{label:'خانه',href:'/'},{label:'خدمات حقوقی',href:'/services'},{label:'حقوق خانواده'}]} badge={h.badge||'جلسهٔ اول کاملاً محرمانه'} title={titleNode(h.title,'پیش از دادگاه، {{یک گفتگو}}')} description={h.description||'این یک متن نمونه است. در حقوق خانواده هر پرونده پشت خودش یک زندگی دارد. اول گوش می‌دهیم، بعد بهترین مسیر را با هم انتخاب می‌کنیم.'} primaryAction={{href:h.primaryHref||'#',label:h.primaryLabel||'رزرو جلسهٔ مشاوره'}} secondaryAction={{href:h.secondaryHref||'#situation',label:h.secondaryLabel||'وضعیتم کدام است؟'}} icon={<path d={HEART}/>} iconClassName='fs-heart' chips={CHIPS}/><SituationTabsContainer id='situation' title={s.situationsTitle||'مسئلهٔ شما کدام است؟'} subtitle={s.situationsSubtitle||'یکی را انتخاب کنید تا ببینید ما چه می‌کنیم و چه مدتی طول می‌کشد.'} situations={s.situations||SITUATIONS} digits={DIGITS}/><PathSwitchContainer title={s.pathsTitle||'توافقی یا قضایی؟'} subtitle={s.pathsSubtitle||'مسیر را عوض کنید و ببینید مراحل و حال‌وهوای کار چه فرقی می‌کند.'} paths={s.paths||PATHS}/><DocsChecklistContainer title={s.docsTitle||'برای جلسهٔ اول چه بیاورید؟'} subtitle={s.docsSubtitle||'هر چه دارید علامت بزنید؛ نبودن بعضی مدارک مانع شروع نیست.'} docs={s.docs||DOCS} aside={<LawyerAsideCard {...LAWYER}/>}/><StaticDescriptionTextContainerSecondary containerTitle={s.faqTitle||'قبل از تماس، شاید بپرسید'} contents={s.faq||FAQ}/><UserCtaContainer title={c.title||'هر چه هست، از همین‌جا شروع می‌شود.'} subtitle={c.subtitle||'یک جلسهٔ مشاوره، بدون تعهد و کاملاً محرمانه.'} action={{href:c.actionHref||'/contact-us',label:c.actionLabel||'رزرو جلسهٔ مشاوره'}}/></div></MainUserLayout>}
