@@ -14,14 +14,14 @@ export default function RoleStepsContainer({ title, subtitle, roles, digits, ari
                 <SectionTitle title={title} subtitle={subtitle} />
                 <div className='re-switch' role='group' aria-label={ariaLabel}>
                     {roles.map((r, i) => (
-                        <button key={r.key} type='button' aria-pressed={idx === i}
+                        <button key={r?.key} type='button' aria-pressed={idx === i}
                             className={idx === i ? 'is-active' : ''} onClick={() => setIdx(i)}>{r.label}</button>
                     ))}
                 </div>
-                <div className='re-owner-body' key={R.key}>
-                    <p className='re-owner-sum'>{R.sum}</p>
+                <div className='re-owner-body' key={R?.key}>
+                    <p className='re-owner-sum'>{R?.sum}</p>
                     <ol className='re-owner-steps'>
-                        {R.steps.map((s, i) => (
+                        {R?.steps.map((s, i) => (
                             <li key={s.t}><span>{digits[i]}</span><b>{s.t}</b><small>{s.text}</small></li>
                         ))}
                     </ol>

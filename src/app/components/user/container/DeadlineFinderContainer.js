@@ -23,10 +23,10 @@ export default function DeadlineFinderContainer({ id, title, subtitle, notices }
                 </div>
 
                 <div className='cf-detail' key={sel}>
-                    <div className='cf-days'><b dir='ltr'>{N.days}</b><span>روز مهلت (نمونه)</span></div>
+                    <div className='cf-days'><b dir='ltr'>{N?.days}</b><span>روز مهلت (نمونه)</span></div>
                     <div className='cf-body'>
-                        <p>{N.body}</p>
-                        <div className='cf-next'><b>قدم بعدی</b>{N.next}</div>
+                        <p>{N?.body}</p>
+                        <div className='cf-next'><b>قدم بعدی</b>{N?.next}</div>
                     </div>
                 </div>
             </section>

@@ -23,13 +23,13 @@ export default function SituationTabsContainer({ id, title, subtitle, situations
                 </div>
                 <div className='fs-sit' key={sel} aria-live='polite'>
                     <span className='fs-sit-num' aria-hidden>{digits[sel]}</span>
-                    <p className='fs-sit-text'>{S.text}</p>
+                    <p className='fs-sit-text'>{S?.text}</p>
                     <ul className='fs-sit-does'>
-                        {S.does.map((d) => (
+                        {S?.does.map((d) => (
                             <li key={d}><span><Svg sw={2.4}><path d='M5 12l5 5L20 7' /></Svg></span>{d}</li>
                         ))}
                     </ul>
-                    <div className='fs-sit-time'><b>{timeLabel}</b>{S.time}</div>
+                    <div className='fs-sit-time'><b>{timeLabel}</b>{S?.time}</div>
                 </div>
             </section>
         </div>

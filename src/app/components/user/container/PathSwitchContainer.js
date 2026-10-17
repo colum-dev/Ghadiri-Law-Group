@@ -17,16 +17,16 @@ export default function PathSwitchContainer({ title, subtitle, paths, ariaLabel 
                 <div className='fs-switch' role='group' aria-label={ariaLabel}>
                     <span className={`fs-thumb${idx === paths.length - 1 ? ' is-end' : ''}`} aria-hidden />
                     {paths.map((p, i) => (
-                        <button key={p.key} type='button' aria-pressed={idx === i} onClick={() => setIdx(i)}>{p.label}</button>
+                        <button key={p?.key} type='button' aria-pressed={idx === i} onClick={() => setIdx(i)}>{p.label}</button>
                     ))}
                 </div>
-                <div className='fs-path' key={P.key}>
-                    <p className='fs-path-sum'>{P.sum}</p>
+                <div className='fs-path' key={P?.key}>
+                    <p className='fs-path-sum'>{P?.sum}</p>
                     <ol className='fs-line'>
-                        {P.steps.map((s) => <li key={s.t}><b>{s.t}</b><small>{s.text}</small></li>)}
+                        {P?.steps.map((s) => <li key={s.t}><b>{s.t}</b><small>{s.text}</small></li>)}
                     </ol>
                     <div className='fs-meter'>
-                        {P.meter.map((m) => (
+                        {P?.meter.map((m) => (
                             <div key={m.label}><span>{m.label}</span><i><em style={{ width: `${m.value}%` }} /></i></div>
                         ))}
                     </div>

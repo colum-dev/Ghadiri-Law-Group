@@ -26,9 +26,9 @@ export default function StageTrackContainer({ id, title, subtitle, stages, digit
                     ))}
                 </ol>
                 <div className='cr-stage' key={stage}>
-                    <p className='cr-stage-urgent'><b>{whyLabel}</b>{S.urgent}</p>
+                    <p className='cr-stage-urgent'><b>{whyLabel}</b>{S?.urgent}</p>
                     <ul className='cr-stage-does'>
-                        {S.does.map((d) => (
+                        {S?.does.map((d) => (
                             <li key={d}><span><Svg sw={2.4}><path d='M5 12l5 5L20 7' /></Svg></span>{d}</li>
                         ))}
                     </ul>

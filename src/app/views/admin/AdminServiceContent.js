@@ -10,6 +10,7 @@ import { STAGES as BUSINESS_STAGES, FLAGS, TYPES as BUSINESS_TYPES, FAQ as BUSIN
 import { DEEDS, RISK_ITEMS, ROLES, FAQ as REAL_FAQ } from '@/app/data/realestate'
 import { TYPES as CONTRACT_TYPES, COMPARE, STEPS, FAQ as CONTRACT_FAQ } from '@/app/data/contracts'
 import { NOTICES, STAIRS, FAQ as TAX_FAQ } from '@/app/data/administrativeandtax'
+import { CRIMES, TRAIL, DOCS as FC_DOCS, FAQ as FC_FAQ, SECTION_TITLES as FC_TITLES } from '@/app/data/financialcrimes'
 
 const CONFIG = {
     family: { label: 'حقوق خانواده', sections: [['situations', 'موقعیت‌ها', SITUATIONS], ['paths', 'مسیرها', PATHS], ['docs', 'مدارک', DOCS], ['faq', 'سؤالات متداول', FAMILY_FAQ]] },
@@ -18,6 +19,20 @@ const CONFIG = {
     'real-estate': { label: 'املاک و ثبت اسناد', sections: [['deeds', 'انواع سند', DEEDS], ['risk', 'موارد بررسی ریسک', RISK_ITEMS], ['roles', 'نقش‌ها', ROLES], ['faq', 'سؤالات متداول', REAL_FAQ]] },
     contracts: { label: 'قراردادها و مشاوره', sections: [['types', 'انواع قرارداد', CONTRACT_TYPES], ['compare', 'مقایسه بندها', COMPARE], ['steps', 'مراحل', STEPS], ['faq', 'سؤالات متداول', CONTRACT_FAQ]] },
     tax: { label: 'اداری و مالیاتی', sections: [['notices', 'ابلاغیه‌ها', NOTICES], ['stairs', 'مراحل رسیدگی', STAIRS], ['faq', 'سؤالات متداول', TAX_FAQ]] },
+    'financial-crimes': {
+        label: 'جرایم مالی و اقتصادی',
+        sections: [['crimes', 'دفتر اتهام‌ها (code، t، law، level: high یا mid، risk، text، defense)', CRIMES], ['trail', 'مسیر پرونده (ردّ پول)', TRAIL], ['docs', 'مدارک لازم', FC_DOCS], ['faq', 'سؤالات متداول', FC_FAQ]],
+        titles: [['ledgerTitle', 'عنوان دفتر اتهام‌ها'], ['ledgerSubtitle', 'توضیح دفتر اتهام‌ها', true], ['ledgerTotal', 'برچسب سطر جمع'], ['ledgerResult', 'نتیجهٔ سطر جمع'], ['trailTitle', 'عنوان مسیر پرونده'], ['trailSubtitle', 'توضیح مسیر پرونده', true], ['docsTitle', 'عنوان مدارک'], ['docsSubtitle', 'توضیح مدارک', true], ['faqTitle', 'عنوان سؤالات متداول']],
+        titleDefaults: FC_TITLES,
+    },
+}
+
+// قالب آیتم جدید از روی اولین آیتم پیش‌فرض ساخته می‌شود (فهرست رشته‌ای → رشتهٔ خالی)
+const templateOf = (defaults) => {
+    const first = Array.isArray(defaults) ? defaults[0] : undefined
+    if (typeof first === 'string') return ''
+    if (first && typeof first === 'object') return Object.fromEntries(Object.keys(first).filter((key) => typeof first[key] === 'string' && key !== 'icon' && key !== 's').map((key) => [key, '']))
+    return { title: '', t: '', text: '' }
 }
 
 const Field = ({ label, value, onChange, area = false }) => (
@@ -30,9 +45,9 @@ const Field = ({ label, value, onChange, area = false }) => (
 const editableKeys = (item) => Object.keys(item || {}).filter((key) => typeof item[key] === 'string' && key !== 'icon' && key !== 's')
 const areaKeys = new Set(['text', 'description', 'summary', 'quote', 'body', 'next', 'short', 'heading', 'practice', 'sum', 'l'])
 
-function ItemList({ label, items, onChange }) {
+function ItemList({ label, items, onChange, template }) {
     const update = (index, key, value) => onChange(items.map((item, itemIndex) => itemIndex === index ? { ...item, [key]: value } : item))
-    const add = () => onChange([...items, { title: '', t: '', text: '' }])
+    const add = () => onChange([...items, template === undefined ? { title: '', t: '', text: '' } : (typeof template === 'string' ? template : { ...template })])
     const remove = (index) => onChange(items.filter((_, itemIndex) => itemIndex !== index))
 
     return (
@@ -79,7 +94,12 @@ export default function AdminServiceContent({ slug = 'services' }) {
             setForm({
                 hero: { ...(content.hero || {}) },
                 items: (content.services || content.items || SERVICES).map(serializable),
-                sections: Object.fromEntries((config?.sections || []).map(([key, , defaults]) => [key, serializable(content.sections?.[key] || defaults)])),
+                // کلیدهای دیگر بخش‌ها (مثل عنوان‌ها) حفظ می‌شوند تا با ذخیره پاک نشوند
+                sections: {
+                    ...serializable(content.sections || {}),
+                    ...Object.fromEntries((config?.titles || []).map(([key]) => [key, content.sections?.[key] ?? config?.titleDefaults?.[key] ?? ''])),
+                    ...Object.fromEntries((config?.sections || []).map(([key, , defaults]) => [key, serializable(content.sections?.[key] || defaults)])),
+                },
                 cta: { ...(content.cta || {}) },
             })
         }).catch((err) => {
@@ -119,7 +139,13 @@ export default function AdminServiceContent({ slug = 'services' }) {
                 <Field label='برچسب' value={form.hero.badge} onChange={(value) => updateHero('badge', value)} />
                 <Field label='توضیحات' value={form.hero.description} onChange={(value) => updateHero('description', value)} area />
             </section>
-            {config ? config.sections.map(([key, label]) => <ItemList key={key} label={label} items={form.sections[key] || []} onChange={(value) => setForm((current) => ({ ...current, sections: { ...current.sections, [key]: value } }))} />) : <ItemList label='خدمات' items={form.items} onChange={(value) => setForm((current) => ({ ...current, items: value }))} />}
+            {config?.titles && (
+                <section className='adm-card'>
+                    <h2 className='h5'>عنوان‌های بخش‌ها</h2>
+                    {config.titles.map(([key, label, area]) => <Field key={key} label={label} value={form.sections[key]} onChange={(value) => setForm((current) => ({ ...current, sections: { ...current.sections, [key]: value } }))} area={!!area} />)}
+                </section>
+            )}
+            {config ? config.sections.map(([key, label, defaults]) => <ItemList key={key} label={label} template={templateOf(defaults)} items={form.sections[key] || []} onChange={(value) => setForm((current) => ({ ...current, sections: { ...current.sections, [key]: value } }))} />) : <ItemList label='خدمات' items={form.items} onChange={(value) => setForm((current) => ({ ...current, items: value }))} />}
             <section className='adm-card'>
                 <h2 className='h5'>دعوت به تماس</h2>
                 <Field label='عنوان' value={form.cta.title} onChange={(value) => updateCta('title', value)} />
