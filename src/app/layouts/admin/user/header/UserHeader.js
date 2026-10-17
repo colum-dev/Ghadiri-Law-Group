@@ -12,6 +12,7 @@ export const SERVICES = [
     { slug: 'real-estate', t: 'املاک و ثبت اسناد', icon: 'M3 11l9-8 9 8 M5 10v11h14V10 M10 21v-6h4v6' },
     { slug: 'contracts', t: 'قراردادها و مشاوره', icon: 'M4 20l4-1L19 8l-3-3L5 16l-1 4z M14 7l3 3' },
     { slug: 'administrative-and-tax', t: 'دعاوی اداری و مالیاتی', icon: 'M6 3h9l4 4v14H6V3zm3 8h7M9 15h7' },
+    { slug: 'financial-crimes', t: 'جرائم مالی', icon: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm0 4v10m-3-7.5c0-1 1.3-1.8 3-1.8s3 .8 3 1.8-1.3 1.7-3 1.9-3 .9-3 1.9 1.3 1.8 3 1.8 3-.8 3-1.8' },
 ]
 
 export const LINKS = [
