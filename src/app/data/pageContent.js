@@ -7,6 +7,7 @@ export const PAGE_META = [
  { slug: 'services', label: 'همهٔ خدمات', path: '/services' },
  { slug: 'family', label: 'حقوق خانواده', path: '/services/family' },
  { slug: 'criminal', label: 'دعاوی کیفری', path: '/services/criminal-cases' },
+ { slug: 'financial-crimes', label: 'جرایم مالی', path: '/services/financial-crimes' },
  { slug: 'business', label: 'تجارت و شرکت‌ها', path: '/services/commercial-and-corporate' },
  { slug: 'real-estate', label: 'املاک و ثبت اسناد', path: '/services/real-estate' },
  { slug: 'contracts', label: 'قراردادها و مشاوره', path: '/services/contracts' },
